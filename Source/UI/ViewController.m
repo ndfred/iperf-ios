@@ -27,7 +27,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
   if (self != nil) {
-    self.title = NSLocalizedString(@"iperf", @"Main screen title");
+    self.title = NSLocalizedString(@"iperf3", @"Main screen title");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Test start button name")
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
@@ -41,6 +41,7 @@ static void vc_reporter_callback(struct iperf_test *test)
 {
   // Assume a client test to 192.168.1.10
   struct iperf_test *test = iperf_new_test();
+  NSString *streamFilePathTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent:@"iperf3.XXXXXX"];
 
   if (!test) {
     [self showAlert:@"Couldn't initialize a test!"];
@@ -58,6 +59,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   iperf_set_test_duration(test, 10);
   iperf_set_test_num_streams(test, (int)[self.streamsSlider selectedSegmentIndex] + 1);
   iperf_set_test_reverse(test, (int)[self.transmitModeSlider selectedSegmentIndex]);
+  iperf_set_test_template(test, (char *)[streamFilePathTemplate cStringUsingEncoding:NSUTF8StringEncoding]);
   i_errno = IENONE;
 
   self.navigationItem.rightBarButtonItem.enabled = NO;
