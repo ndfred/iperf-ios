@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B20E45D1DCFA82900EEACF9 /* ViewController.xib */; };
 		2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */; };
 		2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6301DCF76B900AA24E7 /* cjson.c */; };
 		2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6341DCF76B900AA24E7 /* iperf_api.c */; };
@@ -23,13 +24,13 @@
 		2B87F6621DCF76B900AA24E7 /* tcp_window_size.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64C1DCF76B900AA24E7 /* tcp_window_size.c */; };
 		2B87F6631DCF76B900AA24E7 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64E1DCF76B900AA24E7 /* timer.c */; };
 		2B87F6641DCF76B900AA24E7 /* units.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6501DCF76B900AA24E7 /* units.c */; };
-		2B87F6661DCF7AF600AA24E7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B87F6651DCF7AF600AA24E7 /* LaunchScreen.xib */; };
 		2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577801DCF748600F55EDC /* AppDelegate.m */; };
 		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
 		2BF577BC1DCF748600F55EDC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A71DCF748600F55EDC /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B20E45D1DCFA82900EEACF9 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2B6855E71DCF72D60009ABFD /* iperf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iperf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B87F62C1DCF74DD00AA24E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		2B87F6501DCF76B900AA24E7 /* units.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = units.c; sourceTree = "<group>"; };
 		2B87F6511DCF76B900AA24E7 /* units.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = units.h; sourceTree = "<group>"; };
 		2B87F6521DCF76B900AA24E7 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		2B87F6651DCF7AF600AA24E7 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		2BF5777F1DCF748600F55EDC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2BF577801DCF748600F55EDC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2BF577A41DCF748600F55EDC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,8 +104,8 @@
 		2B87F62A1DCF74DD00AA24E7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2B87F6651DCF7AF600AA24E7 /* LaunchScreen.xib */,
 				2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */,
+				2B20E45D1DCFA82900EEACF9 /* ViewController.xib */,
 				2B87F62C1DCF74DD00AA24E7 /* Info.plist */,
 			);
 			path = Resources;
@@ -228,7 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B87F6661DCF7AF600AA24E7 /* LaunchScreen.xib in Resources */,
+				2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */,
 				2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

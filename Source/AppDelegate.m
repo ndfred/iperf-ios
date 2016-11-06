@@ -11,7 +11,7 @@
 {
   CGRect windowFrame = [[UIScreen mainScreen] bounds];
   UIWindow *window = [[UIWindow alloc] initWithFrame:windowFrame];
-  ViewController *viewController = [[ViewController alloc] init];
+  ViewController *viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 
   window.rootViewController = navigationController;
