@@ -24,4 +24,4 @@
  * This code is distributed under a BSD style license, see the LICENSE
  * file for complete information.
  */
-#define IPERF_VERSION "3.1"
+#define IPERF_VERSION "3.1.4"
