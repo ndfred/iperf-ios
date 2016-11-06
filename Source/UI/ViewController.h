@@ -6,6 +6,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *portTextField;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *transmitModeSlider;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *streamsSlider;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *testDurationSlider;
 @property (strong, nonatomic) IBOutlet UILabel *bandwidthLabel;
 
 - (IBAction)startTest;

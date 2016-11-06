@@ -15,6 +15,7 @@
                 <outlet property="bandwidthLabel" destination="1Ge-NS-FsL" id="hcb-EM-Pyv"/>
                 <outlet property="portTextField" destination="UuP-Gg-rxj" id="xaF-gW-M4T"/>
                 <outlet property="streamsSlider" destination="Rbl-s2-lvT" id="eZZ-fH-5VP"/>
+                <outlet property="testDurationSlider" destination="Kkx-zH-AeM" id="OUx-Gw-Fou"/>
                 <outlet property="transmitModeSlider" destination="And-M5-M4l" id="gPO-yg-fkZ"/>
                 <outlet property="view" destination="Wm7-in-GMe" id="wAp-Y7-IYv"/>
             </connections>
@@ -96,11 +97,30 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Test duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xm2-Zo-HtJ">
+                            <rect key="frame" x="16" y="236" width="101" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="Kkx-zH-AeM">
+                            <rect key="frame" x="164" y="232" width="140" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="1s"/>
+                                <segment title="5s"/>
+                                <segment title="10s"/>
+                                <segment title="30s"/>
+                                <segment title="60s"/>
+                            </segments>
+                        </segmentedControl>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="34.5" y="90.5"/>
         </view>
     </objects>
 </document>

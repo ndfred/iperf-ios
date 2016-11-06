@@ -20,6 +20,36 @@ static void vc_reporter_callback(struct iperf_test *test)
   });
 }
 
+static int getTestDuration(NSUInteger selectedSegmentIndex)
+{
+  switch (selectedSegmentIndex) {
+    case 0:
+      return 1;
+      break;
+
+    case 1:
+      return 5;
+      break;
+
+    case 2:
+      return 10;
+      break;
+
+    case 3:
+      return 30;
+      break;
+
+    case 4:
+      return 60;
+      break;
+
+    default:
+      break;
+  }
+
+  return 10;
+}
+
 @implementation ViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -56,7 +86,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   iperf_set_test_role(test, 'c');
   iperf_set_test_server_hostname(test, (char *)[self.addressTextField.text cStringUsingEncoding:NSASCIIStringEncoding]);
   iperf_set_test_server_port(test, [self.portTextField.text intValue]);
-  iperf_set_test_duration(test, 10);
+  iperf_set_test_duration(test, getTestDuration(self.testDurationSlider.selectedSegmentIndex));
   iperf_set_test_num_streams(test, (int)[self.streamsSlider selectedSegmentIndex] + 1);
   iperf_set_test_reverse(test, (int)[self.transmitModeSlider selectedSegmentIndex]);
   iperf_set_test_template(test, (char *)[streamFilePathTemplate cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -67,6 +97,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   self.portTextField.enabled = NO;
   self.transmitModeSlider.enabled = NO;
   self.streamsSlider.enabled = NO;
+  self.testDurationSlider.enabled = NO;
   self.bandwidthLabel.text = @"...";
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
   test->reporter_callback = vc_reporter_callback;
@@ -89,6 +120,7 @@ static void vc_reporter_callback(struct iperf_test *test)
       self.portTextField.enabled = YES;
       self.transmitModeSlider.enabled = YES;
       self.streamsSlider.enabled = YES;
+      self.testDurationSlider.enabled = YES;
 
       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     });
