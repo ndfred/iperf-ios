@@ -10,6 +10,7 @@ Todo:
 
 * Save your settings
 * Add a cancel button
+* Compute the total test time correctly
 * Graphs
 * Indefinite test duration, stop when confidence is high enough
 * Nicer UI with localization
