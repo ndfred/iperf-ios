@@ -383,7 +383,7 @@
 				DEVELOPMENT_TEAM = LW2ABE364X;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = fr.iperf.ios.iperf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -399,7 +399,7 @@
 				DEVELOPMENT_TEAM = LW2ABE364X;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = fr.iperf.ios.iperf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
