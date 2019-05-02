@@ -1,6 +1,6 @@
-# iperf iOS
+# iPerf iOS
 
-Run an [iperf3](https://iperf.fr/) client on your iPhone or iPad, including reverse mode and multiple streams selection:
+Run an [iPerf3](https://iperf.fr/) client on your iPhone or iPad, including reverse mode and multiple streams selection:
 
 <img src="Screenshot.png" alt="Screenshot" width="375">
 
@@ -15,10 +15,10 @@ Todo:
 * Indefinite test duration, stop when confidence is high enough
 * Nicer UI with localization
 * Server mode with UPnP to allow external access
-* Public iperf3 servers
+* Public iPerf3 servers
 * Report lost packets and stability
 * Suggest number of streams
-* Scan LAN for iperf servers
+* Scan LAN for iPerf servers
 * Send + Receive test
 * Latency test
 * Switch unit from Mbits/s to MB/s when taping on the number
