@@ -6,3 +6,4 @@ cd "`dirname \"$0\"`"
 sips -s format png --padToHeightWidth 120 120 --padColor FFFFFF FFFFFF-1.0.png --out Assets.xcassets/AppIcon.appiconset/Icon-120.png
 sips -s format png --padToHeightWidth 152 152 --padColor FFFFFF FFFFFF-1.0.png --out Assets.xcassets/AppIcon.appiconset/Icon-152.png
 sips -s format png --padToHeightWidth 167 167 --padColor FFFFFF FFFFFF-1.0.png --out Assets.xcassets/AppIcon.appiconset/Icon-167.png
+sips -s format png --padToHeightWidth 1024 1024 --padColor FFFFFF FFFFFF-1.0.png --out Assets.xcassets/AppIcon.appiconset/Icon-1024.png
