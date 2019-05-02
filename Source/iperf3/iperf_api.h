@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014, 2015, 2016, The Regents of the University of
+ * iperf, Copyright (c) 2014-2018, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -29,6 +29,14 @@
 
 #include <sys/time.h>
 #include <setjmp.h>
+#include <stdio.h>
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#endif
+#ifdef __cplusplus
+extern "C" { /* open extern "C" */
+#endif
+
 
 struct iperf_test;
 struct iperf_stream_result;
@@ -39,7 +47,7 @@ struct iperf_stream;
 #define Ptcp SOCK_STREAM
 #define Pudp SOCK_DGRAM
 #define Psctp 12
-#define DEFAULT_UDP_BLKSIZE 8192
+#define DEFAULT_UDP_BLKSIZE 1460 /* default is dynamically set, else this */
 #define DEFAULT_TCP_BLKSIZE (128 * 1024)  /* default read/write block size */
 #define DEFAULT_SCTP_BLKSIZE (64 * 1024)
 
@@ -50,17 +58,28 @@ struct iperf_stream;
 #define OPT_UDP_COUNTERS_64BIT 4
 #define OPT_CLIENT_PORT 5
 #define OPT_NUMSTREAMS 6
-#define OPT_NO_FQ_SOCKET_PACING 9
+#define OPT_FORCEFLUSH 7
+#define OPT_NO_FQ_SOCKET_PACING 9 /* UNUSED */
+#define OPT_FQ_RATE 10
+#define OPT_DSCP 11
+#define OPT_CLIENT_USERNAME 12
+#define OPT_CLIENT_RSA_PUBLIC_KEY 13
+#define OPT_SERVER_RSA_PRIVATE_KEY 14
+#define OPT_SERVER_AUTHORIZED_USERS 15
+#define OPT_PACING_TIMER 16
+#define OPT_CONNECT_TIMEOUT 17
+#define OPT_REPEATING_PAYLOAD 18
+#define OPT_EXTRA_DATA 19
 
 /* states */
 #define TEST_START 1
 #define TEST_RUNNING 2
-#define RESULT_REQUEST 3
+#define RESULT_REQUEST 3 /* not used */
 #define TEST_END 4
-#define STREAM_BEGIN 5
-#define STREAM_RUNNING 6
-#define STREAM_END 7
-#define ALL_STREAMS_END 8
+#define STREAM_BEGIN 5 /* not used */
+#define STREAM_RUNNING 6 /* not used */
+#define STREAM_END 7 /* not used */
+#define ALL_STREAMS_END 8 /* not used */
 #define PARAM_EXCHANGE 9
 #define CREATE_STREAMS 10
 #define SERVER_TERMINATE 11
@@ -98,6 +117,8 @@ int	iperf_get_test_get_server_output( struct iperf_test* ipt );
 char*	iperf_get_test_bind_address ( struct iperf_test* ipt );
 int	iperf_get_test_udp_counters_64bit( struct iperf_test* ipt );
 int	iperf_get_test_one_off( struct iperf_test* ipt );
+int iperf_get_test_tos( struct iperf_test* ipt );
+char*	iperf_get_extra_data( struct iperf_test* ipt );
 
 /* Setter routines for some fields inside iperf_test. */
 void	iperf_set_verbose( struct iperf_test* ipt, int verbose );
@@ -124,6 +145,14 @@ void	iperf_set_test_get_server_output( struct iperf_test* ipt, int get_server_ou
 void	iperf_set_test_bind_address( struct iperf_test* ipt, char *bind_address );
 void	iperf_set_test_udp_counters_64bit( struct iperf_test* ipt, int udp_counters_64bit );
 void	iperf_set_test_one_off( struct iperf_test* ipt, int one_off );
+void    iperf_set_test_tos( struct iperf_test* ipt, int tos );
+void	iperf_set_extra_data( struct iperf_test* ipt, char *dat);
+
+#if defined(HAVE_SSL)
+void    iperf_set_test_client_username(struct iperf_test *ipt, char *client_username);
+void    iperf_set_test_client_password(struct iperf_test *ipt, char *client_password);
+void    iperf_set_test_client_rsa_pubkey(struct iperf_test *ipt, char *client_rsa_pubkey_base64);
+#endif // HAVE_SSL
 
 /**
  * exchange_parameters - handles the param_Exchange part for client
@@ -162,7 +191,7 @@ void     iperf_reporter_callback(struct iperf_test * test);
  * returns NULL on failure
  *
  */
-struct iperf_test *iperf_new_test();
+struct iperf_test *iperf_new_test(void);
 
 int      iperf_defaults(struct iperf_test * testp);
 
@@ -205,6 +234,8 @@ void save_tcpinfo(struct iperf_stream *sp, struct iperf_interval_results *irp);
 long get_total_retransmits(struct iperf_interval_results *irp);
 long get_snd_cwnd(struct iperf_interval_results *irp);
 long get_rtt(struct iperf_interval_results *irp);
+long get_rttvar(struct iperf_interval_results *irp);
+long get_pmtu(struct iperf_interval_results *irp);
 void print_tcpinfo(struct iperf_test *test);
 void build_tcpinfo_message(struct iperf_interval_results *r, char *message);
 
@@ -214,8 +245,8 @@ int iperf_send(struct iperf_test *, fd_set *) /* __attribute__((hot)) */;
 int iperf_recv(struct iperf_test *, fd_set *);
 void iperf_catch_sigend(void (*handler)(int));
 void iperf_got_sigend(struct iperf_test *test) __attribute__ ((noreturn));
-void usage();
-void usage_long();
+void usage(void);
+void usage_long(FILE * f);
 void warning(char *);
 int iperf_exchange_results(struct iperf_test *);
 int iperf_init_test(struct iperf_test *);
@@ -246,7 +277,6 @@ int iperf_run_server(struct iperf_test *);
 int iperf_server_listen(struct iperf_test *);
 int iperf_accept(struct iperf_test *);
 int iperf_handle_message_server(struct iperf_test *);
-void iperf_test_reset(struct iperf_test *);
 int iperf_create_pidfile(struct iperf_test *);
 int iperf_delete_pidfile(struct iperf_test *);
 
@@ -259,7 +289,7 @@ int iperf_setaffinity(struct iperf_test *, int affinity);
 int iperf_clearaffinity(struct iperf_test *);
 
 /* Custom printf routine. */
-int iprintf(struct iperf_test *test, const char *format, ...) __attribute__ ((format(printf,2,3)));
+int iperf_printf(struct iperf_test *test, const char *format, ...) __attribute__ ((format(printf,2,3)));
 int iflush(struct iperf_test *test);
 
 /* Error routines. */
@@ -288,9 +318,12 @@ enum {
     IEENDCONDITIONS = 16,   // Only one test end condition (-t, -n, -k) may be specified
     IELOGFILE = 17,	    // Can't open log file
     IENOSCTP = 18,	    // No SCTP support available
-    IEBIND = 19,			// Local port specified with no local bind option
-    IEUDPBLOCKSIZE = 20,    // Block size too large. Maximum value = %dMAX_UDP_BLOCKSIZE
+    IEBIND = 19,	    // UNUSED:  Local port specified with no local bind option
+    IEUDPBLOCKSIZE = 20,    // Block size invalid
     IEBADTOS = 21,	    // Bad TOS value
+    IESETCLIENTAUTH = 22,   // Bad configuration of client authentication
+    IESETSERVERAUTH = 23,   // Bad configuration of server authentication
+    IEBADFORMAT = 24,	    // Bad format argument to -f
     /* Test errors */
     IENEWTEST = 100,        // Unable to create a new test (check perror)
     IEINITTEST = 101,       // Test initialization failed (check perror)
@@ -333,6 +366,8 @@ enum {
     IESETSCTPNSTREAM= 138,  //  Unable to set SCTP number of streams (check perror)
     IESETSCTPBINDX= 139,    // Unable to process sctp_bindx() parameters
     IESETPACING= 140,       // Unable to set socket pacing rate
+    IESETBUF2= 141,	    // Socket buffer size incorrect (written value != read value)
+    IEAUTHTEST = 142,       // Test authorization failed
     /* Stream errors */
     IECREATESTREAM = 200,   // Unable to create a new stream (check herror/perror)
     IEINITSTREAM = 201,     // Unable to initialize stream (check herror/perror)
@@ -347,5 +382,11 @@ enum {
     IENEWTIMER = 300,       // Unable to create new timer (check perror)
     IEUPDATETIMER = 301,    // Unable to update timer (check perror)
 };
+
+
+#ifdef __cplusplus
+} /* close extern "C" */
+#endif
+
 
 #endif /* !__IPERF_API_H */

@@ -7,11 +7,20 @@
 /* Have CPU affinity support. */
 /* #undef HAVE_CPU_AFFINITY */
 
+/* Define to 1 if you have the `daemon' function. */
+#define HAVE_DAEMON 1
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
+/* Define to 1 if you have the <endian.h> header file. */
+/* #undef HAVE_ENDIAN_H */
+
 /* Have IPv6 flowlabel support. */
 /* #undef HAVE_FLOWLABEL */
+
+/* Define to 1 if you have the `getline' function. */
+#define HAVE_GETLINE 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
@@ -22,6 +31,9 @@
 /* Define to 1 if you have the <netinet/sctp.h> header file. */
 /* #undef HAVE_NETINET_SCTP_H */
 
+/* Define to 1 if you have the <poll.h> header file. */
+#define HAVE_POLL_H 1
+
 /* Define to 1 if you have the `sched_setaffinity' function. */
 /* #undef HAVE_SCHED_SETAFFINITY */
 
@@ -31,8 +43,14 @@
 /* Define to 1 if you have the `sendfile' function. */
 #define HAVE_SENDFILE 1
 
+/* Define to 1 if you have the `SetProcessAffinityMask' function. */
+/* #undef HAVE_SETPROCESSAFFINITYMASK */
+
 /* Have SO_MAX_PACING_RATE sockopt. */
 /* #undef HAVE_SO_MAX_PACING_RATE */
+
+/* OpenSSL Is Available */
+/* #undef HAVE_SSL */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -48,6 +66,9 @@
 
 /* Define to 1 if the system has the type `struct sctp_assoc_value'. */
 /* #undef HAVE_STRUCT_SCTP_ASSOC_VALUE */
+
+/* Define to 1 if you have the <sys/endian.h> header file. */
+/* #undef HAVE_SYS_ENDIAN_H */
 
 /* Define to 1 if you have the <sys/socket.h> header file. */
 #define HAVE_SYS_SOCKET_H 1
@@ -77,22 +98,22 @@
 #define PACKAGE_NAME "iperf"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "iperf 3.1.3"
+#define PACKAGE_STRING "iperf 3.6"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "iperf"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "http://software.es.net/iperf/"
+#define PACKAGE_URL "https://software.es.net/iperf/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.1.3"
+#define PACKAGE_VERSION "3.6"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "3.1.3"
+#define VERSION "3.6"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

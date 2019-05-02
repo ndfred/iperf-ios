@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014, 2015, The Regents of the University of
+ * iperf, Copyright (c) 2014-2018, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -32,6 +32,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <sys/types.h>
+#include <netinet/in.h>
 #include <sys/select.h>
 #include <sys/uio.h>
 #include <arpa/inet.h>
@@ -43,11 +44,19 @@
 #include "net.h"
 #include "timer.h"
 
+#if defined(HAVE_TCP_CONGESTION)
+#if !defined(TCP_CA_NAME_MAX)
+#define TCP_CA_NAME_MAX 16
+#endif /* TCP_CA_NAME_MAX */
+#endif /* HAVE_TCP_CONGESTION */
 
 int
 iperf_create_streams(struct iperf_test *test)
 {
     int i, s;
+#if defined(HAVE_TCP_CONGESTION)
+    int saved_errno;
+#endif /* HAVE_TCP_CONGESTION */
     struct iperf_stream *sp;
 
     int orig_bind_port = test->bind_port;
@@ -58,6 +67,35 @@ iperf_create_streams(struct iperf_test *test)
 	    test->bind_port += i;
         if ((s = test->protocol->connect(test)) < 0)
             return -1;
+
+#if defined(HAVE_TCP_CONGESTION)
+	if (test->protocol->id == Ptcp) {
+	    if (test->congestion) {
+		if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, test->congestion, strlen(test->congestion)) < 0) {
+		    saved_errno = errno;
+		    close(s);
+		    errno = saved_errno;
+		    i_errno = IESETCONGESTION;
+		    return -1;
+		} 
+	    }
+	    {
+		socklen_t len = TCP_CA_NAME_MAX;
+		char ca[TCP_CA_NAME_MAX + 1];
+		if (getsockopt(s, IPPROTO_TCP, TCP_CONGESTION, ca, &len) < 0) {
+		    saved_errno = errno;
+		    close(s);
+		    errno = saved_errno;
+		    i_errno = IESETCONGESTION;
+		    return -1;
+		}
+		test->congestion_used = strdup(ca);
+		if (test->debug) {
+		    printf("Congestion algorithm is %s\n", test->congestion_used);
+		}
+	    }
+	}
+#endif /* HAVE_TCP_CONGESTION */
 
 	if (test->sender)
 	    FD_SET(s, &test->write_set);
@@ -154,7 +192,7 @@ client_omit_timer_proc(TimerClientData client_data, struct timeval *nowP)
     test->omitting = 0;
     iperf_reset_stats(test);
     if (test->verbose && !test->json_output && test->reporter_interval == 0)
-        iprintf(test, "%s", report_omit_done);
+        iperf_printf(test, "%s", report_omit_done);
 
     /* Reset the timers. */
     if (test->stats_timer != NULL)
@@ -290,7 +328,7 @@ iperf_connect(struct iperf_test *test)
     /* Create and connect the control channel */
     if (test->ctrl_sck < 0)
 	// Create the control channel using an ephemeral port
-	test->ctrl_sck = netdial(test->settings->domain, Ptcp, test->bind_address, 0, test->server_hostname, test->server_port);
+	test->ctrl_sck = netdial(test->settings->domain, Ptcp, test->bind_address, 0, test->server_hostname, test->server_port, test->settings->connect_timeout);
     if (test->ctrl_sck < 0) {
         i_errno = IECONNECT;
         return -1;
@@ -303,6 +341,72 @@ iperf_connect(struct iperf_test *test)
 
     FD_SET(test->ctrl_sck, &test->read_set);
     if (test->ctrl_sck > test->max_fd) test->max_fd = test->ctrl_sck;
+
+    int opt;
+    socklen_t len;
+
+    len = sizeof(opt);
+    if (getsockopt(test->ctrl_sck, IPPROTO_TCP, TCP_MAXSEG, &opt, &len) < 0) {
+        test->ctrl_sck_mss = 0;
+    }
+    else {
+        if (opt > 0 && opt <= MAX_UDP_BLOCKSIZE) {
+            test->ctrl_sck_mss = opt;
+        }
+        else {
+            char str[128];
+            snprintf(str, sizeof(str),
+                     "Ignoring nonsense TCP MSS %d", opt);
+            warning(str);
+
+            test->ctrl_sck_mss = 0;
+        }
+    }
+
+    if (test->verbose) {
+	printf("Control connection MSS %d\n", test->ctrl_sck_mss);
+    }
+
+    /*
+     * If we're doing a UDP test and the block size wasn't explicitly
+     * set, then use the known MSS of the control connection to pick
+     * an appropriate default.  If we weren't able to get the
+     * MSS for some reason, then default to something that should
+     * work on non-jumbo-frame Ethernet networks.  The goal is to
+     * pick a reasonable default that is large but should get from
+     * sender to receiver without any IP fragmentation.
+     *
+     * We assume that the control connection is routed the same as the
+     * data packets (thus has the same PMTU).  Also in the case of
+     * --reverse tests, we assume that the MTU is the same in both
+     * directions.  Note that even if the algorithm guesses wrong,
+     * the user always has the option to override.
+     */
+    if (test->protocol->id == Pudp) {
+	if (test->settings->blksize == 0) {
+	    if (test->ctrl_sck_mss) {
+		test->settings->blksize = test->ctrl_sck_mss;
+	    }
+	    else {
+		test->settings->blksize = DEFAULT_UDP_BLKSIZE;
+	    }
+	    if (test->verbose) {
+		printf("Setting UDP block size to %d\n", test->settings->blksize);
+	    }
+	}
+
+	/*
+	 * Regardless of whether explicitly or implicitly set, if the
+	 * block size is larger than the MSS, print a warning.
+	 */
+	if (test->ctrl_sck_mss > 0 &&
+	    test->settings->blksize > test->ctrl_sck_mss) {
+	    char str[128];
+	    snprintf(str, sizeof(str),
+		     "UDP block size %d exceeds TCP MSS %d, may result in fragmentation / drops", test->settings->blksize, test->ctrl_sck_mss);
+	    warning(str);
+	}
+    }
 
     return 0;
 }
@@ -323,6 +427,10 @@ iperf_client_end(struct iperf_test *test)
 
     if (iperf_set_send_state(test, IPERF_DONE) != 0)
         return -1;
+
+    /* Close control socket */
+    if (test->ctrl_sck)
+        close(test->ctrl_sck);
 
     return 0;
 }
@@ -350,9 +458,9 @@ iperf_run_client(struct iperf_test * test)
 	cJSON_AddItemToObject(test->json_start, "version", cJSON_CreateString(version));
 	cJSON_AddItemToObject(test->json_start, "system_info", cJSON_CreateString(get_system_info()));
     } else if (test->verbose) {
-	iprintf(test, "%s\n", version);
-	iprintf(test, "%s", "");
-	iprintf(test, "%s\n", get_system_info());
+	iperf_printf(test, "%s\n", version);
+	iperf_printf(test, "%s", "");
+	iperf_printf(test, "%s\n", get_system_info());
 	iflush(test);
     }
 
@@ -447,8 +555,8 @@ iperf_run_client(struct iperf_test * test)
 	if (iperf_json_finish(test) < 0)
 	    return -1;
     } else {
-	iprintf(test, "\n");
-	iprintf(test, "%s", report_done);
+	iperf_printf(test, "\n");
+	iperf_printf(test, "%s", report_done);
     }
 
     iflush(test);

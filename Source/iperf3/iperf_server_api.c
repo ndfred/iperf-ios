@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014, 2015, The Regents of the University of
+ * iperf, Copyright (c) 2014, 2015, 2016, 2017, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -40,11 +40,9 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include <pthread.h>
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
 #endif
-#include <netinet/tcp.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sched.h>
@@ -58,10 +56,14 @@
 #include "timer.h"
 #include "net.h"
 #include "units.h"
-#include "tcp_window_size.h"
 #include "iperf_util.h"
 #include "iperf_locale.h"
 
+#if defined(HAVE_TCP_CONGESTION)
+#if !defined(TCP_CA_NAME_MAX)
+#define TCP_CA_NAME_MAX 16
+#endif /* TCP_CA_NAME_MAX */
+#endif /* HAVE_TCP_CONGESTION */
 
 int
 iperf_server_listen(struct iperf_test *test)
@@ -84,38 +86,12 @@ iperf_server_listen(struct iperf_test *test)
     }
 
     if (!test->json_output) {
-	iprintf(test, "-----------------------------------------------------------\n");
-	iprintf(test, "Server listening on %d\n", test->server_port);
+	iperf_printf(test, "-----------------------------------------------------------\n");
+	iperf_printf(test, "Server listening on %d\n", test->server_port);
     }
 
-    // This needs to be changed to reflect if client has different window size
-    // make sure we got what we asked for
-    /* XXX: This needs to be moved to the stream listener
-    if ((x = get_tcp_windowsize(test->listener, SO_RCVBUF)) < 0) {
-        // Needs to set some sort of error number/message
-        perror("SO_RCVBUF");
-        return -1;
-    }
-    */
-
-    // XXX: This code needs to be moved to after parameter exhange
-    /*
-    char ubuf[UNIT_LEN];
-    int x;
-
-    if (test->protocol->id == Ptcp) {
-        if (test->settings->socket_bufsize > 0) {
-            unit_snprintf(ubuf, UNIT_LEN, (double) x, 'A');
-	    if (!test->json_output) 
-		iprintf(test, report_window, ubuf);
-        } else {
-	    if (!test->json_output) 
-		iprintf(test, "%s", report_autotune);
-        }
-    }
-    */
     if (!test->json_output)
-	iprintf(test, "-----------------------------------------------------------\n");
+	iperf_printf(test, "-----------------------------------------------------------\n");
 
     FD_ZERO(&test->read_set);
     FD_ZERO(&test->write_set);
@@ -246,69 +222,24 @@ iperf_handle_message_server(struct iperf_test *test)
     return 0;
 }
 
-/* XXX: This function is not used anymore */
-void
-iperf_test_reset(struct iperf_test *test)
+static void
+server_timer_proc(TimerClientData client_data, struct timeval *nowP)
 {
+    struct iperf_test *test = client_data.p;
     struct iperf_stream *sp;
 
-    close(test->ctrl_sck);
-
+    test->timer = NULL;
+    if (test->done)
+        return;
+    test->done = 1;
     /* Free streams */
     while (!SLIST_EMPTY(&test->streams)) {
         sp = SLIST_FIRST(&test->streams);
         SLIST_REMOVE_HEAD(&test->streams, streams);
+        close(sp->socket);
         iperf_free_stream(sp);
     }
-    if (test->timer != NULL) {
-	tmr_cancel(test->timer);
-	test->timer = NULL;
-    }
-    if (test->stats_timer != NULL) {
-	tmr_cancel(test->stats_timer);
-	test->stats_timer = NULL;
-    }
-    if (test->reporter_timer != NULL) {
-	tmr_cancel(test->reporter_timer);
-	test->reporter_timer = NULL;
-    }
-    test->done = 0;
-
-    SLIST_INIT(&test->streams);
-
-    test->role = 's';
-    set_protocol(test, Ptcp);
-    test->omit = OMIT;
-    test->duration = DURATION;
-    test->diskfile_name = (char*) 0;
-    test->affinity = -1;
-    test->server_affinity = -1;
-    test->title = NULL;
-    test->congestion = NULL;
-    test->state = 0;
-    test->server_hostname = NULL;
-
-    test->ctrl_sck = -1;
-    test->prot_listener = -1;
-
-    test->bytes_sent = 0;
-
-    test->reverse = 0;
-    test->sender = 0;
-    test->sender_has_retransmits = 0;
-    test->no_delay = 0;
-
-    FD_ZERO(&test->read_set);
-    FD_ZERO(&test->write_set);
-    FD_SET(test->listener, &test->read_set);
-    test->max_fd = test->listener;
-    
-    test->num_streams = 1;
-    test->settings->socket_bufsize = 0;
-    test->settings->blksize = DEFAULT_TCP_BLKSIZE;
-    test->settings->rate = 0;
-    test->settings->mss = 0;
-    memset(test->cookie, 0, COOKIE_SIZE); 
+    close(test->ctrl_sck);
 }
 
 static void
@@ -344,6 +275,16 @@ create_server_timers(struct iperf_test * test)
 	return -1;
     }
     cd.p = test;
+    test->timer = test->stats_timer = test->reporter_timer = NULL;
+    if (test->duration != 0 ) {
+        test->done = 0;
+        test->timer = tmr_create(&now, server_timer_proc, cd, (test->duration + test->omit + 5) * SEC_TO_US, 0);
+        if (test->timer == NULL) {
+            i_errno = IEINITTEST;
+            return -1;
+        }
+    }
+
     test->stats_timer = test->reporter_timer = NULL;
     if (test->stats_interval != 0) {
         test->stats_timer = tmr_create(&now, server_stats_timer_proc, cd, test->stats_interval * SEC_TO_US, 1);
@@ -371,7 +312,7 @@ server_omit_timer_proc(TimerClientData client_data, struct timeval *nowP)
     test->omitting = 0;
     iperf_reset_stats(test);
     if (test->verbose && !test->json_output && test->reporter_interval == 0)
-	iprintf(test, "%s", report_omit_done);
+	iperf_printf(test, "%s", report_omit_done);
 
     /* Reset the timers. */
     if (test->stats_timer != NULL)
@@ -410,8 +351,12 @@ static void
 cleanup_server(struct iperf_test *test)
 {
     /* Close open test sockets */
-    close(test->ctrl_sck);
-    close(test->listener);
+    if (test->ctrl_sck) {
+	close(test->ctrl_sck);
+    }
+    if (test->listener) {
+	close(test->listener);
+    }
 
     /* Cancel any remaining timers. */
     if (test->stats_timer != NULL) {
@@ -426,6 +371,14 @@ cleanup_server(struct iperf_test *test)
 	tmr_cancel(test->omit_timer);
 	test->omit_timer = NULL;
     }
+    if (test->congestion_used != NULL) {
+        free(test->congestion_used);
+	test->congestion_used = NULL;
+    }
+    if (test->timer != NULL) {
+        tmr_cancel(test->timer);
+        test->timer = NULL;
+    }
 }
 
 
@@ -433,6 +386,9 @@ int
 iperf_run_server(struct iperf_test *test)
 {
     int result, s, streams_accepted;
+#if defined(HAVE_TCP_CONGESTION)
+    int saved_errno;
+#endif /* HAVE_TCP_CONGESTION */
     fd_set read_set, write_set;
     struct iperf_stream *sp;
     struct timeval now;
@@ -450,9 +406,9 @@ iperf_run_server(struct iperf_test *test)
 	cJSON_AddItemToObject(test->json_start, "version", cJSON_CreateString(version));
 	cJSON_AddItemToObject(test->json_start, "system_info", cJSON_CreateString(get_system_info()));
     } else if (test->verbose) {
-	iprintf(test, "%s\n", version);
-	iprintf(test, "%s", "");
-	iprintf(test, "%s\n", get_system_info());
+	iperf_printf(test, "%s\n", version);
+	iperf_printf(test, "%s", "");
+	iperf_printf(test, "%s\n", get_system_info());
 	iflush(test);
     }
 
@@ -506,6 +462,51 @@ iperf_run_server(struct iperf_test *test)
                         return -1;
 		    }
 
+#if defined(HAVE_TCP_CONGESTION)
+		    if (test->protocol->id == Ptcp) {
+			if (test->congestion) {
+			    if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, test->congestion, strlen(test->congestion)) < 0) {
+				/*
+				 * ENOENT means we tried to set the
+				 * congestion algorithm but the algorithm
+				 * specified doesn't exist.  This can happen
+				 * if the client and server have different
+				 * congestion algorithms available.  In this
+				 * case, print a warning, but otherwise
+				 * continue.
+				 */
+				if (errno == ENOENT) {
+				    warning("TCP congestion control algorithm not supported");
+				}
+				else {
+				    saved_errno = errno;
+				    close(s);
+				    cleanup_server(test);
+				    errno = saved_errno;
+				    i_errno = IESETCONGESTION;
+				    return -1;
+				}
+			    } 
+			}
+			{
+			    socklen_t len = TCP_CA_NAME_MAX;
+			    char ca[TCP_CA_NAME_MAX + 1];
+			    if (getsockopt(s, IPPROTO_TCP, TCP_CONGESTION, ca, &len) < 0) {
+				saved_errno = errno;
+				close(s);
+				cleanup_server(test);
+				errno = saved_errno;
+				i_errno = IESETCONGESTION;
+				return -1;
+			    }
+			    test->congestion_used = strdup(ca);
+			    if (test->debug) {
+				printf("Congestion algorithm is %s\n", test->congestion_used);
+			    }
+			}
+		    }
+#endif /* HAVE_TCP_CONGESTION */
+
                     if (!is_closed(s)) {
                         sp = iperf_new_stream(test, s);
                         if (!sp) {
@@ -545,6 +546,7 @@ iperf_run_server(struct iperf_test *test)
                         if (test->no_delay || test->settings->mss || test->settings->socket_bufsize) {
                             FD_CLR(test->listener, &test->read_set);
                             close(test->listener);
+			    test->listener = 0;
                             if ((s = netannounce(test->settings->domain, Ptcp, test->bind_address, test->server_port)) < 0) {
 				cleanup_server(test);
                                 i_errno = IELISTEN;

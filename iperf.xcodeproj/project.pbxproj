@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B20E45D1DCFA82900EEACF9 /* ViewController.xib */; };
+		2B554C50227B9DBF009F4932 /* dscp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4D227B9DBF009F4932 /* dscp.c */; };
+		2B554C51227B9DBF009F4932 /* iperf_auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4E227B9DBF009F4932 /* iperf_auth.c */; };
 		2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */; };
 		2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6301DCF76B900AA24E7 /* cjson.c */; };
 		2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6341DCF76B900AA24E7 /* iperf_api.c */; };
@@ -32,6 +34,9 @@
 
 /* Begin PBXFileReference section */
 		2B20E45D1DCFA82900EEACF9 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		2B554C4D227B9DBF009F4932 /* dscp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dscp.c; sourceTree = "<group>"; };
+		2B554C4E227B9DBF009F4932 /* iperf_auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_auth.c; sourceTree = "<group>"; };
+		2B554C4F227B9DBF009F4932 /* iperf_auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_auth.h; sourceTree = "<group>"; };
 		2B6855E71DCF72D60009ABFD /* iperf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iperf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B87F62C1DCF74DD00AA24E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,9 +124,12 @@
 			children = (
 				2B87F6301DCF76B900AA24E7 /* cjson.c */,
 				2B87F6311DCF76B900AA24E7 /* cjson.h */,
+				2B554C4D227B9DBF009F4932 /* dscp.c */,
 				2B87F6321DCF76B900AA24E7 /* flowlabel.h */,
 				2B87F6341DCF76B900AA24E7 /* iperf_api.c */,
 				2B87F6351DCF76B900AA24E7 /* iperf_api.h */,
+				2B554C4E227B9DBF009F4932 /* iperf_auth.c */,
+				2B554C4F227B9DBF009F4932 /* iperf_auth.h */,
 				2B87F6361DCF76B900AA24E7 /* iperf_client_api.c */,
 				2B87F6371DCF76B900AA24E7 /* iperf_config.h */,
 				2B87F6381DCF76B900AA24E7 /* iperf_error.c */,
@@ -250,6 +258,7 @@
 				2BF577BC1DCF748600F55EDC /* ViewController.m in Sources */,
 				2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */,
 				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
+				2B554C50227B9DBF009F4932 /* dscp.c in Sources */,
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
@@ -261,6 +270,7 @@
 				2B87F6621DCF76B900AA24E7 /* tcp_window_size.c in Sources */,
 				2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */,
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
+				2B554C51227B9DBF009F4932 /* iperf_auth.c in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
 				2B87F6591DCF76B900AA24E7 /* iperf_server_api.c in Sources */,
 				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,

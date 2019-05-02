@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014, 2015, 2016, The Regents of the University of
+ * iperf, Copyright (c) 2014-2018, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -45,7 +45,7 @@ iperf_err(struct iperf_test *test, const char *format, ...)
     if (test != NULL && test->json_output && test->json_top != NULL)
 	cJSON_AddStringToObject(test->json_top, "error", str);
     else
-	if (test && test->outfile) {
+	if (test && test->outfile && test->outfile != stdout) {
 	    fprintf(test->outfile, "iperf3: %s\n", str);
 	}
 	else {
@@ -67,7 +67,7 @@ iperf_errexit(struct iperf_test *test, const char *format, ...)
 	cJSON_AddStringToObject(test->json_top, "error", str);
 	iperf_json_finish(test);
     } else
-	if (test && test->outfile) {
+	if (test && test->outfile && test->outfile != stdout) {
 	    fprintf(test->outfile, "iperf3: %s\n", str);
 	}
 	else {
@@ -82,7 +82,7 @@ iperf_errexit(struct iperf_test *test, const char *format, ...)
 int i_errno;
 
 char *
-iperf_strerror(int i_errno)
+iperf_strerror(int int_errno)
 {
     static char errstr[256];
     int len, perr, herr;
@@ -91,7 +91,7 @@ iperf_strerror(int i_errno)
     len = sizeof(errstr);
     memset(errstr, 0, len);
 
-    switch (i_errno) {
+    switch (int_errno) {
         case IENONE:
             snprintf(errstr, len, "no error");
             break;
@@ -122,14 +122,23 @@ iperf_strerror(int i_errno)
         case IEINTERVAL:
             snprintf(errstr, len, "invalid report interval (min = %g, max = %g seconds)", MIN_INTERVAL, MAX_INTERVAL);
             break;
-        case IEBIND:
+    case IEBIND: /* UNUSED */
             snprintf(errstr, len, "--bind must be specified to use --cport");
             break;
         case IEUDPBLOCKSIZE:
-            snprintf(errstr, len, "block size too large (maximum = %d bytes)", MAX_UDP_BLOCKSIZE);
+            snprintf(errstr, len, "block size invalid (minimum = %d bytes, maximum = %d bytes)", MIN_UDP_BLOCKSIZE, MAX_UDP_BLOCKSIZE);
             break;
-	case IEBADTOS:
-	    snprintf(errstr, len, "bad TOS value (must be between 0 and 255 inclusive)");
+        case IEBADTOS:
+            snprintf(errstr, len, "bad TOS value (must be between 0 and 255 inclusive)");
+            break;
+        case IESETCLIENTAUTH:
+             snprintf(errstr, len, "you must specify username (max 20 chars), password (max 20 chars) and a path to a valid public rsa client to be used");
+            break;
+        case IESETSERVERAUTH:
+             snprintf(errstr, len, "you must specify path to a valid private rsa server to be used and a user credential file");
+            break;
+	case IEBADFORMAT:
+	    snprintf(errstr, len, "bad format specifier (valid formats are in the set [kmgtKMGT])");
 	    break;
         case IEMSS:
             snprintf(errstr, len, "TCP MSS too large (maximum = %d bytes)", MAX_MSS);
@@ -167,6 +176,9 @@ iperf_strerror(int i_errno)
         case IEINITTEST:
             snprintf(errstr, len, "test initialization failed");
             perr = 1;
+            break;
+        case IEAUTHTEST:
+            snprintf(errstr, len, "test authorization failed");
             break;
         case IELISTEN:
             snprintf(errstr, len, "unable to start listener for connections");
@@ -359,15 +371,16 @@ iperf_strerror(int i_errno)
 	    snprintf(errstr, len, "unable to set socket pacing");
 	    perr = 1;
 	    break;
+	case IESETBUF2:
+	    snprintf(errstr, len, "socket buffer size not set correctly");
+	    break;
+	
     }
 
     if (herr || perr)
         strncat(errstr, ": ", len - strlen(errstr) - 1);
-    if (h_errno && herr) {
-        strncat(errstr, hstrerror(h_errno), len - strlen(errstr) - 1);
-    } else if (errno && perr) {
+    if (errno && perr)
         strncat(errstr, strerror(errno), len - strlen(errstr) - 1);
-    }
 
     return errstr;
 }

@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014, 2016, The Regents of the University of
+ * iperf, Copyright (c) 2014-2018, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -24,8 +24,6 @@
  * This code is distributed under a BSD style license, see the LICENSE
  * file for complete information.
  */
-#include "iperf_config.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,7 +33,6 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <netdb.h>
-#include <netinet/tcp.h>
 #include <sys/time.h>
 #include <sys/select.h>
 
@@ -43,6 +40,7 @@
 #include "iperf_api.h"
 #include "iperf_tcp.h"
 #include "net.h"
+#include "cjson.h"
 
 #if defined(HAVE_FLOWLABEL)
 #include "flowlabel.h"
@@ -62,8 +60,15 @@ iperf_tcp_recv(struct iperf_stream *sp)
     if (r < 0)
         return r;
 
-    sp->result->bytes_received += r;
-    sp->result->bytes_received_this_interval += r;
+    /* Only count bytes received while we're in the correct state. */
+    if (sp->test->state == TEST_RUNNING) {
+	sp->result->bytes_received += r;
+	sp->result->bytes_received_this_interval += r;
+    }
+    else {
+	if (sp->test->debug)
+	    printf("Late receive, state = %d\n", sp->test->state);
+    }
 
     return r;
 }
@@ -88,6 +93,9 @@ iperf_tcp_send(struct iperf_stream *sp)
 
     sp->result->bytes_sent += r;
     sp->result->bytes_sent_this_interval += r;
+
+    if (sp->test->debug)
+	printf("sent %d bytes of %d, total %" PRIu64 "\n", r, sp->settings->blksize, sp->result->bytes_sent);
 
     return r;
 }
@@ -136,10 +144,10 @@ iperf_tcp_accept(struct iperf_test * test)
 int
 iperf_tcp_listen(struct iperf_test *test)
 {
-    struct addrinfo hints, *res;
-    char portstr[6];
     int s, opt;
+    socklen_t optlen;
     int saved_errno;
+    int rcvbuf_actual, sndbuf_actual;
 
     s = test->listener;
 
@@ -153,6 +161,9 @@ iperf_tcp_listen(struct iperf_test *test)
      * It's not clear whether this is a requirement or a convenience.
      */
     if (test->no_delay || test->settings->mss || test->settings->socket_bufsize) {
+	struct addrinfo hints, *res;
+	char portstr[6];
+
         FD_CLR(s, &test->read_set);
         close(s);
 
@@ -223,44 +234,29 @@ iperf_tcp_listen(struct iperf_test *test)
                 return -1;
             }
         }
-	if (test->debug) {
-	    socklen_t optlen = sizeof(opt);
-	    if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, &opt, &optlen) < 0) {
-		saved_errno = errno;
-		close(s);
-		freeaddrinfo(res);
-		errno = saved_errno;
-		i_errno = IESETBUF;
-		return -1;
-	    }
-	    printf("SO_SNDBUF is %u\n", opt);
-	}
-#if defined(HAVE_TCP_CONGESTION)
-	if (test->congestion) {
-	    if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, test->congestion, strlen(test->congestion)) < 0) {
-		close(s);
-		freeaddrinfo(res);
-		i_errno = IESETCONGESTION;
-		return -1;
-	    } 
-	}
-#endif /* HAVE_TCP_CONGESTION */
 #if defined(HAVE_SO_MAX_PACING_RATE)
-    /* If socket pacing is available and not disabled, try it. */
-    if (! test->no_fq_socket_pacing) {
+    /* If fq socket pacing is specified, enable it. */
+    if (test->settings->fqrate) {
 	/* Convert bits per second to bytes per second */
-	unsigned int rate = test->settings->rate / 8;
-	if (rate > 0) {
+	unsigned int fqrate = test->settings->fqrate / 8;
+	if (fqrate > 0) {
 	    if (test->debug) {
-		printf("Setting fair-queue socket pacing to %u\n", rate);
+		printf("Setting fair-queue socket pacing to %u\n", fqrate);
 	    }
-	    if (setsockopt(s, SOL_SOCKET, SO_MAX_PACING_RATE, &rate, sizeof(rate)) < 0) {
-		warning("Unable to set socket pacing, using application pacing instead");
-		test->no_fq_socket_pacing = 1;
+	    if (setsockopt(s, SOL_SOCKET, SO_MAX_PACING_RATE, &fqrate, sizeof(fqrate)) < 0) {
+		warning("Unable to set socket pacing");
 	    }
 	}
     }
 #endif /* HAVE_SO_MAX_PACING_RATE */
+    {
+	unsigned int rate = test->settings->rate / 8;
+	if (rate > 0) {
+	    if (test->debug) {
+		printf("Setting application pacing to %u\n", rate);
+	    }
+	}
+    }
         opt = 1;
         if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
 	    saved_errno = errno;
@@ -313,6 +309,46 @@ iperf_tcp_listen(struct iperf_test *test)
         test->listener = s;
     }
     
+    /* Read back and verify the sender socket buffer size */
+    optlen = sizeof(sndbuf_actual);
+    if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, &sndbuf_actual, &optlen) < 0) {
+	saved_errno = errno;
+	close(s);
+	errno = saved_errno;
+	i_errno = IESETBUF;
+	return -1;
+    }
+    if (test->debug) {
+	printf("SNDBUF is %u, expecting %u\n", sndbuf_actual, test->settings->socket_bufsize);
+    }
+    if (test->settings->socket_bufsize && test->settings->socket_bufsize > sndbuf_actual) {
+	i_errno = IESETBUF2;
+	return -1;
+    }
+
+    /* Read back and verify the receiver socket buffer size */
+    optlen = sizeof(rcvbuf_actual);
+    if (getsockopt(s, SOL_SOCKET, SO_RCVBUF, &rcvbuf_actual, &optlen) < 0) {
+	saved_errno = errno;
+	close(s);
+	errno = saved_errno;
+	i_errno = IESETBUF;
+	return -1;
+    }
+    if (test->debug) {
+	printf("RCVBUF is %u, expecting %u\n", rcvbuf_actual, test->settings->socket_bufsize);
+    }
+    if (test->settings->socket_bufsize && test->settings->socket_bufsize > rcvbuf_actual) {
+	i_errno = IESETBUF2;
+	return -1;
+    }
+
+    if (test->json_output) {
+	cJSON_AddNumberToObject(test->json_start, "sock_bufsize", test->settings->socket_bufsize);
+	cJSON_AddNumberToObject(test->json_start, "sndbuf_actual", sndbuf_actual);
+	cJSON_AddNumberToObject(test->json_start, "rcvbuf_actual", rcvbuf_actual);
+    }
+
     return s;
 }
 
@@ -320,6 +356,9 @@ iperf_tcp_listen(struct iperf_test *test)
 /* iperf_tcp_connect
  *
  * connect to a TCP stream listener
+ * This function is roughly similar to netdial(), and may indeed have
+ * been derived from it at some point, but it sets many TCP-specific
+ * options between socket creation and connection.
  */
 int
 iperf_tcp_connect(struct iperf_test *test)
@@ -327,7 +366,9 @@ iperf_tcp_connect(struct iperf_test *test)
     struct addrinfo hints, *local_res, *server_res;
     char portstr[6];
     int s, opt;
+    socklen_t optlen;
     int saved_errno;
+    int rcvbuf_actual, sndbuf_actual;
 
     if (test->bind_address) {
         memset(&hints, 0, sizeof(hints));
@@ -358,11 +399,14 @@ iperf_tcp_connect(struct iperf_test *test)
         return -1;
     }
 
+    /*
+     * Various ways to bind the local end of the connection.
+     * 1.  --bind (with or without --cport).
+     */
     if (test->bind_address) {
         struct sockaddr_in *lcladdr;
         lcladdr = (struct sockaddr_in *)local_res->ai_addr;
         lcladdr->sin_port = htons(test->bind_port);
-        local_res->ai_addr = (struct sockaddr *)lcladdr;
 
         if (bind(s, (struct sockaddr *) local_res->ai_addr, local_res->ai_addrlen) < 0) {
 	    saved_errno = errno;
@@ -374,6 +418,46 @@ iperf_tcp_connect(struct iperf_test *test)
             return -1;
         }
         freeaddrinfo(local_res);
+    }
+    /* --cport, no --bind */
+    else if (test->bind_port) {
+	size_t addrlen;
+	struct sockaddr_storage lcl;
+
+	/* IPv4 */
+	if (server_res->ai_family == AF_INET) {
+	    struct sockaddr_in *lcladdr = (struct sockaddr_in *) &lcl;
+	    lcladdr->sin_family = AF_INET;
+	    lcladdr->sin_port = htons(test->bind_port);
+	    lcladdr->sin_addr.s_addr = INADDR_ANY;
+	    addrlen = sizeof(struct sockaddr_in);
+	}
+	/* IPv6 */
+	else if (server_res->ai_family == AF_INET6) {
+	    struct sockaddr_in6 *lcladdr = (struct sockaddr_in6 *) &lcl;
+	    lcladdr->sin6_family = AF_INET6;
+	    lcladdr->sin6_port = htons(test->bind_port);
+	    lcladdr->sin6_addr = in6addr_any;
+	    addrlen = sizeof(struct sockaddr_in6);
+	}
+	/* Unknown protocol */
+	else {
+	    saved_errno = errno;
+	    close(s);
+	    freeaddrinfo(server_res);
+	    errno = saved_errno;
+            i_errno = IEPROTOCOL;
+            return -1;
+	}
+
+        if (bind(s, (struct sockaddr *) &lcl, addrlen) < 0) {
+	    saved_errno = errno;
+	    close(s);
+	    freeaddrinfo(server_res);
+	    errno = saved_errno;
+            i_errno = IESTREAMCONNECT;
+            return -1;
+        }
     }
 
     /* Set socket options */
@@ -416,18 +500,49 @@ iperf_tcp_connect(struct iperf_test *test)
             return -1;
         }
     }
-    if (test->debug) {
-	socklen_t optlen = sizeof(opt);
-	if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, &opt, &optlen) < 0) {
-	    saved_errno = errno;
-	    close(s);
-	    freeaddrinfo(server_res);
-	    errno = saved_errno;
-	    i_errno = IESETBUF;
-	    return -1;
-	}
-	printf("SO_SNDBUF is %u\n", opt);
+
+    /* Read back and verify the sender socket buffer size */
+    optlen = sizeof(sndbuf_actual);
+    if (getsockopt(s, SOL_SOCKET, SO_SNDBUF, &sndbuf_actual, &optlen) < 0) {
+	saved_errno = errno;
+	close(s);
+	freeaddrinfo(server_res);
+	errno = saved_errno;
+	i_errno = IESETBUF;
+	return -1;
     }
+    if (test->debug) {
+	printf("SNDBUF is %u, expecting %u\n", sndbuf_actual, test->settings->socket_bufsize);
+    }
+    if (test->settings->socket_bufsize && test->settings->socket_bufsize > sndbuf_actual) {
+	i_errno = IESETBUF2;
+	return -1;
+    }
+
+    /* Read back and verify the receiver socket buffer size */
+    optlen = sizeof(rcvbuf_actual);
+    if (getsockopt(s, SOL_SOCKET, SO_RCVBUF, &rcvbuf_actual, &optlen) < 0) {
+	saved_errno = errno;
+	close(s);
+	freeaddrinfo(server_res);
+	errno = saved_errno;
+	i_errno = IESETBUF;
+	return -1;
+    }
+    if (test->debug) {
+	printf("RCVBUF is %u, expecting %u\n", rcvbuf_actual, test->settings->socket_bufsize);
+    }
+    if (test->settings->socket_bufsize && test->settings->socket_bufsize > rcvbuf_actual) {
+	i_errno = IESETBUF2;
+	return -1;
+    }
+
+    if (test->json_output) {
+	cJSON_AddNumberToObject(test->json_start, "sock_bufsize", test->settings->socket_bufsize);
+	cJSON_AddNumberToObject(test->json_start, "sndbuf_actual", sndbuf_actual);
+	cJSON_AddNumberToObject(test->json_start, "rcvbuf_actual", rcvbuf_actual);
+    }
+
 #if defined(HAVE_FLOWLABEL)
     if (test->settings->flowlabel) {
         if (server_res->ai_addr->sa_family != AF_INET6) {
@@ -447,7 +562,7 @@ iperf_tcp_connect(struct iperf_test *test)
             freq->flr_label = htonl(test->settings->flowlabel & IPV6_FLOWINFO_FLOWLABEL);
             freq->flr_action = IPV6_FL_A_GET;
             freq->flr_flags = IPV6_FL_F_CREATE;
-            freq->flr_share = IPV6_FL_F_CREATE | IPV6_FL_S_EXCL;
+            freq->flr_share = IPV6_FL_S_ANY;
             memcpy(&freq->flr_dst, &sa6P->sin6_addr, 16);
 
             if (setsockopt(s, IPPROTO_IPV6, IPV6_FLOWLABEL_MGR, freq, freq_len) < 0) {
@@ -473,33 +588,29 @@ iperf_tcp_connect(struct iperf_test *test)
     }
 #endif /* HAVE_FLOWLABEL */
 
-#if defined(HAVE_TCP_CONGESTION)
-    if (test->congestion) {
-	if (setsockopt(s, IPPROTO_TCP, TCP_CONGESTION, test->congestion, strlen(test->congestion)) < 0) {
-	    close(s);
-	    freeaddrinfo(server_res);
-	    i_errno = IESETCONGESTION;
-	    return -1;
-	}
-    }
-#endif /* HAVE_TCP_CONGESTION */
-
 #if defined(HAVE_SO_MAX_PACING_RATE)
-    /* If socket pacing is available and not disabled, try it. */
-    if (! test->no_fq_socket_pacing) {
+    /* If socket pacing is specified try to enable it. */
+    if (test->settings->fqrate) {
 	/* Convert bits per second to bytes per second */
-	unsigned int rate = test->settings->rate / 8;
-	if (rate > 0) {
+	unsigned int fqrate = test->settings->fqrate / 8;
+	if (fqrate > 0) {
 	    if (test->debug) {
-		printf("Socket pacing set to %u\n", rate);
+		printf("Setting fair-queue socket pacing to %u\n", fqrate);
 	    }
-	    if (setsockopt(s, SOL_SOCKET, SO_MAX_PACING_RATE, &rate, sizeof(rate)) < 0) {
-		warning("Unable to set socket pacing, using application pacing instead");
-		test->no_fq_socket_pacing = 1;
+	    if (setsockopt(s, SOL_SOCKET, SO_MAX_PACING_RATE, &fqrate, sizeof(fqrate)) < 0) {
+		warning("Unable to set socket pacing");
 	    }
 	}
     }
 #endif /* HAVE_SO_MAX_PACING_RATE */
+    {
+	unsigned int rate = test->settings->rate / 8;
+	if (rate > 0) {
+	    if (test->debug) {
+		printf("Setting application pacing to %u\n", rate);
+	    }
+	}
+    }
 
     if (connect(s, (struct sockaddr *) server_res->ai_addr, server_res->ai_addrlen) < 0 && errno != EINPROGRESS) {
 	saved_errno = errno;
