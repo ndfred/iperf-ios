@@ -1,4 +1,4 @@
-# iPerf iOS
+# iPerf iOS [![Build Status](https://travis-ci.com/ndfred/iperf-ios.svg?branch=master)](https://travis-ci.com/ndfred/iperf-ios/)
 
 Run an [iPerf3](https://iperf.fr/) client on your iPhone or iPad, including reverse mode and multiple streams selection:
 
