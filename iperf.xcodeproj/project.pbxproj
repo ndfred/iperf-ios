@@ -31,8 +31,19 @@
 		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
 		2BF577BC1DCF748600F55EDC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A71DCF748600F55EDC /* ViewController.m */; };
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
+		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
 		B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B692F609227D907600BE7313 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B6855DF1DCF72D60009ABFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B6855E61DCF72D60009ABFD;
+			remoteInfo = iperf;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2B20E45D1DCFA82900EEACF9 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
@@ -85,12 +96,21 @@
 		B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerTest.m; sourceTree = "<group>"; };
 		B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */ = {isa = PBXFileReference; lastKnownFileType = text; path = IPFTestRunnerConfiguration.value; sourceTree = "<group>"; };
 		B692F5FF227D900A00BE7313 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		B692F604227D907600BE7313 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B692F608227D907600BE7313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerConfiguration.m; sourceTree = "<group>"; };
 		B6A90E35227D6D3400E3981C /* IPFTestRunnerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFTestRunnerConfiguration.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2B6855E41DCF72D60009ABFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B692F601227D907600BE7313 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -105,6 +125,7 @@
 			children = (
 				2BF5777E1DCF748600F55EDC /* Source */,
 				2B87F62A1DCF74DD00AA24E7 /* Resources */,
+				B692F605227D907600BE7313 /* Tests */,
 				2B6855E81DCF72D60009ABFD /* Products */,
 			);
 			indentWidth = 2;
@@ -115,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6855E71DCF72D60009ABFD /* iperf.app */,
+				B692F604227D907600BE7313 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,10 +224,18 @@
 				B6A90E35227D6D3400E3981C /* IPFTestRunnerConfiguration.h */,
 				B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */,
 				B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */,
-				B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */,
 				B692F5FF227D900A00BE7313 /* Makefile */,
 			);
 			path = Backend;
+			sourceTree = "<group>";
+		};
+		B692F605227D907600BE7313 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */,
+				B692F608227D907600BE7313 /* Info.plist */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +258,24 @@
 			productReference = 2B6855E71DCF72D60009ABFD /* iperf.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B692F603227D907600BE7313 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B692F60B227D907600BE7313 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				B692F600227D907600BE7313 /* Sources */,
+				B692F601227D907600BE7313 /* Frameworks */,
+				B692F602227D907600BE7313 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B692F60A227D907600BE7313 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = B692F604227D907600BE7313 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -240,6 +288,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = LW2ABE364X;
 						ProvisioningStyle = Automatic;
+					};
+					B692F603227D907600BE7313 = {
+						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2B6855E61DCF72D60009ABFD;
 					};
 				};
 			};
@@ -257,6 +310,7 @@
 			projectRoot = "";
 			targets = (
 				2B6855E61DCF72D60009ABFD /* iperf */,
+				B692F603227D907600BE7313 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -269,6 +323,13 @@
 				2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */,
 				2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */,
 				2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B692F602227D907600BE7313 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +365,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B692F600227D907600BE7313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B692F60A227D907600BE7313 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B6855E61DCF72D60009ABFD /* iperf */;
+			targetProxy = B692F609227D907600BE7313 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2B6855FC1DCF72D60009ABFD /* Debug */ = {
@@ -447,6 +524,51 @@
 			};
 			name = Release;
 		};
+		B692F60C227D907600BE7313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iperf.app/iperf";
+			};
+			name = Debug;
+		};
+		B692F60D227D907600BE7313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iperf.app/iperf";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -464,6 +586,15 @@
 			buildConfigurations = (
 				2B6855FF1DCF72D60009ABFD /* Debug */,
 				2B6856001DCF72D60009ABFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B692F60B227D907600BE7313 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B692F60C227D907600BE7313 /* Debug */,
+				B692F60D227D907600BE7313 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
