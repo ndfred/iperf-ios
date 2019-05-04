@@ -1,0 +1,7 @@
+IPFTestRunnerConfiguration {
+  NSString *hostname
+  NSUInteger port
+  NSUInteger duration
+  NSUInteger streams
+  BOOL reverse
+}
