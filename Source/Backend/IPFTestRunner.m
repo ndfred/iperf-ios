@@ -88,6 +88,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   iperf_set_test_num_streams(test, (int)configuration.streams);
   iperf_set_test_reverse(test, configuration.reverse);
   iperf_set_test_template(test, (char *)[streamFilePathTemplate cStringUsingEncoding:NSUTF8StringEncoding]);
+  iperf_set_test_zerocopy(test, 1);
   i_errno = IENONE;
 
   test->reporter_callback = vc_reporter_callback;
