@@ -298,10 +298,9 @@
 			};
 			buildConfigurationList = 2B6855E21DCF72D60009ABFD /* Build configuration list for PBXProject "iperf" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
