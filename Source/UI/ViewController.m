@@ -45,7 +45,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
   if (self != nil) {
-    self.title = NSLocalizedString(@"iperf3", @"Main screen title");
+    self.title = NSLocalizedString(@"iPerf", @"Main screen title");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Test start button name")
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
