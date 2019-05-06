@@ -38,7 +38,10 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+  NSUInteger _averageBandwidthTotal;
+  NSUInteger _averageBandwidthCount;
+}
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -102,7 +105,10 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   self.streamsSlider.enabled = NO;
   self.testDurationSlider.enabled = NO;
   self.bandwidthLabel.text = @"...";
+  self.averageBandwidthLabel.text = @"";
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+  _averageBandwidthTotal = 0;
+  _averageBandwidthCount = 0;
 
   [testRunner startTest:^(IPFTestRunnerStatus status) {
     switch (status.errorState) {
@@ -146,6 +152,9 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       }
     } else {
       self.bandwidthLabel.text = [NSString stringWithFormat:@"%.1f Mbits/s", status.bandwidth];
+      self->_averageBandwidthTotal += status.bandwidth;
+      self->_averageBandwidthCount++;
+      self.averageBandwidthLabel.text = [NSString stringWithFormat:@"average: %.1f Mbits/s", (CGFloat)self->_averageBandwidthTotal / (CGFloat)self->_averageBandwidthCount];
     }
   }];
 }
@@ -157,6 +166,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:NULL]];
   [self presentViewController:alertController animated:YES completion:NULL];
   self.bandwidthLabel.text = @"";
+  self.averageBandwidthLabel.text = @"";
 }
 
 @end

@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
                 <outlet property="addressTextField" destination="iEI-dR-qrR" id="cgl-XE-V5X"/>
+                <outlet property="averageBandwidthLabel" destination="e5b-56-8x8" id="zil-Fc-In3"/>
                 <outlet property="bandwidthLabel" destination="1Ge-NS-FsL" id="hcb-EM-Pyv"/>
                 <outlet property="portTextField" destination="UuP-Gg-rxj" id="xaF-gW-M4T"/>
                 <outlet property="streamsSlider" destination="Rbl-s2-lvT" id="eZZ-fH-5VP"/>
@@ -40,7 +41,7 @@
                                 <segment title="5"/>
                             </segments>
                         </segmentedControl>
-                        <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="And-M5-M4l">
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="And-M5-M4l">
                             <rect key="frame" x="164" y="160" width="140" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
@@ -115,12 +116,19 @@
                                 <segment title="60s"/>
                             </segments>
                         </segmentedControl>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5b-56-8x8">
+                            <rect key="frame" x="16" y="365" width="288" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="34.5" y="90.5"/>
+            <point key="canvasLocation" x="34.399999999999999" y="90.404797601199405"/>
         </view>
     </objects>
 </document>

@@ -8,6 +8,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *streamsSlider;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *testDurationSlider;
 @property (strong, nonatomic) IBOutlet UILabel *bandwidthLabel;
+@property (strong, nonatomic) IBOutlet UILabel *averageBandwidthLabel;
 
 - (IBAction)startTest;
 
