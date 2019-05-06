@@ -55,6 +55,36 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   return self;
 }
 
+- (void)viewDidLoad
+{
+  [self restoreTestSettings];
+}
+
+- (void)restoreTestSettings
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *hostname = [defaults stringForKey:@"IPFTestHostname"];
+  NSNumber *port = [defaults objectForKey:@"IPFTestPort"];
+
+  if ([hostname length] > 0 && [port unsignedIntegerValue] > 0) {
+    self.addressTextField.text = hostname;
+    self.portTextField.text = [port stringValue];
+  }
+}
+
+- (void)saveTestSettings
+{
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *hostname = self.addressTextField.text;
+  NSNumber *port = [NSNumber numberWithUnsignedInteger:(NSUInteger)[self.portTextField.text integerValue]];
+
+  if ([hostname length] > 0 && [port unsignedIntegerValue] > 0) {
+    [defaults setObject:hostname forKey:@"IPFTestHostname"];
+    [defaults setObject:port forKey:@"IPFTestPort"];
+    [defaults synchronize];
+  }
+}
+
 - (void)startTest
 {
   IPFTestRunnerConfiguration *configuration = [[IPFTestRunnerConfiguration alloc] initWithHostname:self.addressTextField.text
@@ -89,6 +119,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       self.testDurationSlider.enabled = YES;
       self.testRunner = nil;
       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+      if (status.errorState == IPFTestRunnerErrorStateNoError) [self saveTestSettings];
     } else {
       self.bandwidthLabel.text = [NSString stringWithFormat:@"%.1f Mbits/s", status.bandwidth];
     }
