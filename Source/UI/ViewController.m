@@ -96,6 +96,11 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
                                                                                            streams:[self.streamsSlider selectedSegmentIndex] + 1
                                                                                            reverse:[self.transmitModeSlider selectedSegmentIndex]];
   IPFTestRunner *testRunner = [[IPFTestRunner alloc] initWithConfiguration:configuration];
+  UIApplication *application = [UIApplication sharedApplication];
+  __block UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+    [application endBackgroundTask:backgroundTask];
+    backgroundTask = UIBackgroundTaskInvalid;
+  }];
 
   self.testRunner = testRunner;
   self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -106,7 +111,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   self.testDurationSlider.enabled = NO;
   self.bandwidthLabel.text = @"...";
   self.averageBandwidthLabel.text = @"";
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+  [application setNetworkActivityIndicatorVisible:YES];
   _averageBandwidthTotal = 0;
   _averageBandwidthCount = 0;
 
@@ -144,7 +149,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       self.streamsSlider.enabled = YES;
       self.testDurationSlider.enabled = YES;
       self.testRunner = nil;
-      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+      [application setNetworkActivityIndicatorVisible:NO];
+      [application endBackgroundTask:backgroundTask];
 
       if (status.errorState == IPFTestRunnerErrorStateNoError || status.errorState == IPFTestRunnerErrorStateServerIsBusy) {
         // Only persist settings if the test is successful
