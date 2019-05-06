@@ -6,7 +6,9 @@
 typedef enum {
   IPFTestRunnerErrorStateNoError = 0,
   IPFTestRunnerErrorStateCouldntInitializeTest = 1,
-  IPFTestRunnerErrorStateUnknown = 2,
+  IPFTestRunnerErrorStateServerIsBusy = 2,
+  IPFTestRunnerErrorStateCannotConnectToTheServer = 3,
+  IPFTestRunnerErrorStateUnknown = 4,
 } IPFTestRunnerErrorState;
 
 typedef struct {

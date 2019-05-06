@@ -26,6 +26,12 @@ static IPFTestRunnerErrorState IPFTestRunnerErrorStateFromIPerfError(int error)
     case IENONE:
       return IPFTestRunnerErrorStateNoError;
 
+    case IECONNECT:
+      return IPFTestRunnerErrorStateCannotConnectToTheServer;
+
+    case IEACCESSDENIED:
+      return IPFTestRunnerErrorStateServerIsBusy;
+
     default:
       return IPFTestRunnerErrorStateUnknown;
   }

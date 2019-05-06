@@ -105,8 +105,28 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
   [testRunner startTest:^(IPFTestRunnerStatus status) {
+    switch (status.errorState) {
+      case IPFTestRunnerErrorStateNoError:
+        break;
+
+      case IPFTestRunnerErrorStateCouldntInitializeTest:
+        [self showAlert:NSLocalizedString(@"Error initializing the test", nil)];
+        break;
+
+      case IPFTestRunnerErrorStateCannotConnectToTheServer:
+        [self showAlert:NSLocalizedString(@"Cannot connect to the server, please check that the server is running", nil)];
+        break;
+
+      case IPFTestRunnerErrorStateServerIsBusy:
+        [self showAlert:NSLocalizedString(@"Server is busy, please retry later", nil)];
+        break;
+
+      default:
+        [self showAlert:[NSString stringWithFormat:NSLocalizedString(@"Unknown error %d running the test", nil), status.errorState]];
+        break;
+    }
     if (status.errorState != IPFTestRunnerErrorStateNoError) {
-      [self showAlert:@"Error running the test"];
+      [self showAlert:NSLocalizedString(@"Error running the test", @"Default test error message")];
     }
 
     if (status.running == NO) {
@@ -120,7 +140,10 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       self.testRunner = nil;
       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
-      if (status.errorState == IPFTestRunnerErrorStateNoError) [self saveTestSettings];
+      if (status.errorState == IPFTestRunnerErrorStateNoError || status.errorState == IPFTestRunnerErrorStateServerIsBusy) {
+        // Only persist settings if the test is successful
+        [self saveTestSettings];
+      }
     } else {
       self.bandwidthLabel.text = [NSString stringWithFormat:@"%.1f Mbits/s", status.bandwidth];
     }
