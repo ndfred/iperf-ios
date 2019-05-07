@@ -27,13 +27,13 @@ If you would like to join the beta program and test the latest version of the ap
 
 The [App Store Release](https://github.com/ndfred/iperf-ios/milestone/1) milestone tracks all the issues that are blocking, you guessed it, App Store release.
 
-[Travis CI is set up](https://travis-ci.com/ndfred/iperf-ios/) to build the app continuously and run tests.
-
 ## Contributing
 
-Please send a pull request or open an issue, we happily welcome contributions! We also try and [document issues](https://github.com/ndfred/iperf-ios/issues), feel free to pick one up and contribute there.
+Please send a pull request or open an issue, we happily welcome contributions! We also try and [document issues](https://github.com/ndfred/iperf-ios/issues), feel free to pick one up and contribute there. Translations and app / icon design contributions are welcome too!
 
 If a new version of iPerf comes out and you'd like to update the app, edit and run `sync.sh` to pull the latest changes from [upstream](https://github.com/esnet/iperf).
+
+[Travis CI is set up](https://travis-ci.com/ndfred/iperf-ios/) to build the app continuously and run tests.
 
 ## Wishlist
 
