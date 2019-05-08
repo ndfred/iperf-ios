@@ -46,6 +46,7 @@ static void vc_reporter_callback(struct iperf_test *test)
 
 @implementation IPFTestRunner {
   IPFTestRunnerCallback _callback;
+  struct iperf_test *_test;
 }
 
 - (id)initWithConfiguration:(IPFTestRunnerConfiguration *)configuration
@@ -97,6 +98,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   i_errno = IENONE;
 
   test->reporter_callback = vc_reporter_callback;
+  _test = test;
   NSAssert(s_currentTestRunner == nil, @"Test is already running");
   s_currentTestRunner = self;
   NSAssert(_callback == nil, @"Test is already running");
@@ -111,12 +113,20 @@ static void vc_reporter_callback(struct iperf_test *test)
 
       s_currentTestRunner = nil;
       blockSelf->_callback = nil;
+      blockSelf->_test = NULL;
       callbackStatus.running = NO;
       callbackStatus.errorState = IPFTestRunnerErrorStateFromIPerfError(i_errno);
       iperf_free_test(test);
       callback(callbackStatus);
     });
   });
+}
+
+- (void)stopTest
+{
+  if (_test != NULL) {
+    _test->done = 1;
+  }
 }
 
 - (void)handleStatsCallback:(struct iperf_test *)test

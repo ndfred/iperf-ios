@@ -25,5 +25,6 @@ typedef void (^IPFTestRunnerCallback)(IPFTestRunnerStatus status);
 
 - (id)initWithConfiguration:(IPFTestRunnerConfiguration *)configuration;
 - (void)startTest:(IPFTestRunnerCallback)callback;
+- (void)stopTest;
 
 @end

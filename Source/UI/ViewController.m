@@ -6,30 +6,17 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
   switch (selectedSegmentIndex) {
     case 0:
-      return 1;
-      break;
+      return 10;
 
     case 1:
-      return 5;
-      break;
+      return 30;
 
     case 2:
-      return 10;
-      break;
-
-    case 3:
-      return 30;
-      break;
-
-    case 4:
-      return 60;
-      break;
+      return 300;
 
     default:
-      break;
+      return 10;
   }
-
-  return 10;
 }
 
 @interface ViewController ()
@@ -49,13 +36,25 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 
   if (self != nil) {
     self.title = NSLocalizedString(@"iPerf", @"Main screen title");
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Test start button name")
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(startTest)];
+    [self showStartButton:YES];
   }
 
   return self;
+}
+
+- (void)showStartButton:(BOOL)showStartButton
+{
+  NSString *title = showStartButton ? NSLocalizedString(@"Start", @"Test start button name") : NSLocalizedString(@"Stop", @"Test stop button name");
+  UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:title
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(startStopTest)];
+
+  if (!showStartButton) {
+    buttonItem.tintColor = [UIColor redColor];
+  }
+
+  self.navigationItem.rightBarButtonItem = buttonItem;
 }
 
 - (void)viewDidLoad
@@ -88,6 +87,17 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   }
 }
 
+- (void)startStopTest
+{
+  IPFTestRunner *testRunner = self.testRunner;
+
+  if (testRunner) {
+    [testRunner stopTest];
+  } else {
+    [self startTest];
+  }
+}
+
 - (void)startTest
 {
   IPFTestRunnerConfiguration *configuration = [[IPFTestRunnerConfiguration alloc] initWithHostname:self.addressTextField.text
@@ -103,7 +113,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   }];
 
   self.testRunner = testRunner;
-  self.navigationItem.rightBarButtonItem.enabled = NO;
+  [self showStartButton:NO];
   self.addressTextField.enabled = NO;
   self.portTextField.enabled = NO;
   self.transmitModeSlider.enabled = NO;
@@ -141,8 +151,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
     }
 
     if (status.running == NO) {
-      self.navigationItem.rightBarButtonItem.enabled = YES;
-      self.navigationItem.rightBarButtonItem.enabled = YES;
+      [self showStartButton:YES];
       self.addressTextField.enabled = YES;
       self.portTextField.enabled = YES;
       self.transmitModeSlider.enabled = YES;
