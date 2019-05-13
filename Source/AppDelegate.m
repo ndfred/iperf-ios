@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "IPFTestRunnerViewController.h"
 
 @interface AppDelegate ()
 
@@ -11,7 +11,7 @@
 {
   CGRect windowFrame = [[UIScreen mainScreen] bounds];
   UIWindow *window = [[UIWindow alloc] initWithFrame:windowFrame];
-  ViewController *viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
+  IPFTestRunnerViewController *viewController = [[IPFTestRunnerViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 
   window.rootViewController = navigationController;

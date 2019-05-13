@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface IPFTestRunnerViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *addressTextField;
 @property (strong, nonatomic) IBOutlet UITextField *portTextField;

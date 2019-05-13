@@ -1,6 +1,7 @@
-#import "ViewController.h"
+#import "IPFTestRunnerViewController.h"
 #import "IPFTestRunner.h"
 #import "IPFTestRunnerConfiguration.h"
+#import "IPFIcon.h"
 
 static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
@@ -19,13 +20,13 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   }
 }
 
-@interface ViewController ()
+@interface IPFTestRunnerViewController ()
 
 @property (strong, nonatomic) IPFTestRunner *testRunner;
 
 @end
 
-@implementation ViewController {
+@implementation IPFTestRunnerViewController {
   NSUInteger _averageBandwidthTotal;
   NSUInteger _averageBandwidthCount;
 }
