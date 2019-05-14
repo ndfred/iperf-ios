@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B013305228B7B830088D77D /* IPFHelpViewController.m */; };
+		2B013311228B7FBE0088D77D /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 2B013309228B7FA50088D77D /* Help.html */; };
 		2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B20E45D1DCFA82900EEACF9 /* ViewController.xib */; };
 		2B554C50227B9DBF009F4932 /* dscp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4D227B9DBF009F4932 /* dscp.c */; };
 		2B554C51227B9DBF009F4932 /* iperf_auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4E227B9DBF009F4932 /* iperf_auth.c */; };
@@ -47,6 +49,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B013304228B7B830088D77D /* IPFHelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFHelpViewController.h; sourceTree = "<group>"; };
+		2B013305228B7B830088D77D /* IPFHelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFHelpViewController.m; sourceTree = "<group>"; };
+		2B013309228B7FA50088D77D /* Help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = Help.html; sourceTree = "<group>"; };
+		2B01330A228B7FA50088D77D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		2B01330B228B7FA50088D77D /* Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Help.md; sourceTree = "<group>"; };
+		2B01330E228B7FA50088D77D /* footer.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = footer.html; sourceTree = "<group>"; };
+		2B013310228B7FA50088D77D /* header.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = header.html; sourceTree = "<group>"; };
 		2B20E45D1DCFA82900EEACF9 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2B554C4D227B9DBF009F4932 /* dscp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dscp.c; sourceTree = "<group>"; };
 		2B554C4E227B9DBF009F4932 /* iperf_auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_auth.c; sourceTree = "<group>"; };
@@ -125,12 +134,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B013308228B7FA50088D77D /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				2B013309228B7FA50088D77D /* Help.html */,
+				2B01330A228B7FA50088D77D /* Makefile */,
+				2B01330B228B7FA50088D77D /* Help.md */,
+				2B013310228B7FA50088D77D /* header.html */,
+				2B01330E228B7FA50088D77D /* footer.html */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
 		2B6855DE1DCF72D60009ABFD = {
 			isa = PBXGroup;
 			children = (
 				2BF5777E1DCF748600F55EDC /* Source */,
 				2B87F62A1DCF74DD00AA24E7 /* Resources */,
 				B692F605227D907600BE7313 /* Tests */,
+				2B013308228B7FA50088D77D /* Documentation */,
 				2B6855E81DCF72D60009ABFD /* Products */,
 			);
 			indentWidth = 2;
@@ -221,6 +243,8 @@
 				B6C3CE67228A03FC000629B6 /* IPFIcon.m */,
 				2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */,
 				2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */,
+				2B013304228B7B830088D77D /* IPFHelpViewController.h */,
+				2B013305228B7B830088D77D /* IPFHelpViewController.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -330,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */,
+				2B013311228B7FBE0088D77D /* Help.html in Resources */,
 				2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */,
 				2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */,
 			);
@@ -366,6 +391,7 @@
 				2B87F6621DCF76B900AA24E7 /* tcp_window_size.c in Sources */,
 				2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */,
 				B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */,
+				2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */,
 				B6C3CE68228A03FC000629B6 /* IPFIcon.m in Sources */,
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
 				2B554C51227B9DBF009F4932 /* iperf_auth.c in Sources */,

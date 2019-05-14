@@ -2,6 +2,7 @@
 #import "IPFTestRunner.h"
 #import "IPFTestRunnerConfiguration.h"
 #import "IPFIcon.h"
+#import "IPFHelpViewController.h"
 
 static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
@@ -39,10 +40,21 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 
   if (self != nil) {
     self.title = NSLocalizedString(@"iPerf", @"Main screen title");
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Help", @"Help start button name")
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(showHelp)];
     [self showStartButton:YES];
   }
 
   return self;
+}
+
+- (IBAction)showHelp
+{
+  IPFHelpViewController *helpViewController = [[IPFHelpViewController alloc] initWithNibName:nil bundle:nil];
+
+  [self.navigationController pushViewController:helpViewController animated:YES];
 }
 
 - (void)showStartButton:(BOOL)showStartButton

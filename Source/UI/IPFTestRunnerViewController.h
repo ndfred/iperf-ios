@@ -11,6 +11,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *averageBandwidthLabel;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 
+- (IBAction)showHelp;
 - (IBAction)startStopTest;
 
 @end
