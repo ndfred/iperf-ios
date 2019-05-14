@@ -168,6 +168,7 @@ static void vc_reporter_callback(struct iperf_test *test)
     stream = SLIST_FIRST(&test->streams);
 
     if (stream) {
+      BOOL callCallback = YES;
       interval_results = TAILQ_LAST(&stream->result->interval_results, irlisthead);
       bandwidth = (double)bytes / (double)interval_results->interval_duration;
       avg_jitter /= test->num_streams;
@@ -180,6 +181,7 @@ static void vc_reporter_callback(struct iperf_test *test)
 
       //      NSLog(@"Bandwidth on %d streams: %.2f Mbits/s (retransmits: %d, lost: %.2f%%, jitter: %.0f, interval: %.2fs)", test->num_streams, bandwidth * 8 / 1000000, retransmits, lost_percent, avg_jitter * 1000.0, interval_results->interval_duration);
       status.bandwidth = bandwidth * 8 / 1000000;
+
       if (test->timer) {
         struct timeval now = {0, 0};
         CGFloat test_duration = (CGFloat)test->timer->usecs / 1000000;
@@ -188,9 +190,16 @@ static void vc_reporter_callback(struct iperf_test *test)
         gettimeofday(&now, NULL);
         test_elapsed = test_duration - (test->timer->time.tv_sec - now.tv_sec);
         status.progress = test_elapsed / test_duration;
+
+        if (test_elapsed <= self.configuration.omitDuration) {
+          callCallback = NO;
+        }
       }
       NSAssert([[NSThread currentThread] isMainThread], @"Tests need to run on the main thread");
-      _callback(status);
+
+      if (callCallback) {
+        _callback(status);
+      }
     }
   }
 }

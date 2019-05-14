@@ -104,6 +104,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   IPFTestRunnerConfiguration *configuration = [[IPFTestRunnerConfiguration alloc] initWithHostname:self.addressTextField.text
                                                                                               port:[self.portTextField.text intValue]
                                                                                           duration:getTestDuration(self.testDurationSlider.selectedSegmentIndex)
+                                                                                      omitDuration:2.0
                                                                                            streams:[self.streamsSlider selectedSegmentIndex] + 1
                                                                                            reverse:[self.transmitModeSlider selectedSegmentIndex]];
   IPFTestRunner *testRunner = [[IPFTestRunner alloc] initWithConfiguration:configuration];
