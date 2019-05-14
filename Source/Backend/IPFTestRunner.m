@@ -117,6 +117,7 @@ static void vc_reporter_callback(struct iperf_test *test)
       blockSelf->_callback = nil;
       blockSelf->_test = NULL;
       callbackStatus.running = NO;
+      callbackStatus.progress = 1.0;
       callbackStatus.errorState = IPFTestRunnerErrorStateFromIPerfError(i_errno);
       iperf_free_test(test);
       callback(callbackStatus);
@@ -194,7 +195,10 @@ static void vc_reporter_callback(struct iperf_test *test)
         if (test_elapsed <= self.configuration.omitDuration) {
           callCallback = NO;
         }
+      } else {
+        status.progress = 1.0;
       }
+
       NSAssert([[NSThread currentThread] isMainThread], @"Tests need to run on the main thread");
 
       if (callCallback) {

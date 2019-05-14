@@ -27,8 +27,10 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 @end
 
 @implementation IPFTestRunnerViewController {
-  NSUInteger _averageBandwidthTotal;
+  CGFloat _averageBandwidthTotal;
   NSUInteger _averageBandwidthCount;
+  CGFloat _maxBandwidth;
+  CGFloat _minBandwidth;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -124,9 +126,12 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   self.bandwidthLabel.text = @"...";
   self.averageBandwidthLabel.text = @"";
   self.progressView.progress = 0.0;
+  self.progressView.hidden = YES;
   [application setNetworkActivityIndicatorVisible:YES];
   _averageBandwidthTotal = 0;
   _averageBandwidthCount = 0;
+  _maxBandwidth = CGFLOAT_MIN;
+  _minBandwidth = CGFLOAT_MAX;
 
   [testRunner startTest:^(IPFTestRunnerStatus status) {
     switch (status.errorState) {
@@ -167,16 +172,34 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       [application endBackgroundTask:backgroundTask];
 
       if (status.errorState == IPFTestRunnerErrorStateNoError || status.errorState == IPFTestRunnerErrorStateServerIsBusy) {
+        if (self->_averageBandwidthTotal) {
+          self.bandwidthLabel.text = [NSString stringWithFormat:@"%.0f Mbits/s", self->_averageBandwidthTotal / (CGFloat)self->_averageBandwidthCount];
+          self.averageBandwidthLabel.text = [NSString stringWithFormat:@"min: %.0f max: %.0f", self->_minBandwidth, self->_maxBandwidth];
+          self.progressView.hidden = NO;
+        } else {
+          self.bandwidthLabel.text = @"";
+        }
+
         // Only persist settings if the test is successful
         [self saveTestSettings];
       }
     } else {
+      CGFloat bandwidth = status.bandwidth;
+
       self->_averageBandwidthTotal += status.bandwidth;
       self->_averageBandwidthCount++;
       self.progressView.hidden = NO;
 
-      self.bandwidthLabel.text = [NSString stringWithFormat:@"%.1f Mbits/s", status.bandwidth];
-      self.averageBandwidthLabel.text = [NSString stringWithFormat:@"average: %.1f Mbits/s", (CGFloat)self->_averageBandwidthTotal / (CGFloat)self->_averageBandwidthCount];
+      if (bandwidth < self->_minBandwidth) {
+        self->_minBandwidth = bandwidth;
+      }
+
+      if (bandwidth > self->_maxBandwidth) {
+        self->_maxBandwidth = bandwidth;
+      }
+
+      self.bandwidthLabel.text = [NSString stringWithFormat:@"%.0f Mbits/s", status.bandwidth];
+      self.averageBandwidthLabel.text = [NSString stringWithFormat:@"avg: %.0f min: %.0f max: %.0f", self->_averageBandwidthTotal / (CGFloat)self->_averageBandwidthCount, self->_minBandwidth, self->_maxBandwidth];
       [self.progressView setProgress:status.progress animated:YES];
     }
   }];
