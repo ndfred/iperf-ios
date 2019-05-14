@@ -9,6 +9,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *testDurationSlider;
 @property (strong, nonatomic) IBOutlet UILabel *bandwidthLabel;
 @property (strong, nonatomic) IBOutlet UILabel *averageBandwidthLabel;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 
 - (IBAction)startStopTest;
 

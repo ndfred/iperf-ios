@@ -122,6 +122,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   self.testDurationSlider.enabled = NO;
   self.bandwidthLabel.text = @"...";
   self.averageBandwidthLabel.text = @"";
+  self.progressView.progress = 0.0;
   [application setNetworkActivityIndicatorVisible:YES];
   _averageBandwidthTotal = 0;
   _averageBandwidthCount = 0;
@@ -147,6 +148,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
         [self showAlert:[NSString stringWithFormat:NSLocalizedString(@"Unknown error %d running the test", nil), status.errorState]];
         break;
     }
+
     if (status.errorState != IPFTestRunnerErrorStateNoError) {
       [self showAlert:NSLocalizedString(@"Error running the test", @"Default test error message")];
     }
@@ -158,6 +160,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       self.transmitModeSlider.enabled = YES;
       self.streamsSlider.enabled = YES;
       self.testDurationSlider.enabled = YES;
+      self.progressView.hidden = YES;
       self.testRunner = nil;
       [application setNetworkActivityIndicatorVisible:NO];
       [application endBackgroundTask:backgroundTask];
@@ -167,10 +170,13 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
         [self saveTestSettings];
       }
     } else {
-      self.bandwidthLabel.text = [NSString stringWithFormat:@"%.1f Mbits/s", status.bandwidth];
       self->_averageBandwidthTotal += status.bandwidth;
       self->_averageBandwidthCount++;
+      self.progressView.hidden = NO;
+
+      self.bandwidthLabel.text = [NSString stringWithFormat:@"%.1f Mbits/s", status.bandwidth];
       self.averageBandwidthLabel.text = [NSString stringWithFormat:@"average: %.1f Mbits/s", (CGFloat)self->_averageBandwidthTotal / (CGFloat)self->_averageBandwidthCount];
+      [self.progressView setProgress:status.progress animated:YES];
     }
   }];
 }
@@ -183,6 +189,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   [self presentViewController:alertController animated:YES completion:NULL];
   self.bandwidthLabel.text = @"";
   self.averageBandwidthLabel.text = @"";
+  self.progressView.hidden = YES;
 }
 
 @end

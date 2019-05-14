@@ -76,6 +76,7 @@ static void vc_reporter_callback(struct iperf_test *test)
   NSAssert([[NSThread currentThread] isMainThread], @"Tests need to run on the main thread");
   status.bandwidth = 0.0;
   status.running = NO;
+  status.progress = 0.0;
   status.errorState = IPFTestRunnerErrorStateNoError;
 
   if (!test) {
@@ -179,6 +180,15 @@ static void vc_reporter_callback(struct iperf_test *test)
 
       //      NSLog(@"Bandwidth on %d streams: %.2f Mbits/s (retransmits: %d, lost: %.2f%%, jitter: %.0f, interval: %.2fs)", test->num_streams, bandwidth * 8 / 1000000, retransmits, lost_percent, avg_jitter * 1000.0, interval_results->interval_duration);
       status.bandwidth = bandwidth * 8 / 1000000;
+      if (test->timer) {
+        struct timeval now = {0, 0};
+        CGFloat test_duration = (CGFloat)test->timer->usecs / 1000000;
+        CGFloat test_elapsed = 0.0;
+
+        gettimeofday(&now, NULL);
+        test_elapsed = test_duration - (test->timer->time.tv_sec - now.tv_sec);
+        status.progress = test_elapsed / test_duration;
+      }
       NSAssert([[NSThread currentThread] isMainThread], @"Tests need to run on the main thread");
       _callback(status);
     }
