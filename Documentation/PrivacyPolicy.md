@@ -8,9 +8,9 @@ We do not collect any data through the app, the only data that is exchanged is b
 
 When running a test:
 
-* the app connects to an iPerf 3 server and sends the test's parameters
+* the app connects to an iPerf 3 server and sends [the test's parameters](https://github.com/ndfred/iperf-ios/blob/master/Source/iperf3/iperf_api.c#L1526)
 * it then sends or receives random test data to / from the server
-* finally the test results are sent to the server
+* finally the [test results](https://github.com/ndfred/iperf-ios/blob/master/Source/iperf3/iperf_api.c#L1690) are sent to the server
 
 ## Analytics
 
