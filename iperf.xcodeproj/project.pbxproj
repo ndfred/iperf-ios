@@ -278,6 +278,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B6855FE1DCF72D60009ABFD /* Build configuration list for PBXNativeTarget "iperf" */;
 			buildPhases = (
+				2B5F0AA1228CB56F007D5E7D /* ShellScript */,
 				2B6855E31DCF72D60009ABFD /* Sources */,
 				2B6855E41DCF72D60009ABFD /* Frameworks */,
 				2B6855E51DCF72D60009ABFD /* Resources */,
@@ -368,6 +369,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2B5F0AA1228CB56F007D5E7D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C \"$SRCROOT/Documentation\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B6855E31DCF72D60009ABFD /* Sources */ = {
