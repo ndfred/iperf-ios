@@ -60,6 +60,7 @@
 		2B554C4D227B9DBF009F4932 /* dscp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dscp.c; sourceTree = "<group>"; };
 		2B554C4E227B9DBF009F4932 /* iperf_auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_auth.c; sourceTree = "<group>"; };
 		2B554C4F227B9DBF009F4932 /* iperf_auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_auth.h; sourceTree = "<group>"; };
+		2B5F0AA6228CBA51007D5E7D /* iperf.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = iperf.profdata; sourceTree = "<group>"; };
 		2B6855E71DCF72D60009ABFD /* iperf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iperf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B87F62C1DCF74DD00AA24E7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,6 +147,14 @@
 			path = Documentation;
 			sourceTree = "<group>";
 		};
+		2B5F0AA5228CBA51007D5E7D /* OptimizationProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				2B5F0AA6228CBA51007D5E7D /* iperf.profdata */,
+			);
+			path = OptimizationProfiles;
+			sourceTree = "<group>";
+		};
 		2B6855DE1DCF72D60009ABFD = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +163,7 @@
 				B692F605227D907600BE7313 /* Tests */,
 				2B013308228B7FA50088D77D /* Documentation */,
 				2B6855E81DCF72D60009ABFD /* Products */,
+				2B5F0AA5228CBA51007D5E7D /* OptimizationProfiles */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -554,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LW2ABE364X;
@@ -570,6 +581,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LW2ABE364X;
