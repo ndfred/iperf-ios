@@ -2,7 +2,6 @@ IPFTestRunnerConfiguration {
   NSString *hostname
   NSUInteger port
   NSUInteger duration
-  NSUInteger omitDuration
   NSUInteger streams
   BOOL reverse
 }
