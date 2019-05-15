@@ -1,4 +1,4 @@
-OBJECTS = Help.html
+OBJECTS = Help.html PrivacyPolicy.html
 
 .PHONY: all clean distclean
 
