@@ -8,6 +8,17 @@
 
 @implementation IPFHelpViewController
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+
+  if (self != nil) {
+    self.title = NSLocalizedString(@"Help", @"Help screen title");
+  }
+
+  return self;
+}
+
 - (void)loadView
 {
   WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectZero];
