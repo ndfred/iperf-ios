@@ -119,7 +119,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
                                                                                               port:[self.portTextField.text intValue]
                                                                                           duration:getTestDuration(self.testDurationSlider.selectedSegmentIndex)
                                                                                            streams:[self.streamsSlider selectedSegmentIndex] + 1
-                                                                                           reverse:[self.transmitModeSlider selectedSegmentIndex]];
+                                                                                              type:[self.transmitModeSlider selectedSegmentIndex]];
   IPFTestRunner *testRunner = [[IPFTestRunner alloc] initWithConfiguration:configuration];
   UIApplication *application = [UIApplication sharedApplication];
   __block UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{

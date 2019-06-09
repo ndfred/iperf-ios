@@ -23,6 +23,7 @@
 		2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64B1DCF76B900AA24E7 /* tcp_info.c */; };
 		2B87F6631DCF76B900AA24E7 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64E1DCF76B900AA24E7 /* timer.c */; };
 		2B87F6641DCF76B900AA24E7 /* units.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6501DCF76B900AA24E7 /* units.c */; };
+		2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F63D1DCF76B900AA24E7 /* iperf_server_api.c */; };
 		2BC2497722AD82F900698FCD /* dscp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4D227B9DBF009F4932 /* dscp.c */; };
 		2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */; };
 		2BF42EFE22AD76D800960DF7 /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = 2BF42EFC22AD76D800960DF7 /* PrivacyPolicy.html */; };
@@ -92,6 +93,7 @@
 		2B87F6501DCF76B900AA24E7 /* units.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = units.c; sourceTree = "<group>"; };
 		2B87F6511DCF76B900AA24E7 /* units.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = units.h; sourceTree = "<group>"; };
 		2B87F6521DCF76B900AA24E7 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		2BA8E15F22AD93FC001466C2 /* IPFTestRunnerConfigurationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunnerConfigurationType.h; sourceTree = "<group>"; };
 		2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BF42EFB22AD76D800960DF7 /* PrivacyPolicy.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
 		2BF42EFC22AD76D800960DF7 /* PrivacyPolicy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = PrivacyPolicy.html; sourceTree = "<group>"; };
@@ -103,7 +105,7 @@
 		B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunner.m; sourceTree = "<group>"; };
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
 		B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerTest.m; sourceTree = "<group>"; };
-		B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */ = {isa = PBXFileReference; lastKnownFileType = text; path = IPFTestRunnerConfiguration.value; sourceTree = "<group>"; };
+		B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = IPFTestRunnerConfiguration.value; sourceTree = "<group>"; };
 		B692F5FF227D900A00BE7313 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 		B692F604227D907600BE7313 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692F608227D907600BE7313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */,
 				B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */,
+				2BA8E15F22AD93FC001466C2 /* IPFTestRunnerConfigurationType.h */,
 				B6A90E35227D6D3400E3981C /* IPFTestRunnerConfiguration.h */,
 				B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */,
 				B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */,
@@ -415,6 +418,7 @@
 				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
+				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
 				2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */,
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,

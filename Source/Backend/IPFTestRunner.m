@@ -89,12 +89,21 @@ static void vc_reporter_callback(struct iperf_test *test)
     return;
   }
 
-  iperf_set_test_role(test, 'c');
+  if (configuration.type == IPFTestRunnerConfigurationTypeServer) {
+    iperf_set_test_role(test, 's');
+  } else {
+    iperf_set_test_role(test, 'c');
+    iperf_set_test_num_streams(test, (int)configuration.streams);
+
+    if (configuration.type == IPFTestRunnerConfigurationTypeDownload) {
+      iperf_set_test_reverse(test, 1);
+    }
+  }
+
   iperf_set_test_server_hostname(test, (char *)[configuration.hostname cStringUsingEncoding:NSASCIIStringEncoding]);
   iperf_set_test_server_port(test, (int)configuration.port);
   iperf_set_test_duration(test, (int)configuration.duration);
-  iperf_set_test_num_streams(test, (int)configuration.streams);
-  iperf_set_test_reverse(test, configuration.reverse);
+
   iperf_set_test_template(test, (char *)[streamFilePathTemplate cStringUsingEncoding:NSUTF8StringEncoding]);
   test->settings->connect_timeout = 3000;
   i_errno = IENONE;
@@ -107,7 +116,11 @@ static void vc_reporter_callback(struct iperf_test *test)
   _callback = callback;
 
   dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
-    iperf_run_client(test);
+    if (configuration.type == IPFTestRunnerConfigurationTypeServer) {
+      iperf_run_server(test);
+    } else {
+      iperf_run_client(test);
+    }
 
     dispatch_async(dispatch_get_main_queue(), ^{
       IPFTestRunnerStatus callbackStatus = status;

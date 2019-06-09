@@ -1,7 +1,9 @@
+%type name=IPFTestRunnerConfigurationType file=IPFTestRunnerConfigurationType canForwardDeclare=false
+
 IPFTestRunnerConfiguration {
   NSString *hostname
   NSUInteger port
   NSUInteger duration
   NSUInteger streams
-  BOOL reverse
+  IPFTestRunnerConfigurationType(NSUInteger) type
 }
