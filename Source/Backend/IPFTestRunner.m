@@ -33,7 +33,7 @@ static IPFTestRunnerErrorState IPFTestRunnerErrorStateFromIPerfError(int error)
       return IPFTestRunnerErrorStateServerIsBusy;
 
     default:
-      return IPFTestRunnerErrorStateUnknown;
+      return IPFTestRunnerErrorStateUnknown + error;
   }
 }
 
