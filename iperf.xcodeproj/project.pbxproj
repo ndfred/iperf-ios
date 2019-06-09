@@ -10,22 +10,17 @@
 		2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B013305228B7B830088D77D /* IPFHelpViewController.m */; };
 		2B013311228B7FBE0088D77D /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 2B013309228B7FA50088D77D /* Help.html */; };
 		2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B20E45D1DCFA82900EEACF9 /* ViewController.xib */; };
-		2B554C50227B9DBF009F4932 /* dscp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4D227B9DBF009F4932 /* dscp.c */; };
-		2B554C51227B9DBF009F4932 /* iperf_auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4E227B9DBF009F4932 /* iperf_auth.c */; };
 		2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */; };
 		2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6301DCF76B900AA24E7 /* cjson.c */; };
 		2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6341DCF76B900AA24E7 /* iperf_api.c */; };
 		2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6361DCF76B900AA24E7 /* iperf_client_api.c */; };
 		2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6381DCF76B900AA24E7 /* iperf_error.c */; };
 		2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6391DCF76B900AA24E7 /* iperf_locale.c */; };
-		2B87F6581DCF76B900AA24E7 /* iperf_sctp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F63B1DCF76B900AA24E7 /* iperf_sctp.c */; };
-		2B87F6591DCF76B900AA24E7 /* iperf_server_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F63D1DCF76B900AA24E7 /* iperf_server_api.c */; };
 		2B87F65A1DCF76B900AA24E7 /* iperf_tcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F63E1DCF76B900AA24E7 /* iperf_tcp.c */; };
 		2B87F65B1DCF76B900AA24E7 /* iperf_udp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6401DCF76B900AA24E7 /* iperf_udp.c */; };
 		2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6421DCF76B900AA24E7 /* iperf_util.c */; };
 		2B87F65D1DCF76B900AA24E7 /* net.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6441DCF76B900AA24E7 /* net.c */; };
 		2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64B1DCF76B900AA24E7 /* tcp_info.c */; };
-		2B87F6621DCF76B900AA24E7 /* tcp_window_size.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64C1DCF76B900AA24E7 /* tcp_window_size.c */; };
 		2B87F6631DCF76B900AA24E7 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F64E1DCF76B900AA24E7 /* timer.c */; };
 		2B87F6641DCF76B900AA24E7 /* units.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6501DCF76B900AA24E7 /* units.c */; };
 		2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */; };
@@ -35,7 +30,6 @@
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
 		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
 		B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */; };
-		B6C3CE68228A03FC000629B6 /* IPFIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CE67228A03FC000629B6 /* IPFIcon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,36 +192,36 @@
 				2B87F6311DCF76B900AA24E7 /* cjson.h */,
 				2B554C4D227B9DBF009F4932 /* dscp.c */,
 				2B87F6321DCF76B900AA24E7 /* flowlabel.h */,
-				2B87F6341DCF76B900AA24E7 /* iperf_api.c */,
 				2B87F6351DCF76B900AA24E7 /* iperf_api.h */,
-				2B554C4E227B9DBF009F4932 /* iperf_auth.c */,
+				2B87F6341DCF76B900AA24E7 /* iperf_api.c */,
 				2B554C4F227B9DBF009F4932 /* iperf_auth.h */,
+				2B554C4E227B9DBF009F4932 /* iperf_auth.c */,
 				2B87F6361DCF76B900AA24E7 /* iperf_client_api.c */,
 				2B87F6371DCF76B900AA24E7 /* iperf_config.h */,
 				2B87F6381DCF76B900AA24E7 /* iperf_error.c */,
 				2B87F6391DCF76B900AA24E7 /* iperf_locale.c */,
 				2B87F63A1DCF76B900AA24E7 /* iperf_locale.h */,
-				2B87F63B1DCF76B900AA24E7 /* iperf_sctp.c */,
 				2B87F63C1DCF76B900AA24E7 /* iperf_sctp.h */,
+				2B87F63B1DCF76B900AA24E7 /* iperf_sctp.c */,
 				2B87F63D1DCF76B900AA24E7 /* iperf_server_api.c */,
-				2B87F63E1DCF76B900AA24E7 /* iperf_tcp.c */,
 				2B87F63F1DCF76B900AA24E7 /* iperf_tcp.h */,
-				2B87F6401DCF76B900AA24E7 /* iperf_udp.c */,
+				2B87F63E1DCF76B900AA24E7 /* iperf_tcp.c */,
 				2B87F6411DCF76B900AA24E7 /* iperf_udp.h */,
-				2B87F6421DCF76B900AA24E7 /* iperf_util.c */,
+				2B87F6401DCF76B900AA24E7 /* iperf_udp.c */,
 				2B87F6431DCF76B900AA24E7 /* iperf_util.h */,
+				2B87F6421DCF76B900AA24E7 /* iperf_util.c */,
 				2B87F6331DCF76B900AA24E7 /* iperf.h */,
 				2B87F6441DCF76B900AA24E7 /* net.c */,
 				2B87F6451DCF76B900AA24E7 /* net.h */,
 				2B87F6461DCF76B900AA24E7 /* portable_endian.h */,
 				2B87F6471DCF76B900AA24E7 /* queue.h */,
 				2B87F64B1DCF76B900AA24E7 /* tcp_info.c */,
-				2B87F64C1DCF76B900AA24E7 /* tcp_window_size.c */,
 				2B87F64D1DCF76B900AA24E7 /* tcp_window_size.h */,
-				2B87F64E1DCF76B900AA24E7 /* timer.c */,
+				2B87F64C1DCF76B900AA24E7 /* tcp_window_size.c */,
 				2B87F64F1DCF76B900AA24E7 /* timer.h */,
-				2B87F6501DCF76B900AA24E7 /* units.c */,
+				2B87F64E1DCF76B900AA24E7 /* timer.c */,
 				2B87F6511DCF76B900AA24E7 /* units.h */,
+				2B87F6501DCF76B900AA24E7 /* units.c */,
 				2B87F6521DCF76B900AA24E7 /* version.h */,
 			);
 			path = iperf3;
@@ -411,7 +405,6 @@
 				2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */,
 				B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */,
 				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
-				2B554C50227B9DBF009F4932 /* dscp.c in Sources */,
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
@@ -419,16 +412,11 @@
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,
 				2B87F65B1DCF76B900AA24E7 /* iperf_udp.c in Sources */,
 				2B87F65A1DCF76B900AA24E7 /* iperf_tcp.c in Sources */,
-				2B87F6581DCF76B900AA24E7 /* iperf_sctp.c in Sources */,
-				2B87F6621DCF76B900AA24E7 /* tcp_window_size.c in Sources */,
 				2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */,
 				B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */,
 				2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */,
-				B6C3CE68228A03FC000629B6 /* IPFIcon.m in Sources */,
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
-				2B554C51227B9DBF009F4932 /* iperf_auth.c in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
-				2B87F6591DCF76B900AA24E7 /* iperf_server_api.c in Sources */,
 				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
