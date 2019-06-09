@@ -63,7 +63,7 @@ If the app is not working as intended, please [create an issue on github](https:
 
 ## Privacy policy
 
-See our [privacy policy page](https://github.com/ndfred/iperf-ios/blob/master/Documentation/PrivacyPolicy.md).
+See our [privacy policy page](PrivacyPolicy.html).
 
 ## License
 

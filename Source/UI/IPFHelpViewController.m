@@ -32,14 +32,16 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-  if (navigationAction.navigationType == WKNavigationTypeOther) {
-    // Initial load
+  NSURL *URL = navigationAction.request.URL;
+
+  if ([URL isFileURL]) {
+    // Local file load
     decisionHandler(WKNavigationActionPolicyAllow);
   } else {
     // Tap on a link, open Safari
     decisionHandler(WKNavigationActionPolicyCancel);
     dispatch_async(dispatch_get_main_queue(), ^{
-      [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+      [[UIApplication sharedApplication] openURL:URL];
     });
   }
 }
