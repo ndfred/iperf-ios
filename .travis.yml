@@ -1,6 +1,6 @@
 language: objective-c
-osx_image: xcode11
+osx_image: xcode11.1
 xcode_project: iperf.xcodeproj
 xcode_scheme: iperf
-xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro
-xcode_sdk: iphonesimulator13.0
+xcode_destination: platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro
+xcode_sdk: iphonesimulator13.1
