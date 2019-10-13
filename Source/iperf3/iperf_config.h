@@ -1,6 +1,9 @@
 /* src/iperf_config.h.  Generated from iperf_config.h.in by configure.  */
 /* src/iperf_config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define to 1 if you have the `clock_gettime' function. */
+#define HAVE_CLOCK_GETTIME 1
+
 /* Define to 1 if you have the `cpuset_setaffinity' function. */
 /* #undef HAVE_CPUSET_SETAFFINITY */
 
@@ -98,7 +101,7 @@
 #define PACKAGE_NAME "iperf"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "iperf 3.6"
+#define PACKAGE_STRING "iperf 3.7"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "iperf"
@@ -107,13 +110,13 @@
 #define PACKAGE_URL "https://software.es.net/iperf/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.6"
+#define PACKAGE_VERSION "3.7"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "3.6"
+#define VERSION "3.7"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

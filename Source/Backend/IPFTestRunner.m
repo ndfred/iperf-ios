@@ -169,7 +169,7 @@ static void vc_reporter_callback(struct iperf_test *test)
       bytes += interval_results->bytes_transferred;
 
       if (test->protocol->id == Ptcp) {
-        if (test->sender && test->sender_has_retransmits) {
+        if (test->mode == SENDER && test->sender_has_retransmits) {
           retransmits += interval_results->interval_retrans;
         }
       } else {
@@ -201,7 +201,7 @@ static void vc_reporter_callback(struct iperf_test *test)
         CGFloat test_elapsed = 0.0;
 
         gettimeofday(&now, NULL);
-        test_elapsed = test_duration - (test->timer->time.tv_sec - now.tv_sec);
+        test_elapsed = test_duration - (test->timer->time.secs - now.tv_sec);
         status.progress = test_elapsed / test_duration;
       } else {
         status.progress = 1.0;

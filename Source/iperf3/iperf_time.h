@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014, The Regents of the University of
+ * iperf, Copyright (c) 2014-2018, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -24,4 +24,26 @@
  * This code is distributed under a BSD style license, see the LICENSE
  * file for complete information.
  */
-#define IPERF_VERSION "3.7"
+#ifndef __IPERF_TIME_H
+#define __IPERF_TIME_H
+
+#include <stdint.h>
+
+struct iperf_time {
+    uint32_t secs;
+    uint32_t usecs;
+};
+
+int iperf_time_now(struct iperf_time *time1);
+
+void iperf_time_add_usecs(struct iperf_time *time1, uint64_t usecs);
+
+int iperf_time_compare(struct iperf_time *time1, struct iperf_time *time2);
+
+int iperf_time_diff(struct iperf_time *time1, struct iperf_time *time2, struct iperf_time *diff);
+
+uint64_t iperf_time_in_usecs(struct iperf_time *time);
+
+double iperf_time_in_secs(struct iperf_time *time);
+
+#endif
