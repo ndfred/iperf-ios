@@ -196,12 +196,10 @@ static void vc_reporter_callback(struct iperf_test *test)
       status.bandwidth = bandwidth * 8 / 1000000;
 
       if (test->timer) {
-        struct timeval now = {0, 0};
         CGFloat test_duration = (CGFloat)test->timer->usecs / 1000000;
         CGFloat test_elapsed = 0.0;
 
-        gettimeofday(&now, NULL);
-        test_elapsed = test_duration - (test->timer->time.secs - now.tv_sec);
+        test_elapsed = test_duration - (test->timer->time.secs - test->stats_timer->time.secs);
         status.progress = test_elapsed / test_duration;
       } else {
         status.progress = 1.0;
