@@ -4,6 +4,9 @@ Run an [iPerf3](https://iperf.fr/) client on your iPhone or iPad, including reve
 
 <img src="Screenshot.png" alt="Screenshot" width="375">
 
+## Download
+Download on the [App Store](https://apps.apple.com/us/app/iperf-3-wifi-speed-test/id1462260546).
+
 ## Why?
 
 See the [Unifi forum thread](https://community.ubnt.com/t5/UniFi-Wireless/Help-test-a-new-open-source-iPerf-3-iOS-app/td-p/2774321) for a bit of back story, basically there are quite a few iPerf 3 apps (like [iPerf](https://itunes.apple.com/us/app/iperf-speed-test-tool/id951598770), [HE.NET](https://itunes.apple.com/us/app/he-net-network-tools/id858241710), [Fleet](https://itunes.apple.com/us/app/fleet-remote/id1218309561) and [WifiPerfEndPoint](https://itunes.apple.com/us/app/wifiperf-endpoint/id909661121)) out there but:
