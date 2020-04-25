@@ -114,8 +114,6 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
     testResult.location = self.locationTextField.text;
 
     [[IPFTestResultsManager shared] add:testResult];
-
-    self.locationTextField.text = @"";
 }
 
 - (void)startStopTest
