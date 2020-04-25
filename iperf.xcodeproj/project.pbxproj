@@ -35,6 +35,12 @@
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
 		B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */; };
+		EF550E242453D8A200DF9A55 /* IPFTestResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */; };
+		EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */; };
+		EF550E2A2454A78400DF9A55 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E292454A78400DF9A55 /* UIViewExtension.swift */; };
+		EF550E2C2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */; };
+		EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */; };
+		EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +125,13 @@
 		B6C3CE67228A03FC000629B6 /* IPFIcon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFIcon.m; sourceTree = "<group>"; };
 		B6C3CE69228A250E000629B6 /* IPFIconGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFIconGenerator.m; sourceTree = "<group>"; };
 		B6C3CE6A228A26D4000629B6 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
+		EF550E202453D85200DF9A55 /* iperf-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iperf-Bridging-Header.h"; sourceTree = "<group>"; };
+		EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = IPFTestResultsViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
+		EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultCell.swift; sourceTree = "<group>"; };
+		EF550E292454A78400DF9A55 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsHeaderView.swift; sourceTree = "<group>"; };
+		EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsManager.swift; sourceTree = "<group>"; };
+		EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,9 +184,9 @@
 				2B6855E81DCF72D60009ABFD /* Products */,
 				2B5F0AA5228CBA51007D5E7D /* OptimizationProfiles */,
 			);
-			indentWidth = 2;
+			indentWidth = 4;
 			sourceTree = "<group>";
-			tabWidth = 2;
+			tabWidth = 4;
 		};
 		2B6855E81DCF72D60009ABFD /* Products */ = {
 			isa = PBXGroup;
@@ -193,6 +206,7 @@
 				2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */,
 				B6C3CE6A228A26D4000629B6 /* Makefile */,
 				2B20E45D1DCFA82900EEACF9 /* ViewController.xib */,
+				EF550E202453D85200DF9A55 /* iperf-Bridging-Header.h */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -259,10 +273,11 @@
 			children = (
 				B6C3CE66228A03FC000629B6 /* IPFIcon.h */,
 				B6C3CE67228A03FC000629B6 /* IPFIcon.m */,
-				2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */,
-				2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */,
 				2B013304228B7B830088D77D /* IPFHelpViewController.h */,
 				2B013305228B7B830088D77D /* IPFHelpViewController.m */,
+				2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */,
+				2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */,
+				EF550E312454A7F400DF9A55 /* Test Results */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -288,6 +303,19 @@
 				B692F608227D907600BE7313 /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		EF550E312454A7F400DF9A55 /* Test Results */ = {
+			isa = PBXGroup;
+			children = (
+				EF550E292454A78400DF9A55 /* UIViewExtension.swift */,
+				EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */,
+				EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */,
+				EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */,
+				EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */,
+				EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */,
+			);
+			path = "Test Results";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,11 +363,12 @@
 		2B6855DF1DCF72D60009ABFD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1140;
 				TargetAttributes = {
 					2B6855E61DCF72D60009ABFD = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = LW2ABE364X;
+						DevelopmentTeam = TDG4P3SFHV;
+						LastSwiftMigration = 1140;
 						ProvisioningStyle = Automatic;
 					};
 					B692F603227D907600BE7313 = {
@@ -416,10 +445,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */,
+				EF550E2C2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift in Sources */,
 				2B87F6641DCF76B900AA24E7 /* units.c in Sources */,
+				EF550E242453D8A200DF9A55 /* IPFTestResultsViewController.swift in Sources */,
 				2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */,
 				2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */,
 				B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */,
+				EF550E2A2454A78400DF9A55 /* UIViewExtension.swift in Sources */,
 				B6570E212353D5F800A8F791 /* iperf_time.c in Sources */,
 				2BC2497722AD82F900698FCD /* dscp.c in Sources */,
 				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
@@ -427,6 +460,7 @@
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
 				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
+				EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */,
 				2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */,
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,
 				2B87F65B1DCF76B900AA24E7 /* iperf_udp.c in Sources */,
@@ -436,6 +470,7 @@
 				2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */,
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
+				EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */,
 				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -563,6 +598,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -571,48 +607,48 @@
 		2B6855FF1DCF72D60009ABFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LW2ABE364X;
+				DEVELOPMENT_TEAM = TDG4P3SFHV;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepumukundan.iperf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Resources/iperf-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		2B6856001DCF72D60009ABFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LW2ABE364X;
+				DEVELOPMENT_TEAM = TDG4P3SFHV;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepumukundan.iperf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Resources/iperf-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		B692F60C227D907600BE7313 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -636,6 +672,7 @@
 		B692F60D227D907600BE7313 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
