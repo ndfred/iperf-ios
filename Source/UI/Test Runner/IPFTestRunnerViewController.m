@@ -40,8 +40,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self != nil) {
-        self.title = NSLocalizedString(@"iPerf", @"Main screen title");
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Help", @"Help start button name")
+        self.title = NSLocalizedString(@"TestRunner.title", @"Main screen title");
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"TestRunner.Help", @"Help start button name")
                                                                                  style:UIBarButtonItemStylePlain
                                                                                 target:self
                                                                                 action:@selector(showHelp)];
@@ -60,7 +60,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 
 - (void)showStartButton:(BOOL)showStartButton
 {
-    NSString *title = showStartButton ? NSLocalizedString(@"Start", @"Test start button name") : NSLocalizedString(@"Stop", @"Test stop button name");
+    NSString *title = showStartButton ? NSLocalizedString(@"TestRunner.start", @"Test start button name") : NSLocalizedString(@"TestRunner.stop", @"Test stop button name");
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:title
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
@@ -165,24 +165,24 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
                 break;
 
             case IPFTestRunnerErrorStateCouldntInitializeTest:
-                [self showAlert:NSLocalizedString(@"Error initializing the test", nil)];
+                [self showAlert:NSLocalizedString(@"TestRunner.errorInitializing", "Error initializing the test")];
                 break;
 
             case IPFTestRunnerErrorStateCannotConnectToTheServer:
-                [self showAlert:NSLocalizedString(@"Cannot connect to the server, please check that the server is running", nil)];
+                [self showAlert:NSLocalizedString(@"TestRunner.connectionError", @"Cannot connect to the server, please check that the server is running")];
                 break;
 
             case IPFTestRunnerErrorStateServerIsBusy:
-                [self showAlert:NSLocalizedString(@"Server is busy, please retry later", nil)];
+                [self showAlert:NSLocalizedString(@"TestRunner.serverBusy", @"Server is busy, please retry later")];
                 break;
 
             default:
-                [self showAlert:[NSString stringWithFormat:NSLocalizedString(@"Unknown error %d running the test", nil), status.errorState]];
+                [self showAlert:[NSString stringWithFormat:NSLocalizedString(@"TestRunner.errorUnknown", @"Unknown error %d running the test"), status.errorState]];
                 break;
         }
 
         if (status.errorState != IPFTestRunnerErrorStateNoError) {
-            [self showAlert:NSLocalizedString(@"Error running the test", @"Default test error message")];
+            [self showAlert:NSLocalizedString(@"TestRunner.errorDefault", @"Error running the test")];
         }
 
         if (status.running == NO) {
@@ -237,7 +237,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertText message:nil preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:NULL]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK Action") style:UIAlertActionStyleDefault handler:NULL]];
     [self presentViewController:alertController animated:YES completion:NULL];
     self.bandwidthLabel.text = @"";
     self.averageBandwidthLabel.text = @"";

@@ -42,7 +42,7 @@
 		EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */; };
 		EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */; };
 		EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CE67228A03FC000629B6 /* IPFIcon.m */; };
-		EFA76922245D3BF90017A114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA76924245D3BF90017A114 /* Localizable.strings */; };
+		EFA76927245D3F730017A114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA76925245D3F730017A114 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,7 +134,7 @@
 		EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsHeaderView.swift; sourceTree = "<group>"; };
 		EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsManager.swift; sourceTree = "<group>"; };
 		EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResult.swift; sourceTree = "<group>"; };
-		EFA76923245D3BF90017A114 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EFA76926245D3F730017A114 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Source/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +212,7 @@
 				2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */,
 				B6C3CE6A228A26D4000629B6 /* Makefile */,
 				2B20E45D1DCFA82900EEACF9 /* ViewController.xib */,
-				EFA76924245D3BF90017A114 /* Localizable.strings */,
+				EFA76925245D3F730017A114 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -431,7 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */,
-				EFA76922245D3BF90017A114 /* Localizable.strings in Resources */,
+				EFA76927245D3F730017A114 /* Localizable.strings in Resources */,
 				2BF42EFE22AD76D800960DF7 /* PrivacyPolicy.html in Resources */,
 				2B013311228B7FBE0088D77D /* Help.html in Resources */,
 				2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */,
@@ -525,10 +525,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EFA76924245D3BF90017A114 /* Localizable.strings */ = {
+		EFA76925245D3F730017A114 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EFA76923245D3BF90017A114 /* en */,
+				EFA76926245D3F730017A114 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

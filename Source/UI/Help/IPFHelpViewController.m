@@ -1,5 +1,4 @@
 #import "IPFHelpViewController.h"
-
 #import <WebKit/WebKit.h>
 
 @interface IPFHelpViewController () <WKNavigationDelegate>
@@ -13,7 +12,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
   if (self != nil) {
-    self.title = NSLocalizedString(@"Help", @"Help screen title");
+    self.title = NSLocalizedString(@"TestHelper.title", @"Help screen title");
   }
 
   return self;
