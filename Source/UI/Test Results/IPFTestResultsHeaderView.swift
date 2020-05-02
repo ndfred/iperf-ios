@@ -9,7 +9,7 @@ import UIKit
 
 final class IPFTestResultsHeaderView: UIView {
     private lazy var modeLabel: UILabel = {
-        $0.text = "Mode"
+        $0.text = NSLocalizedString("Mode", comment: "Speed Test Mode (Upload/Download)")
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textAlignment = .left
         $0.numberOfLines = 0

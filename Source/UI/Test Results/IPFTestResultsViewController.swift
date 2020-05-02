@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objcMembers
+@objc
 final class IPFTestResultsViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ final class IPFTestResultsViewController: UIViewController {
     }
 
     private func setupUI() {
-        title = "Results"
+        title = NSLocalizedString("Results", comment: "Test results title")
         tableView.register(IPFTestResultsCell.self, forCellReuseIdentifier: IPFTestResultsCell.reuseIdentifier)
         tableView.embed(in: view)
         tableView.estimatedRowHeight = 50
@@ -40,8 +40,7 @@ extension IPFTestResultsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: IPFTestResultsCell.reuseIdentifier,
-                                                       for: indexPath) as? IPFTestResultsCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: IPFTestResultsCell.reuseIdentifier, for: indexPath) as? IPFTestResultsCell else {
             return UITableViewCell()
         }
 

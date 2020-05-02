@@ -1,5 +1,5 @@
 //
-//  UIViewExtension.swift
+//  UIKitExtensions.swift
 //  iperf
 //
 //  Created by Deepu Mukundan on 4/25/20.
@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
 
-    func embed(in view: UIView, insets: UIEdgeInsets = .zero) {
+    public func embed(in view: UIView, insets: UIEdgeInsets = .zero) {
         self.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self)
         NSLayoutConstraint.activate([
@@ -24,7 +24,7 @@ extension UIView {
 
 extension UIEdgeInsets {
 
-    static var `default`: UIEdgeInsets {
+    public static var `default`: UIEdgeInsets {
         UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
 

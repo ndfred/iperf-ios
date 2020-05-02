@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 final class IPFTestResultsCell: UITableViewCell {
-    static let reuseIdentifier = "resultCell"
+    static let reuseIdentifier = String(describing: self)
 
     private lazy var modeLabel: UILabel = {
         $0.font = .systemFont(ofSize: 24)
