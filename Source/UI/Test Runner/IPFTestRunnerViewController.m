@@ -4,6 +4,7 @@
 #import "IPFIcon.h"
 #import "IPFHelpViewController.h"
 #import "iperf-Swift.h"
+@import AudioToolbox;
 
 static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
@@ -114,6 +115,9 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
     testResult.location = self.locationTextField.text;
 
     [[IPFTestResultsManager shared] add:testResult];
+    AudioServicesPlaySystemSound(1109);
+    UINotificationFeedbackGenerator *gen = [UINotificationFeedbackGenerator new];
+    [gen notificationOccurred:UINotificationFeedbackTypeSuccess];
 }
 
 - (void)startStopTest

@@ -10,7 +10,7 @@ import UIKit
 extension UIView {
 
     public func embed(in view: UIView, insets: UIEdgeInsets = .zero) {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(self)
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: insets.left),
