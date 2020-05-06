@@ -5,8 +5,8 @@
 //  Created by Deepu Mukundan on 4/25/20.
 //
 
-import UIKit
 import Foundation
+import UIKit
 
 final class IPFTestResultsCell: UITableViewCell {
     static let reuseIdentifier = String(describing: self)

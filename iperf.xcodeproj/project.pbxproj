@@ -41,6 +41,17 @@
 		EF550E2C2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */; };
 		EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */; };
 		EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */; };
+		EF69DDCA2462286500431A40 /* IPFTestRunnerViewControllerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDC92462286500431A40 /* IPFTestRunnerViewControllerV2.swift */; };
+		EF69DDCD24622B1D00431A40 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCB24622B1C00431A40 /* Form.swift */; };
+		EF69DDCE24622B1D00431A40 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCC24622B1D00431A40 /* FormViewController.swift */; };
+		EF69DDD624622B2600431A40 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCF24622B2600431A40 /* Section.swift */; };
+		EF69DDD724622B2600431A40 /* RowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD024622B2600431A40 /* RowType.swift */; };
+		EF69DDD824622B2600431A40 /* TextFieldRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD124622B2600431A40 /* TextFieldRow.swift */; };
+		EF69DDD924622B2600431A40 /* TextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD224622B2600431A40 /* TextRow.swift */; };
+		EF69DDDA24622B2600431A40 /* ButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD324622B2600431A40 /* ButtonRow.swift */; };
+		EF69DDDB24622B2600431A40 /* SwitchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD424622B2600431A40 /* SwitchRow.swift */; };
+		EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD524622B2600431A40 /* SegmentedRow.swift */; };
+		EF69DDE0246244D100431A40 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */; };
 		EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CE67228A03FC000629B6 /* IPFIcon.m */; };
 		EFA76927245D3F730017A114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA76925245D3F730017A114 /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -134,6 +145,17 @@
 		EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsHeaderView.swift; sourceTree = "<group>"; };
 		EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsManager.swift; sourceTree = "<group>"; };
 		EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResult.swift; sourceTree = "<group>"; };
+		EF69DDC92462286500431A40 /* IPFTestRunnerViewControllerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestRunnerViewControllerV2.swift; sourceTree = "<group>"; };
+		EF69DDCB24622B1C00431A40 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		EF69DDCC24622B1D00431A40 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		EF69DDCF24622B2600431A40 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		EF69DDD024622B2600431A40 /* RowType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowType.swift; sourceTree = "<group>"; };
+		EF69DDD124622B2600431A40 /* TextFieldRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldRow.swift; sourceTree = "<group>"; };
+		EF69DDD224622B2600431A40 /* TextRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRow.swift; sourceTree = "<group>"; };
+		EF69DDD324622B2600431A40 /* ButtonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonRow.swift; sourceTree = "<group>"; };
+		EF69DDD424622B2600431A40 /* SwitchRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchRow.swift; sourceTree = "<group>"; };
+		EF69DDD524622B2600431A40 /* SegmentedRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedRow.swift; sourceTree = "<group>"; };
+		EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EFA76926245D3F730017A114 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Source/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -320,11 +342,37 @@
 			path = "Test Results";
 			sourceTree = "<group>";
 		};
+		EF69DDDD24622B3400431A40 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				EF69DDD324622B2600431A40 /* ButtonRow.swift */,
+				EF69DDD024622B2600431A40 /* RowType.swift */,
+				EF69DDCF24622B2600431A40 /* Section.swift */,
+				EF69DDD524622B2600431A40 /* SegmentedRow.swift */,
+				EF69DDD424622B2600431A40 /* SwitchRow.swift */,
+				EF69DDD124622B2600431A40 /* TextFieldRow.swift */,
+				EF69DDD224622B2600431A40 /* TextRow.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
+		EF69DDDE24622B4200431A40 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				EF69DDDD24622B3400431A40 /* Rows */,
+				EF69DDCB24622B1C00431A40 /* Form.swift */,
+				EF69DDCC24622B1D00431A40 /* FormViewController.swift */,
+				EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
 		EFA7691C245D3A990017A114 /* Test Runner */ = {
 			isa = PBXGroup;
 			children = (
 				2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */,
 				2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */,
+				EF69DDC92462286500431A40 /* IPFTestRunnerViewControllerV2.swift */,
 			);
 			path = "Test Runner";
 			sourceTree = "<group>";
@@ -341,6 +389,7 @@
 		EFA7691E245D3B1D0017A114 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				EF69DDDE24622B4200431A40 /* Form */,
 				EF550E292454A78400DF9A55 /* UIKitExtensions.swift */,
 			);
 			path = Support;
@@ -479,19 +528,27 @@
 				2B87F6641DCF76B900AA24E7 /* units.c in Sources */,
 				EF550E242453D8A200DF9A55 /* IPFTestResultsViewController.swift in Sources */,
 				2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */,
+				EF69DDDB24622B2600431A40 /* SwitchRow.swift in Sources */,
+				EF69DDD924622B2600431A40 /* TextRow.swift in Sources */,
 				2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */,
 				B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */,
 				EF550E2A2454A78400DF9A55 /* UIKitExtensions.swift in Sources */,
+				EF69DDD824622B2600431A40 /* TextFieldRow.swift in Sources */,
+				EF69DDCA2462286500431A40 /* IPFTestRunnerViewControllerV2.swift in Sources */,
 				B6570E212353D5F800A8F791 /* iperf_time.c in Sources */,
 				2BC2497722AD82F900698FCD /* dscp.c in Sources */,
 				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
+				EF69DDCE24622B1D00431A40 /* FormViewController.swift in Sources */,
 				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
 				EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */,
+				EF69DDCD24622B1D00431A40 /* Form.swift in Sources */,
 				2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */,
+				EF69DDDA24622B2600431A40 /* ButtonRow.swift in Sources */,
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,
+				EF69DDE0246244D100431A40 /* UserDefaultsExtension.swift in Sources */,
 				2B87F65B1DCF76B900AA24E7 /* iperf_udp.c in Sources */,
 				2B87F65A1DCF76B900AA24E7 /* iperf_tcp.c in Sources */,
 				2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */,
@@ -500,6 +557,9 @@
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
 				EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
+				EF69DDD724622B2600431A40 /* RowType.swift in Sources */,
+				EF69DDD624622B2600431A40 /* Section.swift in Sources */,
+				EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */,
 				EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */,
 				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
 			);

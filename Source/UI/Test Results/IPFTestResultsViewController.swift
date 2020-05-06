@@ -9,7 +9,6 @@ import UIKit
 
 @objc
 final class IPFTestResultsViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -35,8 +34,8 @@ final class IPFTestResultsViewController: UIViewController {
 }
 
 extension IPFTestResultsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return IPFTestResultsManager.shared.results.count
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        IPFTestResultsManager.shared.results.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,17 +47,16 @@ extension IPFTestResultsViewController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return IPFTestResultsHeaderView()
+    func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
+        IPFTestResultsHeaderView()
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
+    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+        44
     }
 }
 
 extension IPFTestResultsViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }

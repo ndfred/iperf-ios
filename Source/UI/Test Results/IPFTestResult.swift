@@ -11,18 +11,18 @@ import Foundation
 final class IPFTestResult: NSObject {
     var date: Date
     var mode: String
-    var duration: NSInteger
-    var streams: NSInteger
+    var duration: UInt
+    var streams: UInt
     var speed: String
     var location: String
 
     override init() {
-        self.date = .distantPast
-        self.mode = ""
-        self.duration = 0
-        self.streams = 0
-        self.speed = ""
-        self.location = ""
+        date = .distantPast
+        mode = ""
+        duration = 0
+        streams = 0
+        speed = ""
+        location = ""
         super.init()
     }
 }
