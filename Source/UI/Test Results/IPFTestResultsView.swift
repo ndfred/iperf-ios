@@ -29,7 +29,7 @@ final class IPFTestResultsView: UIView {
         let vStack = UIStackView(arrangedSubviews: [modeLabel, dateLabel, durationLabel, streamsLabel, hStack])
         vStack.axis = .horizontal
         vStack.spacing = 12
-        vStack.embed(in: self, insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        vStack.embed(in: self, insets: .default)
 
         NSLayoutConstraint.activate([
             modeLabel.widthAnchor.constraint(equalToConstant: 34),
