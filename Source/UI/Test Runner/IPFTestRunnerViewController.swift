@@ -1,5 +1,5 @@
 //
-//  IPFTestRunnerViewControllerV2.swift
+//  IPFTestRunnerViewController.swift
 //  iperf
 //
 //  Created by Deepu Mukundan on 5/5/20.
@@ -8,7 +8,7 @@
 import UIKit
 import AudioToolbox
 
-final class IPFTestRunnerViewControllerV2: FormViewController {
+final class IPFTestRunnerViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +20,12 @@ final class IPFTestRunnerViewControllerV2: FormViewController {
     private var testRunner: IPFTestRunner?
     private var testLocation = ""
     private let durations: [UInt] = [5, 10, 30, 300]
-    private var resultsView = IPFTestResultsView()
+    private var resultsHeader = IPFTestResultsHeaderView()
     private lazy var progressView = UIProgressView(progressViewStyle: .bar)
     private var speedTestActiveTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
 }
 
-private extension IPFTestRunnerViewControllerV2 {
+private extension IPFTestRunnerViewController {
 
     // MARK: - User Actions
 
@@ -70,7 +70,7 @@ private extension IPFTestRunnerViewControllerV2 {
         form
             +++ Section { _ in }
             +++ ViewRow {
-                $0.childView = resultsView
+                $0.childView = resultsHeader
             }
             +++ TextFieldRow {
                 $0.placeHolder = "TestRunner.serverAddress".localized
@@ -141,7 +141,7 @@ private extension IPFTestRunnerViewControllerV2 {
         testResult.mode = configuration.type == .download ? "⇊" : "⇈"
         testResult.duration = configuration.duration
         testResult.streams = configuration.streams
-        testResult.averageBandWidth = resultsView.averageBandWidth
+        testResult.averageBandWidth = resultsHeader.averageBandWidth
         testResult.location = testLocation
         IPFTestResultsManager.shared.add(testResult)
 
@@ -149,9 +149,11 @@ private extension IPFTestRunnerViewControllerV2 {
     }
 
     func playFeedBack() {
-        AudioServicesPlayAlertSound(1109)
+        if UserDefaults.enableSounds {
+            AudioServicesPlayAlertSound(1109)
+        }
 
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, *), UserDefaults.enableHaptics {
             let feedbackGenerator = UINotificationFeedbackGenerator()
             feedbackGenerator.notificationOccurred(.success)
         } else {
@@ -174,6 +176,7 @@ private extension IPFTestRunnerViewControllerV2 {
     func startTest() {
         view.endEditing(true)
         self.showStartButton(false)
+        self.resultsHeader.showInitial()
         self.progressView.progress = 0
         self.progressView.isHidden = false
 
@@ -205,27 +208,31 @@ private extension IPFTestRunnerViewControllerV2 {
             }
 
             if status.running.boolValue == false {
-                self.form.enabled = true
                 self.showStartButton()
+                self.form.enabled = true
                 app.isNetworkActivityIndicatorVisible = false
                 app.endBackgroundTask(self.speedTestActiveTaskIdentifier)
                 self.progressView.isHidden = true
                 self.testRunner = nil
-                self.resultsView.showFinal()
-                if status.errorState == .noError {
-                    self.saveTestResults()
-                    self.saveTestSettings()
+                self.resultsHeader.showFinal()
+                if status.errorState == .noError || status.errorState == .serverIsBusy {
+                    if self.resultsHeader.averageBandWidth > 0 {
+                        self.saveTestResults()
+                        self.saveTestSettings()
+                    }
                 }
             } else {
                 self.form.enabled = false
                 self.showStartButton(false)
                 self.progressView.setProgress(Float(status.progress), animated: true)
-                self.resultsView.currentBandWidth = Int(status.bandwidth)
+                self.resultsHeader.currentBandWidth = Int(status.bandwidth)
             }
         }
     }
 
     func showAlert(message: String) {
+        resultsHeader.reset()
+
         let alert = UIAlertController(title: "Warning".localized, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
         show(alert, sender: self)

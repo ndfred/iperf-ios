@@ -26,13 +26,13 @@ final class IPFSettingsViewController: FormViewController {
         form
             +++ Section { _ in }
             +++ SwitchRow {
-                $0.text = "Enable Haptic Feedback"
+                $0.text = "Settings.enableHaptics".localized
                 $0.state = UserDefaults.enableHaptics
             }.onToggle { state in
                 UserDefaults.enableHaptics = state
             }
             +++ SwitchRow {
-                $0.text = "Enable Sounds"
+                $0.text = "Settings.enableSounds".localized
                 $0.state = UserDefaults.enableSounds
             }.onToggle { state in
                 UserDefaults.enableSounds = state

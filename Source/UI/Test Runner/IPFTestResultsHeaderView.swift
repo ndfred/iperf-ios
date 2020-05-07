@@ -1,5 +1,5 @@
 //
-//  IPFTestResultsView.swift
+//  IPFTestResultsHeaderView.swift
 //  iperf
 //
 //  Created by Deepu Mukundan on 5/6/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class IPFTestResultsView: UIView {
+final class IPFTestResultsHeaderView: UIView {
     var currentBandWidth: Int = 0 {
         didSet {
             resultCount += 1
@@ -35,8 +35,13 @@ final class IPFTestResultsView: UIView {
         setupUI()
     }
 
+    func showInitial() {
+        speedLabel.text = "..."
+        statsLabel.text = " "
+    }
+
     func showFinal() {
-        speedLabel.text = "Average:\n\(averageBandWidth) Mbits/s"
+        speedLabel.text = "\(averageBandWidth) Mbits/s"
         statsLabel.text = "Min: \(minBandWidth)\tMax: \(maxBandWidth)"
     }
 
@@ -47,8 +52,8 @@ final class IPFTestResultsView: UIView {
         averageBandWidth = 0
         minBandWidth = Int.max
         maxBandWidth = Int.min
-        speedLabel.text = ""
-        statsLabel.text = ""
+        speedLabel.text = " "
+        statsLabel.text = " "
     }
 
     private func setupUI() {
@@ -66,14 +71,18 @@ final class IPFTestResultsView: UIView {
     }
 
     private lazy var speedLabel: UILabel = {
-        $0.font = .boldSystemFont(ofSize: 40)
+        if #available(iOS 11.0, *) {
+            $0.font = .preferredFont(forTextStyle: .largeTitle, compatibleWith: traitCollection)
+        } else {
+            $0.font = .boldSystemFont(ofSize: 40)
+        }
         $0.textAlignment = .center
         $0.numberOfLines = 0
         return $0
     }(UILabel())
 
     private lazy var statsLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 18)
+        $0.font = .preferredFont(forTextStyle: .body)
         $0.textAlignment = .center
         $0.numberOfLines = 0
         return $0

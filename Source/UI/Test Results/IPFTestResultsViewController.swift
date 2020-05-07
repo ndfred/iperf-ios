@@ -48,7 +48,13 @@ extension IPFTestResultsViewController: UITableViewDataSource {
     }
 
     func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-        IPFTestResultsHeaderView()
+        let header = IPFTestResultsView()
+        if #available(iOS 13.0, *) {
+            header.backgroundColor = .systemGray5
+        } else {
+            header.backgroundColor = .lightGray
+        }
+        return header
     }
 
     func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {

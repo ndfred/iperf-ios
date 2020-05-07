@@ -11,57 +11,6 @@ import UIKit
 final class IPFTestResultsCell: UITableViewCell {
     static let reuseIdentifier = String(describing: self)
 
-    private lazy var modeLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 24)
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
-
-    private lazy var dateLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 9)
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
-
-    private lazy var durationLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 12)
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
-
-    private lazy var streamsLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 12)
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
-
-    private lazy var locationLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 12, weight: .light)
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
-
-    private lazy var speedLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 20, weight: .bold)
-        $0.textAlignment = .center
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
-
-    func configure(with result: IPFTestResult) {
-        modeLabel.text = result.mode
-        dateLabel.text = IPFTestResultsCell.dateFormatter.string(from: result.date)
-        streamsLabel.text = String(result.streams)
-        durationLabel.text = "\(result.duration)s"
-        speedLabel.text = String(result.averageBandWidth)
-        locationLabel.text = result.location
-    }
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -76,30 +25,33 @@ final class IPFTestResultsCell: UITableViewCell {
         reset()
     }
 
-    private func setupUI() {
-        let hStack = UIStackView(arrangedSubviews: [speedLabel, locationLabel])
-        hStack.axis = .vertical
-        hStack.spacing = 2
-        let vStack = UIStackView(arrangedSubviews: [modeLabel, dateLabel, durationLabel, streamsLabel, hStack])
-        vStack.axis = .horizontal
-        vStack.spacing = 12
-        vStack.embed(in: self, insets: .default)
-        backgroundColor = .clear
+    func configure(with result: IPFTestResult) {
+        resultsView.modeLabel.text = result.mode
+        resultsView.dateLabel.text = IPFTestResultsCell.dateFormatter.string(from: result.date)
+        resultsView.streamsLabel.text = String(result.streams)
+        resultsView.durationLabel.text = "\(result.duration)s"
+        resultsView.speedLabel.text = String(result.averageBandWidth)
+        resultsView.locationLabel.text = result.location.isEmpty ? nil : result.location
+    }
 
-        NSLayoutConstraint.activate([
-            modeLabel.widthAnchor.constraint(equalToConstant: 34),
-            dateLabel.widthAnchor.constraint(equalToConstant: 54),
-            durationLabel.widthAnchor.constraint(equalToConstant: 52),
-            streamsLabel.widthAnchor.constraint(equalToConstant: 50),
-        ])
+    private func setupUI() {
+        resultsView.embed(in: self, insets: .default)
+        resultsView.locationLabel.isHidden = false
+        resultsView.modeLabel.font = .preferredFont(forTextStyle: .title2)
+        resultsView.speedLabel.font = .preferredFont(forTextStyle: .title1)
     }
 
     private func reset() {
-        [modeLabel, dateLabel, streamsLabel, durationLabel, locationLabel, speedLabel].forEach { $0.text = nil }
+        resultsView.reset()
     }
 
+    private lazy var resultsView: IPFTestResultsView = {
+        return $0
+    }(IPFTestResultsView())
+
     private static let dateFormatter: DateFormatter = {
-        $0.dateFormat = "MM/dd/YYYY\nhh:mm a"
+        $0.dateStyle = .short
+        $0.timeStyle = .short
         return $0
     }(DateFormatter())
 }

@@ -33,6 +33,7 @@ final class SegmentedRow: RowType {
         label.text = text
         label.font = font
 
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         segments.enumerated().forEach { index, text in
             segmentedControl.insertSegment(withTitle: text, at: index, animated: false)
         }
