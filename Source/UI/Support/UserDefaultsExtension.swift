@@ -19,37 +19,37 @@ private enum UserDefaultsKey: String, CaseIterable {
 
 public extension UserDefaults {
     static var hostname: String {
-        get { return read(.hostname) ?? "" }
+        get { read(.hostname) ?? "" }
         set { store(newValue, for: .hostname) }
     }
 
     static var port: UInt {
-        get { return read(.port) ?? 5201 }
+        get { read(.port) ?? 5201 }
         set { store(newValue, for: .port) }
     }
 
     static var configType: UInt {
-        get { return read(.configType) ?? 1 }
+        get { read(.configType) ?? 1 }
         set { store(newValue, for: .configType) }
     }
 
     static var streams: UInt {
-        get { return read(.streams) ?? 5 }
+        get { read(.streams) ?? 5 }
         set { store(newValue, for: .streams) }
     }
 
     static var duration: UInt {
-        get { return read(.duration) ?? 10 }
+        get { read(.duration) ?? 10 }
         set { store(newValue, for: .duration) }
     }
 
     static var enableHaptics: Bool {
-        get { return read(.enableHaptics) ?? true }
+        get { read(.enableHaptics) ?? true }
         set { store(newValue, for: .enableHaptics) }
     }
 
     static var enableSounds: Bool {
-        get { return read(.enableSounds) ?? true }
+        get { read(.enableSounds) ?? true }
         set { store(newValue, for: .enableSounds) }
     }
 
@@ -62,7 +62,7 @@ public extension UserDefaults {
 
 private extension UserDefaults {
     static func read<U>(_ key: UserDefaultsKey) -> U? {
-        return UserDefaults.standard.value(forKey: key.rawValue) as? U
+        UserDefaults.standard.value(forKey: key.rawValue) as? U
     }
 
     static func store<U>(_ value: U, for key: UserDefaultsKey) {

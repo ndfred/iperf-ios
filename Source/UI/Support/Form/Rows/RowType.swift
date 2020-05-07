@@ -16,10 +16,8 @@ protocol RowType {
 }
 
 extension RowType {
-
     var isHidden: Bool {
         get { view.isHidden }
         set { view.isHidden = newValue }
     }
-
 }

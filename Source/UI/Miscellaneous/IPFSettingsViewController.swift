@@ -8,7 +8,6 @@
 import UIKit
 
 final class IPFSettingsViewController: FormViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -38,5 +37,4 @@ final class IPFSettingsViewController: FormViewController {
                 UserDefaults.enableSounds = state
             }
     }
-
 }

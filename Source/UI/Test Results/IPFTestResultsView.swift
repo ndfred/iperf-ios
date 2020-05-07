@@ -21,7 +21,7 @@ final class IPFTestResultsView: UIView {
     func reset() {
         [modeLabel, dateLabel, streamsLabel, durationLabel, locationLabel, speedLabel, locationLabel].forEach { $0.text = nil }
     }
-    
+
     private func setupUI() {
         let hStack = UIStackView(arrangedSubviews: [speedLabel, locationLabel])
         hStack.axis = .vertical

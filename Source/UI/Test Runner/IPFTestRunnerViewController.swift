@@ -5,11 +5,10 @@
 //  Created by Deepu Mukundan on 5/5/20.
 //
 
-import UIKit
 import AudioToolbox
+import UIKit
 
 final class IPFTestRunnerViewController: FormViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         restoreTestSettings()
@@ -26,7 +25,6 @@ final class IPFTestRunnerViewController: FormViewController {
 }
 
 private extension IPFTestRunnerViewController {
-
     // MARK: - User Actions
 
     @objc func showHelp() {
@@ -45,7 +43,7 @@ private extension IPFTestRunnerViewController {
 
     private func setupUI() {
         title = "TestRunner.title".localized
-        
+
         if #available(iOS 13.0, *) {
             view.backgroundColor = .systemBackground
         } else {
@@ -63,7 +61,7 @@ private extension IPFTestRunnerViewController {
             NSLayoutConstraint.activate([
                 progressView.leftAnchor.constraint(equalTo: navBar.leftAnchor),
                 progressView.rightAnchor.constraint(equalTo: navBar.rightAnchor),
-                progressView.bottomAnchor.constraint(equalTo: navBar.bottomAnchor)
+                progressView.bottomAnchor.constraint(equalTo: navBar.bottomAnchor),
             ])
         }
 
@@ -83,13 +81,13 @@ private extension IPFTestRunnerViewController {
                 $0.placeHolder = "TestRunner.serverPort".localized
                 $0.keyboardType = .numberPad
                 $0.text = String(configuration.port)
-            }.onTextChange { [weak self]  text in
+            }.onTextChange { [weak self] text in
                 self?.configuration.port = UInt(text) ?? 0
             }
             +++ TextFieldRow {
                 $0.placeHolder = "TestRunner.testLocation".localized
                 $0.keyboardType = .default
-            }.onTextChange { [weak self]  text in
+            }.onTextChange { [weak self] text in
                 self?.testLocation = text
             }
 
@@ -116,7 +114,7 @@ private extension IPFTestRunnerViewController {
                 $0.defaultSegment = durations.firstIndex(of: configuration.duration) ?? 3
             }.onSegmentChange { [weak self] selectedIndex, _ in
                 self?.configuration.duration = self?.durations[selectedIndex] ?? 10
-        }
+            }
     }
 
     func restoreTestSettings() {
@@ -175,10 +173,10 @@ private extension IPFTestRunnerViewController {
 
     func startTest() {
         view.endEditing(true)
-        self.showStartButton(false)
-        self.resultsHeader.showInitial()
-        self.progressView.progress = 0
-        self.progressView.isHidden = false
+        showStartButton(false)
+        resultsHeader.showInitial()
+        progressView.progress = 0
+        progressView.isHidden = false
 
         let app = UIApplication.shared
         app.isNetworkActivityIndicatorVisible = true
@@ -204,7 +202,7 @@ private extension IPFTestRunnerViewController {
             case .unknown:
                 self.showAlert(message: "TestRunner.errorUnknown".localizeWithFormat(arguments: status.errorState.rawValue))
             @unknown default:
-                break;
+                break
             }
 
             if status.running.boolValue == false {
@@ -237,5 +235,4 @@ private extension IPFTestRunnerViewController {
         alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
         show(alert, sender: self)
     }
-    
 }

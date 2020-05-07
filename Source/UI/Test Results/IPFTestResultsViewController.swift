@@ -58,7 +58,7 @@ extension IPFTestResultsViewController: UITableViewDataSource {
     }
 
     func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
-        return UITableView.automaticDimension
+        UITableView.automaticDimension
     }
 }
 

@@ -20,6 +20,6 @@ final class ViewRow: RowType {
     }
 
     var view: UIView {
-        return childView
+        childView
     }
 }

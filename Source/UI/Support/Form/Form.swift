@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 public final class Form {
-
     var enabled: Bool {
         set { stackView.isUserInteractionEnabled = newValue }
         get { stackView.isUserInteractionEnabled }

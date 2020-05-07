@@ -45,10 +45,7 @@ final class IPFTestResultsCell: UITableViewCell {
         resultsView.reset()
     }
 
-    private lazy var resultsView: IPFTestResultsView = {
-        return $0
-    }(IPFTestResultsView())
-
+    private let resultsView = IPFTestResultsView()
     private static let dateFormatter: DateFormatter = {
         $0.dateStyle = .short
         $0.timeStyle = .short

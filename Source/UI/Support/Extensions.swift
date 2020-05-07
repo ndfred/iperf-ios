@@ -37,6 +37,6 @@ public extension String {
     }
 
     func localizeWithFormat(arguments: CVarArg...) -> String {
-       return String(format: self.localized, arguments: arguments)
+        String(format: localized, arguments: arguments)
     }
 }
