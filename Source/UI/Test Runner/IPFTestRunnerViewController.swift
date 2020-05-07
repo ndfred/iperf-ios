@@ -8,11 +8,17 @@
 import AudioToolbox
 import UIKit
 
+private enum IPFTestState {
+    case active
+    case inactive
+}
+
 final class IPFTestRunnerViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         restoreTestSettings()
         setupUI()
+        updateUI(state: .inactive)
     }
 
     private var configuration = IPFTestRunnerConfiguration()
@@ -41,19 +47,18 @@ private extension IPFTestRunnerViewController {
 
     // MARK: - Other Private methods
 
-    private func setupUI() {
+    func setupUI() {
         title = "TestRunner.title".localized
 
         if #available(iOS 13.0, *) {
             view.backgroundColor = .systemBackground
         } else {
-            // Fallback on earlier versions
+            view.backgroundColor = .white
         }
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "TestRunner.Help".localized,
                                                            style: .plain,
                                                            target: self, action: #selector(showHelp))
-        showStartButton()
 
         if let navBar = navigationController?.navigationBar {
             navigationController?.navigationBar.addSubview(progressView)
@@ -142,45 +147,54 @@ private extension IPFTestRunnerViewController {
         testResult.averageBandWidth = resultsHeader.averageBandWidth
         testResult.location = testLocation
         IPFTestResultsManager.shared.add(testResult)
-
-        playFeedBack()
     }
 
     func playFeedBack() {
         if UserDefaults.enableSounds {
+            // A nice sound effect built-in to iOS
             AudioServicesPlayAlertSound(1109)
         }
 
         if #available(iOS 10.0, *), UserDefaults.enableHaptics {
+            // Play a success notification haptic
             let feedbackGenerator = UINotificationFeedbackGenerator()
             feedbackGenerator.notificationOccurred(.success)
-        } else {
-            // Fallback on earlier versions
         }
     }
 
-    func showStartButton(_ show: Bool = true) {
-        let title = show ? "TestRunner.start" : "TestRunner.stop"
-        let rightButton = UIBarButtonItem(title: title.localized,
-                                          style: .plain,
-                                          target: self, action: #selector(startStopTest))
-        if !show {
-            rightButton.tintColor = .red
+    func updateUI(state: IPFTestState) {
+        let actionTitle: String
+
+        switch state {
+        case .active:
+            actionTitle = "TestRunner.stop"
+            form.enabled = false
+            view.endEditing(true)
+            resultsHeader.showInitial()
+            progressView.progress = 0
+            progressView.isHidden = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+        case .inactive:
+            actionTitle = "TestRunner.start"
+            form.enabled = true
+            view.endEditing(true)
+            progressView.progress = 0
+            progressView.isHidden = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
 
+        let rightButton = UIBarButtonItem(title: actionTitle.localized, style: .plain, target: self, action: #selector(startStopTest))
+        if state == .active {
+            rightButton.tintColor = .red
+        }
         navigationItem.rightBarButtonItem = rightButton
     }
 
     func startTest() {
-        view.endEditing(true)
-        showStartButton(false)
-        resultsHeader.showInitial()
-        progressView.progress = 0
-        progressView.isHidden = false
+        updateUI(state: .active)
 
         let app = UIApplication.shared
-        app.isNetworkActivityIndicatorVisible = true
-
         speedTestActiveTaskIdentifier = app.beginBackgroundTask(expirationHandler: { [weak self] in
             guard let self = self else { return }
             app.endBackgroundTask(self.speedTestActiveTaskIdentifier)
@@ -206,22 +220,19 @@ private extension IPFTestRunnerViewController {
             }
 
             if status.running.boolValue == false {
-                self.showStartButton()
-                self.form.enabled = true
-                app.isNetworkActivityIndicatorVisible = false
-                app.endBackgroundTask(self.speedTestActiveTaskIdentifier)
-                self.progressView.isHidden = true
-                self.testRunner = nil
                 self.resultsHeader.showFinal()
+                app.endBackgroundTask(self.speedTestActiveTaskIdentifier)
+                self.updateUI(state: .inactive)
+                self.testRunner = nil
                 if status.errorState == .noError || status.errorState == .serverIsBusy {
                     if self.resultsHeader.averageBandWidth > 0 {
                         self.saveTestResults()
                         self.saveTestSettings()
+                        self.playFeedBack()
                     }
                 }
             } else {
-                self.form.enabled = false
-                self.showStartButton(false)
+                self.updateUI(state: .active)
                 self.progressView.setProgress(Float(status.progress), animated: true)
                 self.resultsHeader.currentBandWidth = Int(status.bandwidth)
             }
