@@ -202,9 +202,9 @@ private extension IPFTestRunnerViewController {
             case .serverIsBusy:
                 self.showAlert(message: "TestRunner.errorServerBusy".localized)
             case .unknown:
-                self.showAlert(message: "TestRunner.errorUnknown".localized)
+                self.showAlert(message: "TestRunner.errorUnknown".localizeWithFormat(arguments: status.errorState.rawValue))
             @unknown default:
-                self.showAlert(message: "TestRunner.errorUnknown".localized)
+                break;
             }
 
             if status.running.boolValue == false {

@@ -35,4 +35,8 @@ public extension String {
     var localized: String {
         NSLocalizedString(self, comment: "")
     }
+
+    func localizeWithFormat(arguments: CVarArg...) -> String {
+       return String(format: self.localized, arguments: arguments)
+    }
 }
