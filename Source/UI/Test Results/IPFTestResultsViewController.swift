@@ -20,7 +20,7 @@ final class IPFTestResultsViewController: UIViewController {
     }
 
     private func setupUI() {
-        title = NSLocalizedString("TestResults.title", comment: "Test results title")
+        title = "TestResults.title".localized
         tableView.register(IPFTestResultsCell.self, forCellReuseIdentifier: IPFTestResultsCell.reuseIdentifier)
         tableView.embed(in: view)
         tableView.estimatedRowHeight = 50

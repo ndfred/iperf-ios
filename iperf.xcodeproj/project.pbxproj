@@ -35,9 +35,12 @@
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
 		B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */; };
+		EF2FB44A24636E2B00245124 /* IPFTestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44924636E2B00245124 /* IPFTestResultsView.swift */; };
+		EF2FB44C2463897A00245124 /* ViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44B2463897A00245124 /* ViewRow.swift */; };
+		EF2FB44E2463D0DF00245124 /* IPFSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */; };
 		EF550E242453D8A200DF9A55 /* IPFTestResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */; };
 		EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */; };
-		EF550E2A2454A78400DF9A55 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E292454A78400DF9A55 /* UIKitExtensions.swift */; };
+		EF550E2A2454A78400DF9A55 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E292454A78400DF9A55 /* Extensions.swift */; };
 		EF550E2C2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */; };
 		EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */; };
 		EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */; };
@@ -138,10 +141,13 @@
 		B6C3CE67228A03FC000629B6 /* IPFIcon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFIcon.m; sourceTree = "<group>"; };
 		B6C3CE69228A250E000629B6 /* IPFIconGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFIconGenerator.m; sourceTree = "<group>"; };
 		B6C3CE6A228A26D4000629B6 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
+		EF2FB44924636E2B00245124 /* IPFTestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsView.swift; sourceTree = "<group>"; };
+		EF2FB44B2463897A00245124 /* ViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRow.swift; sourceTree = "<group>"; };
+		EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFSettingsViewController.swift; sourceTree = "<group>"; };
 		EF550E202453D85200DF9A55 /* iperf-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iperf-Bridging-Header.h"; sourceTree = "<group>"; };
 		EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = IPFTestResultsViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultCell.swift; sourceTree = "<group>"; };
-		EF550E292454A78400DF9A55 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		EF550E292454A78400DF9A55 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EF550E2B2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsHeaderView.swift; sourceTree = "<group>"; };
 		EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsManager.swift; sourceTree = "<group>"; };
 		EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResult.swift; sourceTree = "<group>"; };
@@ -301,7 +307,7 @@
 			children = (
 				EFA7691C245D3A990017A114 /* Test Runner */,
 				EF550E312454A7F400DF9A55 /* Test Results */,
-				EFA7691D245D3AAC0017A114 /* Help */,
+				EFA7691D245D3AAC0017A114 /* Miscellaneous */,
 				EFA7691E245D3B1D0017A114 /* Support */,
 			);
 			path = UI;
@@ -352,6 +358,7 @@
 				EF69DDD424622B2600431A40 /* SwitchRow.swift */,
 				EF69DDD124622B2600431A40 /* TextFieldRow.swift */,
 				EF69DDD224622B2600431A40 /* TextRow.swift */,
+				EF2FB44B2463897A00245124 /* ViewRow.swift */,
 			);
 			path = Rows;
 			sourceTree = "<group>";
@@ -362,7 +369,6 @@
 				EF69DDDD24622B3400431A40 /* Rows */,
 				EF69DDCB24622B1C00431A40 /* Form.swift */,
 				EF69DDCC24622B1D00431A40 /* FormViewController.swift */,
-				EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -373,24 +379,27 @@
 				2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */,
 				2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */,
 				EF69DDC92462286500431A40 /* IPFTestRunnerViewControllerV2.swift */,
+				EF2FB44924636E2B00245124 /* IPFTestResultsView.swift */,
 			);
 			path = "Test Runner";
 			sourceTree = "<group>";
 		};
-		EFA7691D245D3AAC0017A114 /* Help */ = {
+		EFA7691D245D3AAC0017A114 /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
 				2B013304228B7B830088D77D /* IPFHelpViewController.h */,
 				2B013305228B7B830088D77D /* IPFHelpViewController.m */,
+				EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */,
 			);
-			path = Help;
+			path = Miscellaneous;
 			sourceTree = "<group>";
 		};
 		EFA7691E245D3B1D0017A114 /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				EF69DDDE24622B4200431A40 /* Form */,
-				EF550E292454A78400DF9A55 /* UIKitExtensions.swift */,
+				EF550E292454A78400DF9A55 /* Extensions.swift */,
+				EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -523,6 +532,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF2FB44C2463897A00245124 /* ViewRow.swift in Sources */,
 				EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */,
 				EF550E2C2454A7B000DF9A55 /* IPFTestResultsHeaderView.swift in Sources */,
 				2B87F6641DCF76B900AA24E7 /* units.c in Sources */,
@@ -532,7 +542,7 @@
 				EF69DDD924622B2600431A40 /* TextRow.swift in Sources */,
 				2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */,
 				B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */,
-				EF550E2A2454A78400DF9A55 /* UIKitExtensions.swift in Sources */,
+				EF550E2A2454A78400DF9A55 /* Extensions.swift in Sources */,
 				EF69DDD824622B2600431A40 /* TextFieldRow.swift in Sources */,
 				EF69DDCA2462286500431A40 /* IPFTestRunnerViewControllerV2.swift in Sources */,
 				B6570E212353D5F800A8F791 /* iperf_time.c in Sources */,
@@ -558,10 +568,12 @@
 				EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
 				EF69DDD724622B2600431A40 /* RowType.swift in Sources */,
+				EF2FB44A24636E2B00245124 /* IPFTestResultsView.swift in Sources */,
 				EF69DDD624622B2600431A40 /* Section.swift in Sources */,
 				EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */,
 				EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */,
 				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
+				EF2FB44E2463D0DF00245124 /* IPFSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

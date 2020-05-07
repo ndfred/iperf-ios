@@ -10,9 +10,11 @@ import Foundation
 private enum UserDefaultsKey: String, CaseIterable {
     case hostname = "IPFTestHostname"
     case port = "IPFTestPort"
-    case configType = "IPFConfigType"
-    case streams = "IPFStreams"
-    case duration = "IPFDuration"
+    case configType
+    case streams
+    case duration
+    case enableHaptics
+    case enableSounds
 }
 
 public extension UserDefaults {
@@ -37,8 +39,18 @@ public extension UserDefaults {
     }
 
     static var duration: UInt {
-        get { return read(.duration) ?? 30 }
+        get { return read(.duration) ?? 10 }
         set { store(newValue, for: .duration) }
+    }
+
+    static var enableHaptics: Bool {
+        get { return read(.enableHaptics) ?? true }
+        set { store(newValue, for: .enableHaptics) }
+    }
+
+    static var enableSounds: Bool {
+        get { return read(.enableSounds) ?? true }
+        set { store(newValue, for: .enableSounds) }
     }
 
     static func reset() {

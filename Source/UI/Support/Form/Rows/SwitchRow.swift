@@ -30,12 +30,13 @@ final class SwitchRow: RowType {
         label.numberOfLines = 0
         label.text = text
         label.font = font
- 
+
         toggleSwitch.isOn = state
 
-        let hStack = UIStackView(arrangedSubviews: [label, UIView(), toggleSwitch])
+        let hStack = UIStackView(arrangedSubviews: [label, toggleSwitch])
         hStack.axis = .horizontal
         hStack.spacing = 8
+        toggleSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
 
         return hStack
     }

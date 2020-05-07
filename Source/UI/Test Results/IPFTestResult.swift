@@ -13,7 +13,7 @@ final class IPFTestResult: NSObject {
     var mode: String
     var duration: UInt
     var streams: UInt
-    var speed: String
+    var averageBandWidth: Int
     var location: String
 
     override init() {
@@ -21,7 +21,7 @@ final class IPFTestResult: NSObject {
         mode = ""
         duration = 0
         streams = 0
-        speed = ""
+        averageBandWidth = 0
         location = ""
         super.init()
     }

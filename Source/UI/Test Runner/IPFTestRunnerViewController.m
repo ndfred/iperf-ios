@@ -111,7 +111,7 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
     testResult.mode = (self.transmitModeSlider.selectedSegmentIndex == 0) ? @"⇈" : @"⇊";
     testResult.duration = getTestDuration(self.testDurationSlider.selectedSegmentIndex);
     testResult.streams = self.streamsSlider.selectedSegmentIndex + 1;
-    testResult.speed = self.bandwidthLabel.text;
+    testResult.averageBandWidth = 123;
     testResult.location = self.locationTextField.text;
 
     [[IPFTestResultsManager shared] add:testResult];

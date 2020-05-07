@@ -58,7 +58,7 @@ final class IPFTestResultsCell: UITableViewCell {
         dateLabel.text = IPFTestResultsCell.dateFormatter.string(from: result.date)
         streamsLabel.text = String(result.streams)
         durationLabel.text = "\(result.duration)s"
-        speedLabel.text = result.speed.replacingOccurrences(of: " Mbits/s", with: "")
+        speedLabel.text = String(result.averageBandWidth)
         locationLabel.text = result.location
     }
 
