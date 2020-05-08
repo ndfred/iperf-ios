@@ -13,8 +13,8 @@ final class IPFTestResultsHeaderView: UIView {
             resultCount += 1
             averageBandwidthTotal += currentBandWidth
             averageBandWidth = averageBandwidthTotal / resultCount
-            minBandWidth = min(minBandWidth, averageBandWidth)
-            maxBandWidth = max(maxBandWidth, averageBandWidth)
+            minBandWidth = min(minBandWidth, currentBandWidth)
+            maxBandWidth = max(maxBandWidth, currentBandWidth)
 
             let current = "TestRunner.megabits".localizeWithFormat(arguments: currentBandWidth)
             speedLabel.text = current
@@ -46,8 +46,8 @@ final class IPFTestResultsHeaderView: UIView {
     }
 
     func showFinal() {
-        let current = "TestRunner.megabits".localizeWithFormat(arguments: currentBandWidth)
-        speedLabel.text = current
+        let averageSpeed = "TestRunner.megabits".localizeWithFormat(arguments: averageBandWidth)
+        speedLabel.text = averageSpeed
 
         let minSpeed = "TestRunner.minSpeed".localizeWithFormat(arguments: minBandWidth)
         let maxSpeed = "TestRunner.maxSpeed".localizeWithFormat(arguments: maxBandWidth)

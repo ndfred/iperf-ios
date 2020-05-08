@@ -373,8 +373,8 @@
 		EFA7691C245D3A990017A114 /* Test Runner */ = {
 			isa = PBXGroup;
 			children = (
-				EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */,
 				EF2FB44924636E2B00245124 /* IPFTestResultsHeaderView.swift */,
+				EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */,
 			);
 			path = "Test Runner";
 			sourceTree = "<group>";

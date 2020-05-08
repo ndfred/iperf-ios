@@ -23,7 +23,8 @@ final class IPFTestResultsViewController: UIViewController {
         title = "TestResults.title".localized
         tableView.register(IPFTestResultsCell.self, forCellReuseIdentifier: IPFTestResultsCell.reuseIdentifier)
         tableView.embed(in: view)
-        tableView.estimatedRowHeight = 50
+        tableView.estimatedRowHeight = rowHeight
+        tableView.estimatedSectionHeaderHeight = rowHeight
     }
 
     private lazy var tableView: UITableView = {
@@ -31,6 +32,8 @@ final class IPFTestResultsViewController: UIViewController {
         $0.delegate = self
         return $0
     }(UITableView(frame: .zero))
+
+    private let rowHeight: CGFloat = 60
 }
 
 extension IPFTestResultsViewController: UITableViewDataSource {
@@ -46,6 +49,28 @@ extension IPFTestResultsViewController: UITableViewDataSource {
         cell.configure(with: IPFTestResultsManager.shared.results[indexPath.row])
         return cell
     }
+}
+
+extension IPFTestResultsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if #available(iOS 11.0, *) {
+            return UITableView.automaticDimension
+        } else {
+            return rowHeight
+        }
+    }
+
+    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+        if #available(iOS 11.0, *) {
+            return UITableView.automaticDimension
+        } else {
+            return rowHeight
+        }
+    }
 
     func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
         let header = IPFTestResultsView()
@@ -56,19 +81,5 @@ extension IPFTestResultsViewController: UITableViewDataSource {
             header.backgroundColor = .lightGray
         }
         return header
-    }
-
-    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
-        if #available(iOS 11.0, *) {
-            return UITableView.automaticDimension
-        } else {
-            return 50
-        }
-    }
-}
-
-extension IPFTestResultsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

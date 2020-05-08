@@ -187,7 +187,6 @@ private extension IPFTestRunnerViewController {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
 
-        form.scrollView.contentOffset = .zero
         view.endEditing(true)
 
         let rightButton = UIBarButtonItem(title: actionTitle.localized, style: .plain, target: self, action: #selector(startStopTest))
