@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B013305228B7B830088D77D /* IPFHelpViewController.m */; };
 		2B013311228B7FBE0088D77D /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 2B013309228B7FA50088D77D /* Help.html */; };
-		2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B20E45D1DCFA82900EEACF9 /* ViewController.xib */; };
 		2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */; };
 		2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6301DCF76B900AA24E7 /* cjson.c */; };
 		2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6341DCF76B900AA24E7 /* iperf_api.c */; };
@@ -76,7 +75,6 @@
 		2B01330B228B7FA50088D77D /* Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Help.md; sourceTree = "<group>"; };
 		2B01330E228B7FA50088D77D /* footer.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = footer.html; sourceTree = "<group>"; };
 		2B013310228B7FA50088D77D /* header.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = header.html; sourceTree = "<group>"; };
-		2B20E45D1DCFA82900EEACF9 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2B554C4D227B9DBF009F4932 /* dscp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dscp.c; sourceTree = "<group>"; };
 		2B554C4E227B9DBF009F4932 /* iperf_auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_auth.c; sourceTree = "<group>"; };
 		2B554C4F227B9DBF009F4932 /* iperf_auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_auth.h; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 				B6C3CE69228A250E000629B6 /* IPFIconGenerator.m */,
 				2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */,
 				B6C3CE6A228A26D4000629B6 /* Makefile */,
-				2B20E45D1DCFA82900EEACF9 /* ViewController.xib */,
 				EFA76925245D3F730017A114 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -487,7 +484,6 @@
 				EFA76927245D3F730017A114 /* Localizable.strings in Resources */,
 				2BF42EFE22AD76D800960DF7 /* PrivacyPolicy.html in Resources */,
 				2B013311228B7FBE0088D77D /* Help.html in Resources */,
-				2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */,
 				2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

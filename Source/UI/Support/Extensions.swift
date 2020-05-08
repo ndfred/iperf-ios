@@ -1,10 +1,3 @@
-//
-//  Extensions.swift
-//  iperf
-//
-//  Created by Deepu Mukundan on 4/25/20.
-//
-
 import Foundation
 import UIKit
 

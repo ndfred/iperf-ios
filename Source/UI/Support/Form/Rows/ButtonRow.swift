@@ -1,11 +1,3 @@
-//
-//  ButtonRow.swift
-//  Form
-//
-//  Created by Deepu Mukundan on 2/28/20.
-//  Copyright © 2020 Deepu Mukundan. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

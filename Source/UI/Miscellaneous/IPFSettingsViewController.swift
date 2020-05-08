@@ -1,10 +1,3 @@
-//
-//  IPFSettingsViewController.swift
-//  iperf
-//
-//  Created by Deepu Mukundan on 5/6/20.
-//
-
 import UIKit
 
 final class IPFSettingsViewController: FormViewController {

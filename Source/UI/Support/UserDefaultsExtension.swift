@@ -1,10 +1,3 @@
-//
-//  UserDefaultsExtension.swift
-//  iperf
-//
-//  Created by Deepu Mukundan on 5/5/20.
-//
-
 import Foundation
 
 private enum UserDefaultsKey: String, CaseIterable {

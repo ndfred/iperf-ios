@@ -1,11 +1,3 @@
-//
-//  SectionBreakRow.swift
-//  Form
-//
-//  Created by Deepu Mukundan on 5/2/20.
-//  Copyright © 2020 Deepu Mukundan. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

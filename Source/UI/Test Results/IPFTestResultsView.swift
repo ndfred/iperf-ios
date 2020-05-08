@@ -1,10 +1,3 @@
-//
-//  IPFTestResultsView.swift
-//  iperf
-//
-//  Created by Deepu Mukundan on 4/25/20.
-//
-
 import UIKit
 
 final class IPFTestResultsView: UIView {

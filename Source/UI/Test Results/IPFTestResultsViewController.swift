@@ -1,10 +1,3 @@
-//
-//  IPFTestResultsViewController.swift
-//  iperf
-//
-//  Created by Deepu Mukundan on 4/24/20.
-//
-
 import UIKit
 
 @objc

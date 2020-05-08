@@ -1,11 +1,3 @@
-//
-//  Form.swift
-//  Form
-//
-//  Created by Deepu Mukundan on 2/27/20.
-//  Copyright © 2020 Deepu Mukundan. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

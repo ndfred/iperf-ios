@@ -1,10 +1,3 @@
-//
-//  IPFTestRunnerViewController.swift
-//  iperf
-//
-//  Created by Deepu Mukundan on 5/5/20.
-//
-
 import AudioToolbox
 import UIKit
 
