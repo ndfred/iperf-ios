@@ -38,6 +38,11 @@ private extension IPFTestRunnerViewController {
     }
 
     @objc func startStopTest() {
+        if configuration.hostname.isEmpty || !(0...65535).contains(configuration.port) {
+            showAlert(message: "TestRunner.errorEmptyFields".localized)
+            return
+        }
+
         if testRunner != nil {
             testRunner?.stopTest()
         } else {
@@ -169,20 +174,21 @@ private extension IPFTestRunnerViewController {
         case .active:
             actionTitle = "TestRunner.stop"
             form.enabled = false
-            view.endEditing(true)
-            resultsHeader.showInitial()
             progressView.progress = 0
             progressView.isHidden = false
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            resultsHeader.showInitial()
 
         case .inactive:
             actionTitle = "TestRunner.start"
             form.enabled = true
-            view.endEditing(true)
             progressView.progress = 0
             progressView.isHidden = true
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
+
+        form.scrollView.contentOffset = .zero
+        view.endEditing(true)
 
         let rightButton = UIBarButtonItem(title: actionTitle.localized, style: .plain, target: self, action: #selector(startStopTest))
         if state == .active {
@@ -244,6 +250,6 @@ private extension IPFTestRunnerViewController {
 
         let alert = UIAlertController(title: "Warning".localized, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
-        show(alert, sender: self)
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -19,7 +19,7 @@ final class IPFSettingsViewController: FormViewController {
         if #available(iOS 13.0, *) {
             view.backgroundColor = .systemBackground
         } else {
-            // Fallback on earlier versions
+            view.backgroundColor = .white
         }
 
         form

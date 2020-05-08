@@ -79,7 +79,7 @@ private final class Spacer: UIView {
         if #available(iOS 13.0, *) {
             grayView.backgroundColor = .systemGray6
         } else {
-            // Fallback on earlier versions
+            grayView.backgroundColor = .lightGray
         }
         grayView.embed(in: self, insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
     }
@@ -95,7 +95,7 @@ private final class SectionBreak: UIView {
         if #available(iOS 13.0, *) {
             backgroundColor = .systemGray5
         } else {
-            // Fallback on earlier versions
+            backgroundColor = .lightGray
         }
     }
 

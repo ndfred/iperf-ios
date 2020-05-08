@@ -30,7 +30,12 @@ private extension FormViewController {
                 form.scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
         } else {
-            // Fallback on earlier versions
+            NSLayoutConstraint.activate([
+                form.scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                form.scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                form.scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+                form.scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
         }
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(tapGestureRecognizer:)))
@@ -57,7 +62,7 @@ private extension FormViewController {
             if #available(iOS 11.0, *) {
                 form.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom + 12, right: 0)
             } else {
-                // Fallback on earlier versions
+                form.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.bounds.height + 12, right: 0)
             }
         }
 

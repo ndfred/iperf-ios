@@ -36,7 +36,7 @@ final class IPFTestResultsCell: UITableViewCell {
 
     private func setupUI() {
         resultsView.embed(in: self)
-        resultsView.locationLabel.isHidden = false
+        // Override style for cell
         resultsView.modeLabel.font = .preferredFont(forTextStyle: .title2)
         resultsView.speedLabel.font = .preferredFont(forTextStyle: .title1)
     }

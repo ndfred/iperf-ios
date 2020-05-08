@@ -34,7 +34,7 @@ final class ButtonRow: NSObject, RowType {
         if #available(iOS 13.0, *) {
             button.setTitleColor(.systemGray2, for: .highlighted)
         } else {
-            // Fallback on earlier versions
+            button.setTitleColor(.lightGray, for: .highlighted)
         }
         button.backgroundColor = backgroundColor
         button.layer.cornerRadius = 5

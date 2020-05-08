@@ -49,6 +49,7 @@ extension IPFTestResultsViewController: UITableViewDataSource {
 
     func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
         let header = IPFTestResultsView()
+        header.locationLabel.isHidden = true
         if #available(iOS 13.0, *) {
             header.backgroundColor = .systemGray5
         } else {
@@ -58,7 +59,11 @@ extension IPFTestResultsViewController: UITableViewDataSource {
     }
 
     func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
-        UITableView.automaticDimension
+        if #available(iOS 11.0, *) {
+            return UITableView.automaticDimension
+        } else {
+            return 50
+        }
     }
 }
 

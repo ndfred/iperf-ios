@@ -44,7 +44,11 @@ final class IPFTestResultsView: UIView {
         $0.font = .preferredFont(forTextStyle: .caption1)
         $0.textAlignment = .left
         $0.numberOfLines = 0
-        $0.textColor = .white
+        if #available(iOS 13.0, *) {
+            $0.textColor = .label
+        } else {
+            $0.textColor = .black
+        }
         return $0
     }(UILabel())
 
@@ -53,7 +57,11 @@ final class IPFTestResultsView: UIView {
         $0.font = .preferredFont(forTextStyle: .caption1)
         $0.textAlignment = .center
         $0.numberOfLines = 0
-        $0.textColor = .white
+        if #available(iOS 13.0, *) {
+            $0.textColor = .label
+        } else {
+            $0.textColor = .black
+        }
         return $0
     }(UILabel())
 
@@ -62,7 +70,11 @@ final class IPFTestResultsView: UIView {
         $0.font = .preferredFont(forTextStyle: .caption1)
         $0.textAlignment = .center
         $0.numberOfLines = 0
-        $0.textColor = .white
+        if #available(iOS 13.0, *) {
+            $0.textColor = .label
+        } else {
+            $0.textColor = .black
+        }
         return $0
     }(UILabel())
 
@@ -71,7 +83,11 @@ final class IPFTestResultsView: UIView {
         $0.font = .preferredFont(forTextStyle: .caption1)
         $0.textAlignment = .center
         $0.numberOfLines = 0
-        $0.textColor = .white
+        if #available(iOS 13.0, *) {
+            $0.textColor = .label
+        } else {
+            $0.textColor = .black
+        }
         return $0
     }(UILabel())
 
@@ -80,7 +96,11 @@ final class IPFTestResultsView: UIView {
         $0.font = .preferredFont(forTextStyle: .caption1)
         $0.textAlignment = .center
         $0.numberOfLines = 0
-        $0.textColor = .white
+        if #available(iOS 13.0, *) {
+            $0.textColor = .label
+        } else {
+            $0.textColor = .black
+        }
         return $0
     }(UILabel())
 
@@ -88,8 +108,11 @@ final class IPFTestResultsView: UIView {
         $0.font = .preferredFont(forTextStyle: .caption1)
         $0.textAlignment = .center
         $0.numberOfLines = 0
-        $0.textColor = .white
-        $0.isHidden = true
+        if #available(iOS 13.0, *) {
+            $0.textColor = .label
+        } else {
+            $0.textColor = .black
+        }
         return $0
     }(UILabel())
 }

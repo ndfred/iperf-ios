@@ -73,7 +73,7 @@ final class IPFTestResultsHeaderView: UIView {
         if #available(iOS 13.0, *) {
             backgroundColor = .systemGray5
         } else {
-            // Fallback on earlier versions
+            backgroundColor = .lightGray
         }
         stack.embed(in: self, insets: .default)
         layer.cornerRadius = 10
