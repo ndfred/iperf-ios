@@ -1,69 +1,70 @@
-## How fast and reliable is your Wifi?
+## How fast and reliable is your Wi-Fi?
 
-Online tests like [Speedtest](https://www.speedtest.net/), Netflix's [FAST](https://fast.com/) and [DSLReports](https://www.dslreports.com/speedtest) will tell you how fast your Internet connection is overall, but your service provider's speed is not the only factor: Wifi itself can significantly affect speed, latency and reliability. And with broadband Internet connections getting faster and faster, Wifi usually already is the bottleneck.
+Online tests like [Speedtest](https://www.speedtest.net/), Netflix's [FAST](https://fast.com/), and [DSLReports](https://www.dslreports.com/speedtest) will tell you how fast your Internet connection is overall, but your service provider's speed is not the only factor: Wi-Fi itself can significantly affect speed, latency and reliability. And with broadband Internet connections getting faster and faster, Wi-Fi is usually already the bottleneck.
 
-This app will help you test your Wifi connection in isolation of your Internet connection across your home or office and tell your exactly what you can expect in every room. You can then adjust your settings and move access points around or decide to upgrade your equipment until you achieve super solid Wifi.
+This app helps you test your Wi-Fi connection in isolation from your Internet connection, across your home or office. It tells you exactly what you can expect in every room. You can then adjust your settings, move access points around, or decide to upgrade your equipment until you achieve super solid Wi-Fi.
 
 ## How does the performance test work?
 
-The app embeds the [iPerf 3](https://iperf.fr/) library which is the standard way to test bandwidth across servers. You need to install and set up an iPerf 3 server for this app to connect to. It will then send test data across the network and tell you what your fast and consistent your Wifi connection is.
+The app uses the standard library to test bandwidth across servers, [iPerf 3](https://iperf.fr/). Install and set up an iPerf 3 server for this app to connect to. The server then sends test data across the network, and provides metrics on how fast and consistent your Wi-Fi connection is.
 
 ## Running an iPerf 3 server
 
-To run an iPerf 3 server you will need a computer connected to your home network / router over a network cable. Laptops work, though you will want to make sure the Ethernet adapter is capable of Gigabit speeds if you use one. Running the server over Wifi might interfere with the app sending data and make the test show much slower results.
+You need a computer to run it on that is connected to your home network, or router with a network cable. Laptops work if connected by gigabit Ethernet. Running the server over Wi-Fi might interfere with the app sending data, resulting in much slower test results.
 
-We will cover how to install iPerf 3 on a Mac, [guides are available on the iperf.fr website](https://iperf.fr/iperf-download.php) to install it on Linux and Windows as well. Installing an iPerf 3 server requires being familiar with the command line and installing Homebrew. If we haven't scared you off yet, let's get started:
+For installing iPerf 3 on macOS, [a guide is available on the iperf.fr website](https://iperf.fr/iperf-download.php).
+On Linux and Windows, installing an iPerf 3 server requires familiarity with the command-line and installing [Homebrew](https://brew.sh/). If we haven't scared you off yet, let's get started:
 
-* open the Terminal app
-* if you haven't already done so, install the standard Mac package manager called [Homebrew](https://brew.sh/), by copying the command mentioned under *Install Homebrew* on the [https://brew.sh/](https://brew.sh/) website and running it in the terminal
-* if you have installed Homebrew before, update it by running `brew update` in the terminal
-* if you haven't installed iPerf 3 yet, run `brew install iperf3` in the terminal
-* finally run iPerf 3 in server mode by running `iperf3 -s -D`
-* write down your computer's IP address, which you can see in the Network System Preferences panel (where you can also confirm that you are connected over Ethernet)
-* try it out by running `iperf3 -c your.ip.address` (the test results will be insanely high because it isn't actually going through the network, but going to your server directly on your machine)
-* if you would like to stop the server just open the terminal and run `killall iperf3`
+* Open the Terminal app
+* If you haven't already done so, install the standard macOS package manager called [Homebrew](https://brew.sh/), by copying the command mentioned under *Install Homebrew* on the [https://brew.sh/](https://brew.sh/) website and running it in the terminal
+* If you have installed Homebrew before, update it by running `brew update` in the terminal
+* If you haven't installed iPerf 3 yet, run `brew install iperf3` in the terminal
+* Finally run iPerf 3 in server mode by running `iperf3 -s -D`
+* Write down your computer's IP address, which you can see in the Network System Preferences panel (where you can also confirm that you are connected over Ethernet)
+* Try it out by running `iperf3 -c your.ip.address` (the test results will be very inflated, because it isn't actually going through the network, but rather to your server directly)
+* If you would like to stop the server, just open the terminal and run `killall iperf3`
 
-Congratulations! The server will now run until you restart your computer or log out of your account. If your server is unavailable, you can run it again by opening the terminal and running `iperf3 -s -D`.
+Congratulations! The server will now run until you restart your computer, or log out of your account. If your server is unavailable, you can run it again by opening the terminal and running `iperf3 -s -D`.
 
-Now you can run the app, enter your server's IP address and run a test. If you try to run two tests simultaneously you will see a "Server is busy" error: this is by design, as the tests would interfere with each other. Just wait for the other test to finish and run yours again.
+Now you can run the app, enter your server's IP address and run a test. If you try to run two tests simultaneously you will see a "Server is busy" error: This is meant to happen, as the tests would otherwise interfere with each other. Just wait for the first test to finish and run the second one again.
 
 ## Analyzing test results
 
-When running performance tests with the app you should look at:
+When running performance tests in the app you should look at:
 
-* **Average bandwidth**: if your iOS device gets 300 Mbits/s or more, you are doing really great (that translates to about 40 MB/s). That means it is connecting over 5 GHz and is plenty for great surfing, gaming and streaming.
+* **Average bandwidth**: If your iOS device gets 300 Mbits/s or more, you are doing really great (that translates to about 40 MB/s). That usually means it is connecting over 5 GHz and is plenty for surfing, gaming and streaming.
 
-* **Bandwidth fluctuation**: as the test runs, pay attention to how consistently the bandwidth number is. If you see important fluctuations, Wifi reliability might be an issue.
+* **Bandwidth fluctuation**: As the test runs, pay attention to how consistently the bandwidth number is. If you see important fluctuations, Wi-Fi reliability might be an issue.
 
-Make sure you run the test in all the rooms that matter to you, as performance can differ. If you identify issues or blind spots, there are many ways to improve Wifi performance, among which:
+Make sure you run the test in all the rooms that matter to you, as performance can differ. If you identify issues or blind spots, there are many ways to improve Wi-Fi performance, among which:
 
-* **Location**: get your access points closer to where you spend most of your time (in the living room and the kitchen for instance). This might mean moving your service provider's router / Wifi combo, or getting separate access points that you can run network cable to.
+* **Location**: Get your access points closer to where you spend most of your time (in the living room and the kitchen for instance). This might mean moving your service provider's router / Wi-Fi combo, or getting separate access points that you can run network cable to.
 
-* **Settings**: make sure 5 GHz is enabled, and use the same network name for both 2.4 GHz and 5 GHz, your iOS device will automatically figure out which to connect to
+* **Settings**: Make sure 5 GHz is enabled, and use the same network name for both 2.4 GHz and 5 GHz, your iOS device will automatically figure out which to connect to. Beam-forming and other more advanced settings might help too.
 
-* **Interference**: picking your Wifi bands manually will allow you to pick the least crowded bands and have a faster, more reliable connection
+* **Interference**: Picking your Wi-Fi bands manually will allow you to pick the least crowded bands and have a faster, more reliable connection, without congestion.
 
-We have found that having multiple access points is the key to reliable Wifi if your home or office has more than two walls between you and your access point, and running network cable across these access points (rather than using mesh networking) to provide the best performance and reliability. In that case, make sure you set the same network name and password across all access points and avoid overlapping channels, and the iOS devices will figure out how to connect to the closest access point automatically. If running network cable is not an option, using a mesh networking system is usually best.
+Having multiple access points is key fopr reliable Wi-Fi if your home or office has more than two walls between you and your access point. Better yet is running a network cable across these access points (rather than using mesh networking) to provide the best performance and reliability. If so, make sure you set the same network name and password across all access points and avoid overlapping channels. iOS devices will then figure out how to connect to the closest access point automatically. If running a network cable is not an option, using a mesh networking system is usually best.
 
 ## Advanced settings
 
 There are a few settings you can tweak in the UI, here is what they mean:
 
-* **Transmit mode**: select whether you want to test uploading or downloading data from / to your iOS device, download is usually faster and what you want but upload will help you understand how fast your iOS device really is (it is less affected by the access point's power level and antenna design)
+* **Transmit mode**: Whether you want to test uploading or downloading data from / to your iOS device, download is usually faster and what you want but upload will help you understand how fast your iOS device really is (it is less affected by the access point's power level and antenna design).
 
-* **Streams**: select how many parallel streams of data should be used during the test, 1 is not enough for devices that have more than one Wifi antenna so 2 and up are recommended
+* **Streams**: How many parallel streams of data should be used during the test, one is not enough for devices that have more than one Wi-Fi antenna so two or more are recommended.
 
-* **Test duration**: select how long you'd like to run the test, 30 seconds is a good amount of time to get stable data but feel free to set more and walk around your home or office to see how the bandwidth changes. Tests can be stopped at any time so feel free to set a high duration and stop it when you are happy.
+* **Test duration**: Select how long you'd like to run the test, 30 seconds is a good amount of time to get stable data, but feel free to set it higher and walk around your home or office to see how the bandwidth changes. Tests can be stopped at any time, so feel free to set a high duration and stop it when you are happy.
 
-The app is currently using the iPerf 3.6 code, though using a server with a different version will be fine. We aim to keep it up to date, if you think the app needs an update please get in touch by looking at the *Where can I get help?* section.
+The app is currently using the iPerf 3.6 code, though using a server with a different version will be fine. It will be kept up-to-date, but if you think the app needs an update, please get in touch by using the *Where can I get help?* section.
 
 ## Where can I get help?
 
-If the app is not working as intended, please [create an issue on github](https://github.com/ndfred/iperf-ios/issues), post in the [Unifi forum](https://community.ubnt.com/t5/UniFi-Wireless/Help-test-a-new-open-source-iPerf-3-iOS-app/td-p/2774321) or [ping me on Twitter](https://twitter.com/ndfred). You can also join the [TestFlight public beta](https://github.com/ndfred/iperf-ios#testing) and report issues over email there. Finally this project is open source and [contributions are welcome](https://github.com/ndfred/iperf-ios#contributing), and positive feedback and stories on how you use the app is also appreciated!
+If the app is not working as intended, please [create an issue on GitHub](https://github.com/ndfred/iperf-ios/issues), post in the [Unifi forum](https://community.ubnt.com/t5/UniFi-Wireless/Help-test-a-new-open-source-iPerf-3-iOS-app/td-p/2774321) or [ping me on Twitter](https://nitter.net/dfred). You can also join the [TestFlight public beta](https://github.com/ndfred/iperf-ios#testing) and report issues per e-mail there. This project is libre software and [contributions are welcome](https://github.com/ndfred/iperf-ios#contributing), including positive feedback and stories on how you use the app!
 
 ## Privacy policy
 
-See our [privacy policy page](PrivacyPolicy.html).
+Detailed on the [privacy policy](PrivacyPolicy.html) page.
 
 ## License
 
