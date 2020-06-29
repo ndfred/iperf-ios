@@ -1,5 +1,5 @@
 /*
- * iperf, Copyright (c) 2014-2019, The Regents of the University of
+ * iperf, Copyright (c) 2014-2020, The Regents of the University of
  * California, through Lawrence Berkeley National Laboratory (subject
  * to receipt of any required approvals from the U.S. Dept. of
  * Energy).  All rights reserved.
@@ -128,6 +128,7 @@ int iperf_get_test_tos( struct iperf_test* ipt );
 char*	iperf_get_extra_data( struct iperf_test* ipt );
 char*	iperf_get_iperf_version(void);
 int	iperf_get_test_no_delay( struct iperf_test* ipt );
+int	iperf_get_test_connect_timeout( struct iperf_test* ipt );
 
 /* Setter routines for some fields inside iperf_test. */
 void	iperf_set_verbose( struct iperf_test* ipt, int verbose );
@@ -160,7 +161,7 @@ void	iperf_set_test_bind_address( struct iperf_test* ipt, char *bind_address );
 void	iperf_set_test_udp_counters_64bit( struct iperf_test* ipt, int udp_counters_64bit );
 void	iperf_set_test_one_off( struct iperf_test* ipt, int one_off );
 void    iperf_set_test_tos( struct iperf_test* ipt, int tos );
-void	iperf_set_extra_data( struct iperf_test* ipt, char *dat);
+void	iperf_set_test_extra_data( struct iperf_test* ipt, char *dat );
 void    iperf_set_test_bidirectional( struct iperf_test* ipt, int bidirectional);
 void    iperf_set_test_no_delay( struct iperf_test* ipt, int no_delay);
 
@@ -168,7 +169,11 @@ void    iperf_set_test_no_delay( struct iperf_test* ipt, int no_delay);
 void    iperf_set_test_client_username(struct iperf_test *ipt, char *client_username);
 void    iperf_set_test_client_password(struct iperf_test *ipt, char *client_password);
 void    iperf_set_test_client_rsa_pubkey(struct iperf_test *ipt, char *client_rsa_pubkey_base64);
+void    iperf_set_test_server_authorized_users(struct iperf_test *ipt, char *server_authorized_users);
+void    iperf_set_test_server_rsa_privkey(struct iperf_test *ipt, char *server_rsa_privkey_base64);
 #endif // HAVE_SSL
+
+void	iperf_set_test_connect_timeout(struct iperf_test *ipt, int ct);
 
 /**
  * exchange_parameters - handles the param_Exchange part for client
