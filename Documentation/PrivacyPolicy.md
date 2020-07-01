@@ -31,6 +31,6 @@ This privacy policy is inspired by the [Overcast privacy policy](https://overcas
 
 ## Changes to this privacy policy
 
-Change our privacy policy so far:
+Changes to our privacy policy so far:
 
 May 15, 2019: First published.
