@@ -4,7 +4,7 @@ This policy applies to all info collected or submitted from the iPerf apps for i
 
 ## Collected info
 
-No data is collected through the app. The only exchange data is between the app and the iPerf 3 server it connects to. The help section is embedded in the app and does not connect to a server. It is recommended to [run your own iPerf 3 server](https://github.com/ndfred/iperf-ios/blob/master/Documentation/Help.md).
+No data is collected through the app. Data is only exchanged between the app and the iPerf 3 server it connects to. The help section is embedded in the app and does not connect to a server. It is recommended to [run your own iPerf 3 server](https://github.com/ndfred/iperf-ios/blob/master/Documentation/Help.md).
 
 When running a test:
 
