@@ -26,8 +26,6 @@
 		2BC2497722AD82F900698FCD /* dscp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4D227B9DBF009F4932 /* dscp.c */; };
 		2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */; };
 		2BF42EFE22AD76D800960DF7 /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = 2BF42EFC22AD76D800960DF7 /* PrivacyPolicy.html */; };
-		2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577801DCF748600F55EDC /* AppDelegate.m */; };
-		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
 		B6570E212353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
@@ -53,6 +51,7 @@
 		EF69DDDB24622B2600431A40 /* SwitchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD424622B2600431A40 /* SwitchRow.swift */; };
 		EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD524622B2600431A40 /* SegmentedRow.swift */; };
 		EF69DDE0246244D100431A40 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */; };
+		EF9CA6CC24C02A9600140385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9CA6CB24C02A9600140385 /* AppDelegate.swift */; };
 		EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CE67228A03FC000629B6 /* IPFIcon.m */; };
 		EFA76927245D3F730017A114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA76925245D3F730017A114 /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -118,9 +117,6 @@
 		2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BF42EFB22AD76D800960DF7 /* PrivacyPolicy.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
 		2BF42EFC22AD76D800960DF7 /* PrivacyPolicy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = PrivacyPolicy.html; sourceTree = "<group>"; };
-		2BF5777F1DCF748600F55EDC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2BF577801DCF748600F55EDC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2BF577A41DCF748600F55EDC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunner.m; sourceTree = "<group>"; };
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
 		B6570E1F2353D5F700A8F791 /* iperf_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_time.c; sourceTree = "<group>"; };
@@ -157,6 +153,7 @@
 		EF69DDD424622B2600431A40 /* SwitchRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchRow.swift; sourceTree = "<group>"; };
 		EF69DDD524622B2600431A40 /* SegmentedRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedRow.swift; sourceTree = "<group>"; };
 		EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		EF9CA6CB24C02A9600140385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFA76926245D3F730017A114 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Source/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -289,9 +286,7 @@
 				2BF577A51DCF748600F55EDC /* UI */,
 				B635ABF5227C1E6E001ABB44 /* Backend */,
 				2B87F62F1DCF76B900AA24E7 /* iperf3 */,
-				2BF5777F1DCF748600F55EDC /* AppDelegate.h */,
-				2BF577801DCF748600F55EDC /* AppDelegate.m */,
-				2BF577A41DCF748600F55EDC /* main.m */,
+				EF9CA6CB24C02A9600140385 /* AppDelegate.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -537,10 +532,10 @@
 				EF69DDCA2462286500431A40 /* IPFTestRunnerViewController.swift in Sources */,
 				B6570E212353D5F800A8F791 /* iperf_time.c in Sources */,
 				2BC2497722AD82F900698FCD /* dscp.c in Sources */,
-				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
 				EF69DDCE24622B1D00431A40 /* FormViewController.swift in Sources */,
+				EF9CA6CC24C02A9600140385 /* AppDelegate.swift in Sources */,
 				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
 				EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */,
@@ -562,7 +557,6 @@
 				EF69DDD624622B2600431A40 /* Section.swift in Sources */,
 				EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */,
 				EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */,
-				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
 				EF2FB44E2463D0DF00245124 /* IPFSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
