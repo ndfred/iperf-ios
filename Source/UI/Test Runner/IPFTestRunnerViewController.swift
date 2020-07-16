@@ -39,6 +39,7 @@ private extension IPFTestRunnerViewController {
         if testRunner != nil {
             testRunner?.stopTest()
         } else {
+            resultsHeader.showInitial()
             startTest()
         }
     }
@@ -170,7 +171,6 @@ private extension IPFTestRunnerViewController {
             progressView.progress = 0
             progressView.isHidden = false
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            resultsHeader.showInitial()
 
         case .inactive:
             actionTitle = "TestRunner.start"
