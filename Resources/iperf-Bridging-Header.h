@@ -4,4 +4,3 @@
 
 #import "IPFTestRunner.h"
 #import "IPFTestRunnerConfiguration.h"
-#import "IPFHelpViewController.h"

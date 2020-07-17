@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 final class IPFTestResultsHeaderView: UIView {
     var currentBandWidth: Int = 0 {
