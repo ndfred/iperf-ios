@@ -69,56 +69,71 @@ private extension IPFTestRunnerViewController {
             ])
         }
 
-        form
-            +++ Section { _ in }
-            +++ ViewRow {
-                $0.childView = resultsHeader
-            }
-            +++ TextFieldRow {
-                $0.placeHolder = "TestRunner.serverAddress".localized
-                $0.keyboardType = .numbersAndPunctuation
-                $0.text = configuration.hostname
-            }.onTextChange { [weak self] text in
-                self?.configuration.hostname = text
-            }
-            +++ TextFieldRow {
-                $0.placeHolder = "TestRunner.serverPort".localized
-                $0.keyboardType = .numberPad
-                $0.text = String(configuration.port)
-            }.onTextChange { [weak self] text in
-                self?.configuration.port = UInt(text) ?? 0
-            }
-            +++ TextFieldRow {
-                $0.placeHolder = "TestRunner.testLocation".localized
-                $0.keyboardType = .default
-            }.onTextChange { [weak self] text in
-                self?.testLocation = text
-            }
+        // Setup the individual UI fields
 
-            +++ Section { _ in }
-            +++ SegmentedRow {
-                $0.text = "TestRunner.transmitMode".localized
-                $0.segments = ["Upload", "Download"]
-                $0.defaultSegment = Int(configuration.type.rawValue)
-            }.onSegmentChange { [weak self] selectedIndex, _ in
-                self?.configuration.type = IPFTestRunnerConfigurationType(rawValue: UInt(selectedIndex)) ?? .upload
+        form.addSection(Section())
+
+        let header = ViewRow {
+            $0.childView = resultsHeader
+        }
+        form.addRow(header)
+
+        let serverAddress = TextFieldRow {
+            $0.placeHolder = "TestRunner.serverAddress".localized
+            $0.keyboardType = .numbersAndPunctuation
+            $0.text = configuration.hostname
+        }.onTextChange { [weak self] text in
+            self?.configuration.hostname = text
+        }
+        form.addRow(serverAddress)
+
+        let serverPort = TextFieldRow {
+            $0.placeHolder = "TestRunner.serverPort".localized
+            $0.keyboardType = .numberPad
+            $0.text = String(configuration.port)
+        }.onTextChange { [weak self] text in
+            self?.configuration.port = UInt(text) ?? 0
+        }
+        form.addRow(serverPort)
+
+        let testLocation = TextFieldRow {
+            $0.placeHolder = "TestRunner.testLocation".localized
+            $0.keyboardType = .default
+        }.onTextChange { [weak self] text in
+            self?.testLocation = text
+        }
+        form.addRow(testLocation)
+
+        form.addSection(Section())
+
+        let transmitMode = SegmentedRow {
+            $0.text = "TestRunner.transmitMode".localized
+            $0.segments = ["Upload", "Download"]
+            $0.defaultSegment = Int(configuration.type.rawValue)
+        }.onSegmentChange { [weak self] selectedIndex, _ in
+            self?.configuration.type = IPFTestRunnerConfigurationType(rawValue: UInt(selectedIndex)) ?? .upload
+        }
+        form.addRow(transmitMode)
+
+        let streams = SegmentedRow {
+            $0.text = "TestRunner.streams".localized
+            $0.segments = (1 ... 5).compactMap { String($0) }
+            $0.defaultSegment = Int(configuration.streams) - 1
+        }.onSegmentChange { [weak self] selectedIndex, _ in
+            self?.configuration.streams = UInt(selectedIndex) + 1
+        }
+        form.addRow(streams)
+
+        let duration = SegmentedRow {
+            $0.text = "TestRunner.duration".localized
+            $0.segments = durations.compactMap { seconds -> String in
+                seconds < 60 ? "\(seconds)s" : "\(seconds / 60) min"
             }
-            +++ SegmentedRow {
-                $0.text = "TestRunner.streams".localized
-                $0.segments = (1 ... 5).compactMap { String($0) }
-                $0.defaultSegment = Int(configuration.streams) - 1
-            }.onSegmentChange { [weak self] selectedIndex, _ in
-                self?.configuration.streams = UInt(selectedIndex) + 1
-            }
-            +++ SegmentedRow {
-                $0.text = "TestRunner.duration".localized
-                $0.segments = durations.compactMap { seconds -> String in
-                    seconds < 60 ? "\(seconds)s" : "\(seconds / 60) min"
-                }
-                $0.defaultSegment = durations.firstIndex(of: configuration.duration) ?? 3
-            }.onSegmentChange { [weak self] selectedIndex, _ in
-                self?.configuration.duration = self?.durations[selectedIndex] ?? 10
-            }
+            $0.defaultSegment = durations.firstIndex(of: configuration.duration) ?? 3
+        }.onSegmentChange { [weak self] selectedIndex, _ in
+            self?.configuration.duration = self?.durations[selectedIndex] ?? 10
+        }
+        form.addRow(duration)
     }
 
     func restoreTestSettings() {
