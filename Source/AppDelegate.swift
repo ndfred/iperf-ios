@@ -7,11 +7,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         var window: UIWindow?
 
         let testRunner = UINavigationController(rootViewController: IPFTestRunnerViewController())
-        testRunner.tabBarItem = UITabBarItem(title: NSLocalizedString("TestRunner.title", comment: ""), image: UIImage(named: "SpeedTest"), tag: 0)
+        testRunner.tabBarItem = UITabBarItem(title: NSLocalizedString("TestRunner.title", comment: ""), image: UIImage(named: "speedometer"), tag: 0)
         let testResults = UINavigationController(rootViewController: IPFTestResultsViewController())
-        testResults.tabBarItem = UITabBarItem(title: NSLocalizedString("TestResults.title", comment: ""), image: UIImage(named: "Results"), tag: 1)
+        testResults.tabBarItem = UITabBarItem(title: NSLocalizedString("TestResults.title", comment: ""), image: UIImage(named: "clock"), tag: 1)
         let settings = UINavigationController(rootViewController: IPFSettingsViewController())
-        settings.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings.title", comment: ""), image: UIImage(named: "Settings"), tag: 2)
+        settings.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings.title", comment: ""), image: UIImage(named: "gear"), tag: 2)
 
         let tabBar = UITabBarController()
         tabBar.viewControllers = [testRunner, testResults, settings]
