@@ -2,6 +2,8 @@ import UIKit
 
 @objc
 final class IPFTestResultsViewController: UIViewController {
+    var store: IPFTestResultsStoreType!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -31,7 +33,7 @@ final class IPFTestResultsViewController: UIViewController {
 
 extension IPFTestResultsViewController: UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        IPFTestResultsManager.shared.results.count
+        store.results.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -39,7 +41,7 @@ extension IPFTestResultsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configure(with: IPFTestResultsManager.shared.results[indexPath.row])
+        cell.configure(with: store.results[indexPath.row])
         return cell
     }
 }

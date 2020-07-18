@@ -7,6 +7,8 @@ private enum IPFTestState {
 }
 
 final class IPFTestRunnerViewController: FormViewController {
+    var store: IPFTestResultsStoreType!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         restoreTestSettings()
@@ -159,7 +161,7 @@ private extension IPFTestRunnerViewController {
                                        streams: configuration.streams,
                                        averageBandWidth: resultsHeader.averageBandWidth,
                                        location: testLocation)
-        IPFTestResultsManager.shared.add(testResult)
+        store.add(testResult)
     }
 
     func playFeedBack() {

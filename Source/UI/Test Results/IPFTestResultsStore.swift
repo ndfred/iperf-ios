@@ -1,29 +1,20 @@
 import Foundation
 
-protocol IPFTestResultsDataStoreType {
+protocol IPFTestResultsStoreType {
     var results: [IPFTestResult] { get }
     func add(_ result: IPFTestResult)
+    func remove(at index: Int)
 }
 
-final class IPFTestResultsStore: NSObject, IPFTestResultsDataStoreType {
-    static let shared = IPFTestResultsStore()
-
-    // MARK: - Lifecycle
-
-    private override init() {
-
-    }
-
-    deinit {
-
-    }
-
-    // MARK: - Public Methods
-
+final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
     var results = [IPFTestResult]()
 
     func add(_ result: IPFTestResult) {
         results.insert(result, at: 0)
+    }
+
+    func remove(at index: Int) {
+        
     }
 
     // MARK: - Private

@@ -38,7 +38,7 @@
 		EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */; };
 		EF550E2A2454A78400DF9A55 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E292454A78400DF9A55 /* Extensions.swift */; };
 		EF550E2C2454A7B000DF9A55 /* IPFTestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */; };
-		EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */; };
+		EF550E2E2454A7C800DF9A55 /* IPFTestResultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */; };
 		EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */; };
 		EF69DDCA2462286500431A40 /* IPFTestRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */; };
 		EF69DDCD24622B1D00431A40 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCB24622B1C00431A40 /* Form.swift */; };
@@ -139,7 +139,7 @@
 		EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultCell.swift; sourceTree = "<group>"; };
 		EF550E292454A78400DF9A55 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsView.swift; sourceTree = "<group>"; };
-		EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsManager.swift; sourceTree = "<group>"; };
+		EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsStore.swift; sourceTree = "<group>"; };
 		EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResult.swift; sourceTree = "<group>"; };
 		EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestRunnerViewController.swift; sourceTree = "<group>"; };
 		EF69DDCB24622B1C00431A40 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
@@ -330,7 +330,7 @@
 				EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */,
 				EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */,
 				EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */,
-				EF550E2D2454A7C800DF9A55 /* IPFTestResultsManager.swift */,
+				EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */,
 				EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */,
 			);
 			path = "Test Results";
@@ -554,7 +554,7 @@
 				EF2FB44A24636E2B00245124 /* IPFTestResultsHeaderView.swift in Sources */,
 				EF69DDD624622B2600431A40 /* Section.swift in Sources */,
 				EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */,
-				EF550E2E2454A7C800DF9A55 /* IPFTestResultsManager.swift in Sources */,
+				EF550E2E2454A7C800DF9A55 /* IPFTestResultsStore.swift in Sources */,
 				EF2FB44E2463D0DF00245124 /* IPFSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
