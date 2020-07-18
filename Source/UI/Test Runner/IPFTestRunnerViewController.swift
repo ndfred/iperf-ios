@@ -153,13 +153,12 @@ private extension IPFTestRunnerViewController {
     }
 
     func saveTestResults() {
-        let testResult = IPFTestResult()
-        testResult.date = Date()
-        testResult.mode = configuration.type == .download ? "⇊" : "⇈"
-        testResult.duration = configuration.duration
-        testResult.streams = configuration.streams
-        testResult.averageBandWidth = resultsHeader.averageBandWidth
-        testResult.location = testLocation
+        let testResult = IPFTestResult(date: Date(),
+                                       mode: configuration.type == .download ? "⇊" : "⇈",
+                                       duration: configuration.duration,
+                                       streams: configuration.streams,
+                                       averageBandWidth: resultsHeader.averageBandWidth,
+                                       location: testLocation)
         IPFTestResultsManager.shared.add(testResult)
     }
 
