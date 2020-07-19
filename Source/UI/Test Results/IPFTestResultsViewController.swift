@@ -74,6 +74,13 @@ extension IPFTestResultsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            store.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if #available(iOS 11.0, *) {
             return UITableView.automaticDimension
