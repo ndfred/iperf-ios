@@ -15,19 +15,22 @@ final class IPFSettingsViewController: FormViewController {
             view.backgroundColor = .white
         }
 
-        form
-            +++ Section { _ in }
-            +++ SwitchRow {
-                $0.text = "Settings.enableHaptics".localized
-                $0.state = UserDefaults.enableHaptics
-            }.onToggle { state in
-                UserDefaults.enableHaptics = state
-            }
-            +++ SwitchRow {
-                $0.text = "Settings.enableSounds".localized
-                $0.state = UserDefaults.enableSounds
-            }.onToggle { state in
-                UserDefaults.enableSounds = state
-            }
+        form.addSection(Section())
+
+        let hapticsRow = SwitchRow {
+            $0.text = "Settings.enableHaptics".localized
+            $0.state = UserDefaults.enableHaptics
+        }.onToggle { state in
+            UserDefaults.enableHaptics = state
+        }
+        form.addRow(hapticsRow)
+
+        let soundsRow = SwitchRow {
+            $0.text = "Settings.enableSounds".localized
+            $0.state = UserDefaults.enableSounds
+        }.onToggle { state in
+            UserDefaults.enableSounds = state
+        }
+        form.addRow(soundsRow)
     }
 }
