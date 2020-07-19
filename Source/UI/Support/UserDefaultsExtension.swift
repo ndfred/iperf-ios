@@ -12,38 +12,38 @@ private enum UserDefaultsKey: String, CaseIterable {
 
 public extension UserDefaults {
     static var hostname: String {
-        get { read(.hostname) ?? "" }
-        set { store(newValue, for: .hostname) }
+        get { readValue(.hostname) ?? "" }
+        set { storeValue(newValue, for: .hostname) }
     }
 
     static var port: UInt {
-        get { read(.port) ?? 5201 }
-        set { store(newValue, for: .port) }
+        get { readValue(.port) ?? 5201 }
+        set { storeValue(newValue, for: .port) }
     }
 
     static var configType: UInt {
-        get { read(.configType) ?? 1 }
-        set { store(newValue, for: .configType) }
+        get { readValue(.configType) ?? 1 }
+        set { storeValue(newValue, for: .configType) }
     }
 
     static var streams: UInt {
-        get { read(.streams) ?? 5 }
-        set { store(newValue, for: .streams) }
+        get { readValue(.streams) ?? 5 }
+        set { storeValue(newValue, for: .streams) }
     }
 
     static var duration: UInt {
-        get { read(.duration) ?? 10 }
-        set { store(newValue, for: .duration) }
+        get { readValue(.duration) ?? 10 }
+        set { storeValue(newValue, for: .duration) }
     }
 
     static var enableHaptics: Bool {
-        get { read(.enableHaptics) ?? true }
-        set { store(newValue, for: .enableHaptics) }
+        get { readValue(.enableHaptics) ?? true }
+        set { storeValue(newValue, for: .enableHaptics) }
     }
 
     static var enableSounds: Bool {
-        get { read(.enableSounds) ?? true }
-        set { store(newValue, for: .enableSounds) }
+        get { readValue(.enableSounds) ?? true }
+        set { storeValue(newValue, for: .enableSounds) }
     }
 
     static func reset() {
@@ -54,11 +54,11 @@ public extension UserDefaults {
 }
 
 private extension UserDefaults {
-    static func read<U>(_ key: UserDefaultsKey) -> U? {
+    static func readValue<U>(_ key: UserDefaultsKey) -> U? {
         UserDefaults.standard.value(forKey: key.rawValue) as? U
     }
 
-    static func store<U>(_ value: U, for key: UserDefaultsKey) {
+    static func storeValue<U>(_ value: U, for key: UserDefaultsKey) {
         UserDefaults.standard.set(value, forKey: key.rawValue)
         UserDefaults.standard.synchronize()
     }
