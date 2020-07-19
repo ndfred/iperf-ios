@@ -4,6 +4,8 @@ import UIKit
 final class IPFTestResultsViewController: UIViewController {
     var store: IPFTestResultsStoreType!
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -14,12 +16,33 @@ final class IPFTestResultsViewController: UIViewController {
         tableView.reloadData()
     }
 
+    // MARK: - Private
+
     private func setupUI() {
         title = "TestResults.title".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAllTestResults))
         tableView.register(IPFTestResultsCell.self, forCellReuseIdentifier: IPFTestResultsCell.reuseIdentifier)
         tableView.embed(in: view)
         tableView.estimatedRowHeight = rowHeight
         tableView.estimatedSectionHeaderHeight = rowHeight
+    }
+
+    @objc private func deleteAllTestResults() {
+        let alert = UIAlertController(title: "TestResults.deleteTitle".localized,
+                                      message: "TestResults.deleteMessage".localizeWithFormat(arguments: store.results.count),
+                                      preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        let okAction = UIAlertAction(title: "OK".localized, style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.store.clear()
+            self.tableView.reloadData()
+        }
+        alert.addAction(okAction)
+
+        present(alert, animated: true, completion: nil)
     }
 
     private lazy var tableView: UITableView = {
