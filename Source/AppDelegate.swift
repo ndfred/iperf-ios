@@ -29,4 +29,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func applicationWillResignActive(_ application: UIApplication) {
+        store.save()
+    }
+
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        store.save()
+    }
+
 }
