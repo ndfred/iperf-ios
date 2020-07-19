@@ -156,7 +156,7 @@ private extension IPFTestRunnerViewController {
 
     func saveTestResults() {
         let testResult = IPFTestResult(date: Date(),
-                                       mode: configuration.type == .download ? "⇊" : "⇈",
+                                       mode: configuration.type.stringValue,
                                        duration: configuration.duration,
                                        streams: configuration.streams,
                                        averageBandWidth: resultsHeader.averageBandWidth,
@@ -259,5 +259,20 @@ private extension IPFTestRunnerViewController {
         let alert = UIAlertController(title: "Warning".localized, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+}
+
+private extension IPFTestRunnerConfigurationType {
+    var stringValue: String {
+        switch self {
+        case .download:
+            return "Download"
+        case .upload:
+            return "Upload"
+        case .server:
+            return "Server"
+        @unknown default:
+            return ""
+        }
     }
 }

@@ -1,11 +1,3 @@
-//
-//  IPFTestResultsStoreTests.swift
-//  Tests
-//
-//  Created by Deepu Mukundan on 7/18/20.
-//
-
-import Foundation
 import XCTest
 @testable import iperf
 

@@ -19,7 +19,7 @@ final class IPFTestResultsCell: UITableViewCell {
     }
 
     func configure(with result: IPFTestResult) {
-        resultsView.modeLabel.text = result.mode
+        resultsView.modeLabel.text = result.mode == "Upload" ? "⇈" : "⇊"
         resultsView.dateLabel.text = IPFTestResultsCell.dateFormatter.string(from: result.date)
         resultsView.streamsLabel.text = String(result.streams)
         resultsView.durationLabel.text = "\(result.duration)s"
