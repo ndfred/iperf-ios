@@ -28,7 +28,6 @@
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
 		B6570E212353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
-		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
 		B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */; };
 		EF182DC124C16E9F00188E25 /* IPFHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF182DC024C16E9F00188E25 /* IPFHelpViewController.swift */; };
 		EF2FB44A24636E2B00245124 /* IPFTestResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44924636E2B00245124 /* IPFTestResultsHeaderView.swift */; };
@@ -54,6 +53,7 @@
 		EF9CA6CC24C02A9600140385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9CA6CB24C02A9600140385 /* AppDelegate.swift */; };
 		EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CE67228A03FC000629B6 /* IPFIcon.m */; };
 		EFA76927245D3F730017A114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA76925245D3F730017A114 /* Localizable.strings */; };
+		EFDC288B24C3E476003C997C /* IPFTestResultsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC288A24C3E476003C997C /* IPFTestResultsStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +119,6 @@
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
 		B6570E1F2353D5F700A8F791 /* iperf_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_time.c; sourceTree = "<group>"; };
 		B6570E202353D5F700A8F791 /* iperf_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_time.h; sourceTree = "<group>"; };
-		B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerTest.m; sourceTree = "<group>"; };
 		B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = IPFTestRunnerConfiguration.value; sourceTree = "<group>"; };
 		B692F5FF227D900A00BE7313 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 		B692F604227D907600BE7313 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +153,8 @@
 		EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		EF9CA6CB24C02A9600140385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFA76926245D3F730017A114 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Source/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		EFDC288924C3E476003C997C /* Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		EFDC288A24C3E476003C997C /* IPFTestResultsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,8 +319,9 @@
 		B692F605227D907600BE7313 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */,
 				B692F608227D907600BE7313 /* Info.plist */,
+				EFDC288A24C3E476003C997C /* IPFTestResultsStoreTests.swift */,
+				EFDC288924C3E476003C997C /* Tests-Bridging-Header.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -444,6 +446,7 @@
 					};
 					B692F603227D907600BE7313 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1150;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2B6855E61DCF72D60009ABFD;
 					};
@@ -563,7 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */,
+				EFDC288B24C3E476003C997C /* IPFTestResultsStoreTests.swift in Sources */,
 				B6570E222353D5F800A8F791 /* iperf_time.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -747,6 +750,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -759,6 +763,9 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iperf.app/iperf";
 			};
@@ -771,6 +778,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -782,6 +790,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iperf.app/iperf";
 			};

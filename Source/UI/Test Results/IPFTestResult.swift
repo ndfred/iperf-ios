@@ -1,6 +1,6 @@
 import Foundation
 
-struct IPFTestResult: Codable {
+struct IPFTestResult: Codable, Equatable {
     var date: Date
     var mode: String
     var duration: UInt

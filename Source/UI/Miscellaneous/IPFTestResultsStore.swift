@@ -1,19 +1,26 @@
 import Foundation
 import UIKit
+import os
 
 protocol IPFTestResultsStoreType {
     var results: [IPFTestResult] { get }
     func add(_ result: IPFTestResult)
     func remove(at index: Int)
     func save()
+    func clear()
 }
 
 final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
     var results = [IPFTestResult]()
 
-    override init() {
+    private override init() {
         super.init()
-        loadData()
+    }
+
+    convenience init(storeFile: String = "IPFTestResults") {
+        self.init()
+        self.resultsStoreFile = storeFile
+        load()
     }
 
     func add(_ result: IPFTestResult) {
@@ -26,8 +33,14 @@ final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
         dataMutated = true
     }
 
+    func clear() {
+        results.removeAll()
+        dataMutated = true
+        save()
+    }
+
     func save() {
-        // Prevent invalid disk writes
+        // Prevent unwanted disk writes
         guard dataMutated else { return }
 
         let app = UIApplication.shared
@@ -36,9 +49,8 @@ final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
             app.endBackgroundTask(self.dataStoreSaveTaskIdentifier)
         })
 
-        // Save data to disk
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
+        // Encode and Save data to disk
+        let encoder = JSONEncoder()
         let testResultsData = try? encoder.encode(results)
         if let data = testResultsData, let storeFileURL = resultsStoreFileURL {
             try? data.write(to: storeFileURL)
@@ -49,21 +61,25 @@ final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
         app.endBackgroundTask(dataStoreSaveTaskIdentifier)
     }
 
-    // MARK: - Private
-
-    func loadData() {
+    func load() {
         guard let storeFileURL = resultsStoreFileURL, let data = try? Data(contentsOf: storeFileURL) else { return }
-        let decoder = PropertyListDecoder()
+        if #available(iOS 10.0, *) {
+            os_log("💾 Store File: %{public}s", log: .default, type: .info, storeFileURL.description)
+        }
+        let decoder = JSONDecoder()
         let savedResults = try? decoder.decode([IPFTestResult].self, from: data)
         results.append(contentsOf: savedResults ?? [])
     }
 
+    // MARK: - Private
+
+    private var resultsStoreFile = ""
     private var dataStoreSaveTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
     private var dataMutated = false
 
-    private let resultsStoreFileURL: URL? = {
+    private lazy var resultsStoreFileURL: URL? = {
         guard let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else { return nil }
-        let file = docsDir.appendingPathComponent("IPFTestResults.plist")
+        let file = docsDir.appendingPathComponent(resultsStoreFile + ".json")
         return file
     }()
 }
