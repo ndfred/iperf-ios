@@ -44,7 +44,6 @@ final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
             try? data.write(to: storeFileURL)
         }
 
-        // Reset the flag
         dataMutated = false
         // End the background task
         app.endBackgroundTask(dataStoreSaveTaskIdentifier)
@@ -64,7 +63,7 @@ final class IPFTestResultsStore: NSObject, IPFTestResultsStoreType {
 
     private let resultsStoreFileURL: URL? = {
         guard let docsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else { return nil }
-        let file = docsDir.appendingPathComponent("IPFTestResults.json")
+        let file = docsDir.appendingPathComponent("IPFTestResults.plist")
         return file
     }()
 }

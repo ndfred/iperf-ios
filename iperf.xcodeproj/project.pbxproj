@@ -330,7 +330,6 @@
 				EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */,
 				EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */,
 				EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */,
-				EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */,
 				EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */,
 			);
 			path = "Test Results";
@@ -375,6 +374,7 @@
 			children = (
 				EF182DC024C16E9F00188E25 /* IPFHelpViewController.swift */,
 				EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */,
+				EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
