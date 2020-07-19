@@ -3,10 +3,10 @@ import UIKit
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let store: IPFTestResultsStoreType = IPFTestResultsStore()
+    var window: UIWindow?
+    private let store: IPFTestResultsStoreType = IPFTestResultsStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        var window: UIWindow?
 
         let testRunner = IPFTestRunnerViewController()
         testRunner.store = store
