@@ -174,6 +174,7 @@ EVP_PKEY *load_pubkey_from_base64(const char *buffer) {
 
     BIO* bio = BIO_new(BIO_s_mem());
     BIO_write(bio, key, key_len);
+    free(key);
     EVP_PKEY *pkey = PEM_read_bio_PUBKEY(bio, NULL, NULL, NULL);
     BIO_free(bio);
     return (pkey);
@@ -199,6 +200,7 @@ EVP_PKEY *load_privkey_from_base64(const char *buffer) {
 
     BIO* bio = BIO_new(BIO_s_mem());
     BIO_write(bio, key, key_len);
+    free(key);
     EVP_PKEY *pkey = PEM_read_bio_PrivateKey(bio, NULL, NULL, NULL);
     BIO_free(bio);
     return (pkey);
@@ -304,7 +306,7 @@ int encode_auth_setting(const char *username, const char *password, EVP_PKEY *pu
     return (0); //success
 }
 
-int decode_auth_setting(int enable_debug, char *authtoken, EVP_PKEY *private_key, char **username, char **password, time_t *ts){
+int decode_auth_setting(int enable_debug, const char *authtoken, EVP_PKEY *private_key, char **username, char **password, time_t *ts){
     unsigned char *encrypted_b64 = NULL;
     size_t encrypted_len_b64;
     Base64Decode(authtoken, &encrypted_b64, &encrypted_len_b64);        
