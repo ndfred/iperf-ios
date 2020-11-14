@@ -144,6 +144,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   _maxBandwidth = CGFLOAT_MIN;
   _minBandwidth = CGFLOAT_MAX;
 
+  // NSLog(@"Starting the test");
+
   [testRunner startTest:^(IPFTestRunnerStatus status) {
     switch (status.errorState) {
       case IPFTestRunnerErrorStateNoError:
@@ -182,6 +184,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       [application setNetworkActivityIndicatorVisible:NO];
       [application endBackgroundTask:backgroundTask];
 
+      // NSLog(@"Not running");
+
       if (status.errorState == IPFTestRunnerErrorStateNoError || status.errorState == IPFTestRunnerErrorStateServerIsBusy) {
         if (self->_averageBandwidthTotal) {
           self.bandwidthLabel.text = [NSString stringWithFormat:@"%.0f Mbits/s", self->_averageBandwidthTotal / (CGFloat)self->_averageBandwidthCount];
@@ -196,6 +200,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
       }
     } else {
       CGFloat bandwidth = status.bandwidth;
+
+      // NSLog(@"Bandwidth: %.2f, progress: %.2f", status.bandwidth, status.progress);
 
       self->_averageBandwidthTotal += status.bandwidth;
       self->_averageBandwidthCount++;
