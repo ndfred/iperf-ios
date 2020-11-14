@@ -168,10 +168,6 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
         break;
     }
 
-    if (status.errorState != IPFTestRunnerErrorStateNoError) {
-      [self showAlert:NSLocalizedString(@"Error running the test", @"Default test error message")];
-    }
-
     if (status.running == NO) {
       [self showStartButton:YES];
       self.addressTextField.enabled = YES;
