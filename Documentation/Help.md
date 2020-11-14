@@ -10,7 +10,7 @@ The app uses the standard library to test bandwidth across servers, [iPerf 3](ht
 
 ## Running an iPerf 3 server
 
-You need a computer to run it on that is connected to your home network, or router with a network cable. Laptops work if connected by gigabit Ethernet. Running the server over Wi-Fi might interfere with the app sending data, resulting in much slower test results.
+You need a computer to run it on that is connected to your home network's router with a network cable. Laptops work if connected by gigabit Ethernet: running the server over Wi-Fi might interfere with the app sending data, resulting in much slower and unreliable test results.
 
 For installing iPerf 3 on macOS, [a guide is available on the iperf.fr website](https://iperf.fr/iperf-download.php).
 On Linux and Windows, installing an iPerf 3 server requires familiarity with the command-line and installing [Homebrew](https://brew.sh/). If we haven't scared you off yet, let's get started:
@@ -26,41 +26,41 @@ On Linux and Windows, installing an iPerf 3 server requires familiarity with the
 
 Congratulations! The server will now run until you restart your computer, or log out of your account. If your server is unavailable, you can run it again by opening the terminal and running `iperf3 -s -D`.
 
-Now you can run the app, enter your server's IP address and run a test. If you try to run two tests simultaneously you will see a "Server is busy" error: This is meant to happen, as the tests would otherwise interfere with each other. Just wait for the first test to finish and run the second one again.
+Now you can run the app, enter your server's IP address and run a test. If you try to run two tests simultaneously you will see a "Server is busy" error: this is meant to happen, as the tests would otherwise interfere with each other. Just wait for the first test to finish and run the second one again.
 
 ## Analyzing test results
 
 When running performance tests in the app you should look at:
 
-* **Average bandwidth**: If your iOS device gets 300 Mbits/s or more, you are doing really great (that translates to about 40 MB/s). That usually means it is connecting over 5 GHz and is plenty for surfing, gaming and streaming.
+* **Average bandwidth**: if your iOS device gets 300 Mbits/s or more, you are doing really great (that translates to about 40 MB/s). That usually means it is connecting over 5 GHz and is plenty for surfing, gaming and streaming.
 
-* **Bandwidth fluctuation**: As the test runs, pay attention to how consistently the bandwidth number is. If you see important fluctuations, Wi-Fi reliability might be an issue.
+* **Bandwidth fluctuation**: as the test runs, pay attention to how consistently the bandwidth number is. If you see important fluctuations, Wi-Fi reliability might be an issue.
 
 Make sure you run the test in all the rooms that matter to you, as performance can differ. If you identify issues or blind spots, there are many ways to improve Wi-Fi performance, among which:
 
-* **Location**: Get your access points closer to where you spend most of your time (in the living room and the kitchen for instance). This might mean moving your service provider's router / Wi-Fi combo, or getting separate access points that you can run network cable to.
+* **Location**: get your access points closer to where you spend most of your time (in the living room and the kitchen for instance). This might mean moving your service provider's router / Wi-Fi combo, or getting separate access points that you can run network cable to.
 
-* **Settings**: Make sure 5 GHz is enabled, and use the same network name for both 2.4 GHz and 5 GHz, your iOS device will automatically figure out which to connect to. Beam-forming and other more advanced settings might help too.
+* **Settings**: make sure 5 GHz is enabled, and use the same network name for both 2.4 GHz and 5 GHz, your iOS device will automatically figure out which to connect to. Beam-forming and other more advanced settings might help too.
 
-* **Interference**: Picking your Wi-Fi bands manually will allow you to pick the least crowded bands and have a faster, more reliable connection, without congestion.
+* **Interference**: picking your Wi-Fi bands manually will allow you to pick the least crowded bands and have a faster, more reliable connection, without congestion.
 
-Having multiple access points is key fopr reliable Wi-Fi if your home or office has more than two walls between you and your access point. Better yet is running a network cable across these access points (rather than using mesh networking) to provide the best performance and reliability. If so, make sure you set the same network name and password across all access points and avoid overlapping channels. iOS devices will then figure out how to connect to the closest access point automatically. If running a network cable is not an option, using a mesh networking system is usually best.
+Having multiple access points is key for reliable Wi-Fi if your home or office has more than two walls between you and your access point. Better yet is running a network cable across these access points (rather than using mesh networking) to provide the best performance and reliability. If so, make sure you set the same network name and password across all access points and avoid overlapping channels. iOS devices will then figure out how to connect to the closest access point automatically. If running a network cable is not an option, using a mesh networking system is usually best.
 
 ## Advanced settings
 
 There are a few settings you can tweak in the UI, here is what they mean:
 
-* **Transmit mode**: Whether you want to test uploading or downloading data from / to your iOS device, download is usually faster and what you want but upload will help you understand how fast your iOS device really is (it is less affected by the access point's power level and antenna design).
+* **Transmit mode**: whether you want to test uploading or downloading data from / to your iOS device, download is usually faster and what you want but upload will help you understand how fast your iOS device really is (it is less affected by the access point's power level and antenna design).
 
-* **Streams**: How many parallel streams of data should be used during the test, one is not enough for devices that have more than one Wi-Fi antenna so two or more are recommended.
+* **Streams**: how many parallel streams of data should be used during the test, one is not enough for devices that have more than one Wi-Fi antenna so two or more are recommended (modern iOS devices have two antennas).
 
-* **Test duration**: Select how long you'd like to run the test, 30 seconds is a good amount of time to get stable data, but feel free to set it higher and walk around your home or office to see how the bandwidth changes. Tests can be stopped at any time, so feel free to set a high duration and stop it when you are happy.
+* **Test duration**: select how long you'd like to run the test, 30 seconds is a good amount of time to get stable data, but feel free to set it higher and walk around your home or office to see how the bandwidth changes. Tests can be stopped at any time, so feel free to set a high duration and stop it when you are happy.
 
-The app is currently using the iPerf 3.6 code, though using a server with a different version will be fine. It will be kept up-to-date, but if you think the app needs an update, please get in touch by using the *Where can I get help?* section.
+The app is currently using the iPerf 3.9 code, though using a server with a different version will work fine. It will be kept up-to-date, but if you think the app needs an update, please get in touch by using the *Where can I get help?* section.
 
 ## Where can I get help?
 
-If the app is not working as intended, please [create an issue on GitHub](https://github.com/ndfred/iperf-ios/issues), post in the [Unifi forum](https://community.ubnt.com/t5/UniFi-Wireless/Help-test-a-new-open-source-iPerf-3-iOS-app/td-p/2774321) or [ping me on Twitter](https://nitter.net/dfred). You can also join the [TestFlight public beta](https://github.com/ndfred/iperf-ios#testing) and report issues per e-mail there. This project is libre software and [contributions are welcome](https://github.com/ndfred/iperf-ios#contributing), including positive feedback and stories on how you use the app!
+If the app is not working as intended, please [create an issue on GitHub](https://github.com/ndfred/iperf-ios/issues), post in the [Unifi forum](https://community.ui.com/questions/Help-test-a-new-open-source-iPerf-3-iOS-app/55003f34-a309-44e3-9f0e-152cd7fde6c6) or [ping me on Twitter](https://nitter.net/dfred). You can also join the [TestFlight public beta](https://github.com/ndfred/iperf-ios#testing) and report issues per e-mail there. This project is libre software and [contributions are welcome](https://github.com/ndfred/iperf-ios#contributing), including positive feedback and stories on how you use the app!
 
 ## Privacy policy
 
