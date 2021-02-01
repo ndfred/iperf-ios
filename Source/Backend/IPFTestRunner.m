@@ -100,7 +100,14 @@ static void vc_reporter_callback(struct iperf_test *test)
     }
   }
 
-  iperf_set_test_server_hostname(test, (char *)[configuration.hostname cStringUsingEncoding:NSASCIIStringEncoding]);
+  {
+    char *hostname = (char *)[configuration.hostname cStringUsingEncoding:NSASCIIStringEncoding];
+
+    if (hostname != NULL) {
+      iperf_set_test_server_hostname(test, hostname);
+    }
+  }
+
   iperf_set_test_server_port(test, (int)configuration.port);
   iperf_set_test_duration(test, (int)configuration.duration);
 
@@ -192,15 +199,18 @@ static void vc_reporter_callback(struct iperf_test *test)
         lost_percent = 0.0;
       }
 
-      //      NSLog(@"Bandwidth on %d streams: %.2f Mbits/s (retransmits: %d, lost: %.2f%%, jitter: %.0f, interval: %.2fs)", test->num_streams, bandwidth * 8 / 1000000, retransmits, lost_percent, avg_jitter * 1000.0, interval_results->interval_duration);
+      // NSLog(@"Bandwidth on %d streams: %.2f Mbits/s (retransmits: %d, lost: %.2f%%, jitter: %.0f, interval: %.2fs)", test->num_streams, bandwidth * 8 / 1000000, retransmits, lost_percent, avg_jitter * 1000.0, interval_results->interval_duration);
       status.bandwidth = bandwidth * 8 / 1000000;
 
       if (test->timer) {
-        CGFloat test_duration = (CGFloat)test->timer->usecs / 1000000;
+        CGFloat test_duration = (CGFloat)test->timer->usecs / SEC_TO_US;
         CGFloat test_elapsed = 0.0;
 
-        test_elapsed = test_duration - (test->timer->time.secs - test->stats_timer->time.secs);
+        // The timer bumps the duration before calling back, and is always 1 second too late
+        // Remove 1 second to make sure we report accurate progress
+        test_elapsed = test_duration - (test->timer->time.secs - test->stats_timer->time.secs) - 1.0;
         status.progress = test_elapsed / test_duration;
+        // NSLog(@"Test duration: %.2fs (%d), elapsed: %.2f, progress: %.2f", test_duration, test->duration, test_elapsed, status.progress);
       } else {
         status.progress = 1.0;
       }

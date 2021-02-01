@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 REPO_URL="https://github.com/esnet/iperf.git"
-TAG="3.7"
+TAG="3.9"
 CHECKOUT_PATH="iperf3"
 SRC_PATH="Source/iperf3"
 
@@ -14,7 +14,7 @@ git clone --quiet --depth 1 --single-branch "$REPO_URL" --branch "$TAG" "$CHECKO
 echo "Configuring the source files"
 pushd "$PWD"
 cd "$CHECKOUT_PATH"
-./configure > /dev/null
+./configure --without-openssl > /dev/null
 popd
 
 echo "Copying relevant source files"
