@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B013305228B7B830088D77D /* IPFHelpViewController.m */; };
 		2B013311228B7FBE0088D77D /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 2B013309228B7FA50088D77D /* Help.html */; };
-		2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B20E45D1DCFA82900EEACF9 /* ViewController.xib */; };
 		2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */; };
 		2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6301DCF76B900AA24E7 /* cjson.c */; };
 		2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B87F6341DCF76B900AA24E7 /* iperf_api.c */; };
@@ -27,14 +25,35 @@
 		2BC2497722AD82F900698FCD /* dscp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B554C4D227B9DBF009F4932 /* dscp.c */; };
 		2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */; };
 		2BF42EFE22AD76D800960DF7 /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = 2BF42EFC22AD76D800960DF7 /* PrivacyPolicy.html */; };
-		2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577801DCF748600F55EDC /* AppDelegate.m */; };
-		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
-		2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */; };
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
 		B6570E212353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
-		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
 		B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A90E34227D6D3400E3981C /* IPFTestRunnerConfiguration.m */; };
+		EF182DC124C16E9F00188E25 /* IPFHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF182DC024C16E9F00188E25 /* IPFHelpViewController.swift */; };
+		EF2FB44A24636E2B00245124 /* IPFTestResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44924636E2B00245124 /* IPFTestResultsHeaderView.swift */; };
+		EF2FB44C2463897A00245124 /* ViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44B2463897A00245124 /* ViewRow.swift */; };
+		EF2FB44E2463D0DF00245124 /* IPFSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */; };
+		EF550E242453D8A200DF9A55 /* IPFTestResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */; };
+		EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */; };
+		EF550E2A2454A78400DF9A55 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E292454A78400DF9A55 /* Extensions.swift */; };
+		EF550E2C2454A7B000DF9A55 /* IPFTestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */; };
+		EF550E2E2454A7C800DF9A55 /* IPFTestResultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */; };
+		EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */; };
+		EF69DDCA2462286500431A40 /* IPFTestRunnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */; };
+		EF69DDCD24622B1D00431A40 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCB24622B1C00431A40 /* Form.swift */; };
+		EF69DDCE24622B1D00431A40 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCC24622B1D00431A40 /* FormViewController.swift */; };
+		EF69DDD624622B2600431A40 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDCF24622B2600431A40 /* Section.swift */; };
+		EF69DDD724622B2600431A40 /* RowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD024622B2600431A40 /* RowType.swift */; };
+		EF69DDD824622B2600431A40 /* TextFieldRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD124622B2600431A40 /* TextFieldRow.swift */; };
+		EF69DDD924622B2600431A40 /* TextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD224622B2600431A40 /* TextRow.swift */; };
+		EF69DDDA24622B2600431A40 /* ButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD324622B2600431A40 /* ButtonRow.swift */; };
+		EF69DDDB24622B2600431A40 /* SwitchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD424622B2600431A40 /* SwitchRow.swift */; };
+		EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDD524622B2600431A40 /* SegmentedRow.swift */; };
+		EF69DDE0246244D100431A40 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */; };
+		EF9CA6CC24C02A9600140385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9CA6CB24C02A9600140385 /* AppDelegate.swift */; };
+		EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CE67228A03FC000629B6 /* IPFIcon.m */; };
+		EFA76927245D3F730017A114 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFA76925245D3F730017A114 /* Localizable.strings */; };
+		EFDC288B24C3E476003C997C /* IPFTestResultsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC288A24C3E476003C997C /* IPFTestResultsStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,14 +67,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B013304228B7B830088D77D /* IPFHelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFHelpViewController.h; sourceTree = "<group>"; };
-		2B013305228B7B830088D77D /* IPFHelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFHelpViewController.m; sourceTree = "<group>"; };
 		2B013309228B7FA50088D77D /* Help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = Help.html; sourceTree = "<group>"; };
 		2B01330A228B7FA50088D77D /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		2B01330B228B7FA50088D77D /* Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Help.md; sourceTree = "<group>"; };
 		2B01330E228B7FA50088D77D /* footer.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = footer.html; sourceTree = "<group>"; };
 		2B013310228B7FA50088D77D /* header.html */ = {isa = PBXFileReference; lastKnownFileType = text.html.documentation; path = header.html; sourceTree = "<group>"; };
-		2B20E45D1DCFA82900EEACF9 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2B554C4D227B9DBF009F4932 /* dscp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dscp.c; sourceTree = "<group>"; };
 		2B554C4E227B9DBF009F4932 /* iperf_auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_auth.c; sourceTree = "<group>"; };
 		2B554C4F227B9DBF009F4932 /* iperf_auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_auth.h; sourceTree = "<group>"; };
@@ -99,16 +115,10 @@
 		2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BF42EFB22AD76D800960DF7 /* PrivacyPolicy.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
 		2BF42EFC22AD76D800960DF7 /* PrivacyPolicy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = PrivacyPolicy.html; sourceTree = "<group>"; };
-		2BF5777F1DCF748600F55EDC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2BF577801DCF748600F55EDC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2BF577A41DCF748600F55EDC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFTestRunnerViewController.h; sourceTree = "<group>"; };
-		2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerViewController.m; sourceTree = "<group>"; };
 		B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunner.m; sourceTree = "<group>"; };
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
 		B6570E1F2353D5F700A8F791 /* iperf_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_time.c; sourceTree = "<group>"; };
 		B6570E202353D5F700A8F791 /* iperf_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_time.h; sourceTree = "<group>"; };
-		B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerTest.m; sourceTree = "<group>"; };
 		B692F5FE227D8F6900BE7313 /* IPFTestRunnerConfiguration.value */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = IPFTestRunnerConfiguration.value; sourceTree = "<group>"; };
 		B692F5FF227D900A00BE7313 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 		B692F604227D907600BE7313 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +129,32 @@
 		B6C3CE67228A03FC000629B6 /* IPFIcon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFIcon.m; sourceTree = "<group>"; };
 		B6C3CE69228A250E000629B6 /* IPFIconGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFIconGenerator.m; sourceTree = "<group>"; };
 		B6C3CE6A228A26D4000629B6 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
+		EF182DC024C16E9F00188E25 /* IPFHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFHelpViewController.swift; sourceTree = "<group>"; };
+		EF2FB44924636E2B00245124 /* IPFTestResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsHeaderView.swift; sourceTree = "<group>"; };
+		EF2FB44B2463897A00245124 /* ViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRow.swift; sourceTree = "<group>"; };
+		EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFSettingsViewController.swift; sourceTree = "<group>"; };
+		EF550E202453D85200DF9A55 /* iperf-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iperf-Bridging-Header.h"; sourceTree = "<group>"; };
+		EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = IPFTestResultsViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
+		EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultCell.swift; sourceTree = "<group>"; };
+		EF550E292454A78400DF9A55 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsView.swift; sourceTree = "<group>"; };
+		EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsStore.swift; sourceTree = "<group>"; };
+		EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResult.swift; sourceTree = "<group>"; };
+		EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestRunnerViewController.swift; sourceTree = "<group>"; };
+		EF69DDCB24622B1C00431A40 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		EF69DDCC24622B1D00431A40 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		EF69DDCF24622B2600431A40 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		EF69DDD024622B2600431A40 /* RowType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowType.swift; sourceTree = "<group>"; };
+		EF69DDD124622B2600431A40 /* TextFieldRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldRow.swift; sourceTree = "<group>"; };
+		EF69DDD224622B2600431A40 /* TextRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRow.swift; sourceTree = "<group>"; };
+		EF69DDD324622B2600431A40 /* ButtonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonRow.swift; sourceTree = "<group>"; };
+		EF69DDD424622B2600431A40 /* SwitchRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchRow.swift; sourceTree = "<group>"; };
+		EF69DDD524622B2600431A40 /* SegmentedRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedRow.swift; sourceTree = "<group>"; };
+		EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		EF9CA6CB24C02A9600140385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EFA76926245D3F730017A114 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Source/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		EFDC288924C3E476003C997C /* Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		EFDC288A24C3E476003C997C /* IPFTestResultsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPFTestResultsStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,9 +207,9 @@
 				2B6855E81DCF72D60009ABFD /* Products */,
 				2B5F0AA5228CBA51007D5E7D /* OptimizationProfiles */,
 			);
-			indentWidth = 2;
+			indentWidth = 4;
 			sourceTree = "<group>";
-			tabWidth = 2;
+			tabWidth = 4;
 		};
 		2B6855E81DCF72D60009ABFD /* Products */ = {
 			isa = PBXGroup;
@@ -189,10 +225,13 @@
 			children = (
 				2B87F62B1DCF74DD00AA24E7 /* Assets.xcassets */,
 				2B87F62C1DCF74DD00AA24E7 /* Info.plist */,
+				EF550E202453D85200DF9A55 /* iperf-Bridging-Header.h */,
+				B6C3CE66228A03FC000629B6 /* IPFIcon.h */,
+				B6C3CE67228A03FC000629B6 /* IPFIcon.m */,
 				B6C3CE69228A250E000629B6 /* IPFIconGenerator.m */,
 				2BCC4B8F227B9166003FAA6B /* LaunchScreen.storyboard */,
 				B6C3CE6A228A26D4000629B6 /* Makefile */,
-				2B20E45D1DCFA82900EEACF9 /* ViewController.xib */,
+				EFA76925245D3F730017A114 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -247,9 +286,7 @@
 				2BF577A51DCF748600F55EDC /* UI */,
 				B635ABF5227C1E6E001ABB44 /* Backend */,
 				2B87F62F1DCF76B900AA24E7 /* iperf3 */,
-				2BF5777F1DCF748600F55EDC /* AppDelegate.h */,
-				2BF577801DCF748600F55EDC /* AppDelegate.m */,
-				2BF577A41DCF748600F55EDC /* main.m */,
+				EF9CA6CB24C02A9600140385 /* AppDelegate.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -257,12 +294,10 @@
 		2BF577A51DCF748600F55EDC /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B6C3CE66228A03FC000629B6 /* IPFIcon.h */,
-				B6C3CE67228A03FC000629B6 /* IPFIcon.m */,
-				2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */,
-				2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */,
-				2B013304228B7B830088D77D /* IPFHelpViewController.h */,
-				2B013305228B7B830088D77D /* IPFHelpViewController.m */,
+				EFA7691C245D3A990017A114 /* Test Runner */,
+				EF550E312454A7F400DF9A55 /* Test Results */,
+				EFA7691D245D3AAC0017A114 /* Miscellaneous */,
+				EFA7691E245D3B1D0017A114 /* Support */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -284,10 +319,76 @@
 		B692F605227D907600BE7313 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */,
 				B692F608227D907600BE7313 /* Info.plist */,
+				EFDC288A24C3E476003C997C /* IPFTestResultsStoreTests.swift */,
+				EFDC288924C3E476003C997C /* Tests-Bridging-Header.h */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		EF550E312454A7F400DF9A55 /* Test Results */ = {
+			isa = PBXGroup;
+			children = (
+				EF550E2F2454A7E500DF9A55 /* IPFTestResult.swift */,
+				EF550E272454A76200DF9A55 /* IPFTestResultCell.swift */,
+				EF550E2B2454A7B000DF9A55 /* IPFTestResultsView.swift */,
+				EF550E232453D8A200DF9A55 /* IPFTestResultsViewController.swift */,
+			);
+			path = "Test Results";
+			sourceTree = "<group>";
+		};
+		EF69DDDD24622B3400431A40 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				EF69DDD324622B2600431A40 /* ButtonRow.swift */,
+				EF69DDD024622B2600431A40 /* RowType.swift */,
+				EF69DDCF24622B2600431A40 /* Section.swift */,
+				EF69DDD524622B2600431A40 /* SegmentedRow.swift */,
+				EF69DDD424622B2600431A40 /* SwitchRow.swift */,
+				EF69DDD124622B2600431A40 /* TextFieldRow.swift */,
+				EF69DDD224622B2600431A40 /* TextRow.swift */,
+				EF2FB44B2463897A00245124 /* ViewRow.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
+		EF69DDDE24622B4200431A40 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				EF69DDDD24622B3400431A40 /* Rows */,
+				EF69DDCB24622B1C00431A40 /* Form.swift */,
+				EF69DDCC24622B1D00431A40 /* FormViewController.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
+		EFA7691C245D3A990017A114 /* Test Runner */ = {
+			isa = PBXGroup;
+			children = (
+				EF2FB44924636E2B00245124 /* IPFTestResultsHeaderView.swift */,
+				EF69DDC92462286500431A40 /* IPFTestRunnerViewController.swift */,
+			);
+			path = "Test Runner";
+			sourceTree = "<group>";
+		};
+		EFA7691D245D3AAC0017A114 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				EF182DC024C16E9F00188E25 /* IPFHelpViewController.swift */,
+				EF2FB44D2463D0DF00245124 /* IPFSettingsViewController.swift */,
+				EF550E2D2454A7C800DF9A55 /* IPFTestResultsStore.swift */,
+			);
+			path = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		EFA7691E245D3B1D0017A114 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				EF69DDDE24622B4200431A40 /* Form */,
+				EF550E292454A78400DF9A55 /* Extensions.swift */,
+				EF69DDDF246244D100431A40 /* UserDefaultsExtension.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,11 +440,13 @@
 				TargetAttributes = {
 					2B6855E61DCF72D60009ABFD = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = LW2ABE364X;
+						DevelopmentTeam = TDG4P3SFHV;
+						LastSwiftMigration = 1140;
 						ProvisioningStyle = Automatic;
 					};
 					B692F603227D907600BE7313 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1150;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2B6855E61DCF72D60009ABFD;
 					};
@@ -374,9 +477,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BCC4B90227B9166003FAA6B /* LaunchScreen.storyboard in Resources */,
+				EFA76927245D3F730017A114 /* Localizable.strings in Resources */,
 				2BF42EFE22AD76D800960DF7 /* PrivacyPolicy.html in Resources */,
 				2B013311228B7FBE0088D77D /* Help.html in Resources */,
-				2B20E45E1DCFA82900EEACF9 /* ViewController.xib in Resources */,
 				2B87F62D1DCF74DD00AA24E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,27 +519,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF2FB44C2463897A00245124 /* ViewRow.swift in Sources */,
+				EF550E282454A76200DF9A55 /* IPFTestResultCell.swift in Sources */,
+				EF550E2C2454A7B000DF9A55 /* IPFTestResultsView.swift in Sources */,
 				2B87F6641DCF76B900AA24E7 /* units.c in Sources */,
-				2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */,
+				EF550E242453D8A200DF9A55 /* IPFTestResultsViewController.swift in Sources */,
+				EF69DDDB24622B2600431A40 /* SwitchRow.swift in Sources */,
+				EF182DC124C16E9F00188E25 /* IPFHelpViewController.swift in Sources */,
+				EF69DDD924622B2600431A40 /* TextRow.swift in Sources */,
 				2B87F6531DCF76B900AA24E7 /* cjson.c in Sources */,
 				B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */,
+				EF550E2A2454A78400DF9A55 /* Extensions.swift in Sources */,
+				EF69DDD824622B2600431A40 /* TextFieldRow.swift in Sources */,
+				EF69DDCA2462286500431A40 /* IPFTestRunnerViewController.swift in Sources */,
 				B6570E212353D5F800A8F791 /* iperf_time.c in Sources */,
 				2BC2497722AD82F900698FCD /* dscp.c in Sources */,
-				2BF577BB1DCF748600F55EDC /* main.m in Sources */,
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
+				EF69DDCE24622B1D00431A40 /* FormViewController.swift in Sources */,
+				EF9CA6CC24C02A9600140385 /* AppDelegate.swift in Sources */,
 				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
+				EF550E302454A7E500DF9A55 /* IPFTestResult.swift in Sources */,
+				EF69DDCD24622B1D00431A40 /* Form.swift in Sources */,
 				2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */,
+				EF69DDDA24622B2600431A40 /* ButtonRow.swift in Sources */,
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,
+				EF69DDE0246244D100431A40 /* UserDefaultsExtension.swift in Sources */,
 				2B87F65B1DCF76B900AA24E7 /* iperf_udp.c in Sources */,
 				2B87F65A1DCF76B900AA24E7 /* iperf_tcp.c in Sources */,
 				2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */,
 				B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */,
-				2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */,
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
+				EFA7691F245D3B8C0017A114 /* IPFIcon.m in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
-				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
+				EF69DDD724622B2600431A40 /* RowType.swift in Sources */,
+				EF2FB44A24636E2B00245124 /* IPFTestResultsHeaderView.swift in Sources */,
+				EF69DDD624622B2600431A40 /* Section.swift in Sources */,
+				EF69DDDC24622B2600431A40 /* SegmentedRow.swift in Sources */,
+				EF550E2E2454A7C800DF9A55 /* IPFTestResultsStore.swift in Sources */,
+				EF2FB44E2463D0DF00245124 /* IPFSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */,
+				EFDC288B24C3E476003C997C /* IPFTestResultsStoreTests.swift in Sources */,
 				B6570E222353D5F800A8F791 /* iperf_time.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +580,17 @@
 			targetProxy = B692F609227D907600BE7313 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EFA76925245D3F730017A114 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EFA76926245D3F730017A114 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2B6855FC1DCF72D60009ABFD /* Debug */ = {
@@ -565,6 +698,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -573,51 +707,52 @@
 		2B6855FF1DCF72D60009ABFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LW2ABE364X;
+				DEVELOPMENT_TEAM = TDG4P3SFHV;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepumukundan.iperf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Resources/iperf-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		2B6856001DCF72D60009ABFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					armv7s,
-				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LW2ABE364X;
+				DEVELOPMENT_TEAM = TDG4P3SFHV;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deepumukundan.iperf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Resources/iperf-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		B692F60C227D907600BE7313 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -630,6 +765,9 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iperf.app/iperf";
 			};
@@ -638,9 +776,11 @@
 		B692F60D227D907600BE7313 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -652,6 +792,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teapotapps.iperf.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Tests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iperf.app/iperf";
 			};

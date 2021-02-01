@@ -3,13 +3,13 @@
 
 @class IPFTestRunnerConfiguration;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, IPFTestRunnerErrorState) {
   IPFTestRunnerErrorStateNoError = 0,
   IPFTestRunnerErrorStateCouldntInitializeTest = 1,
   IPFTestRunnerErrorStateServerIsBusy = 2,
   IPFTestRunnerErrorStateCannotConnectToTheServer = 3,
   IPFTestRunnerErrorStateUnknown = 4,
-} IPFTestRunnerErrorState;
+};
 
 typedef struct {
   BOOL running;

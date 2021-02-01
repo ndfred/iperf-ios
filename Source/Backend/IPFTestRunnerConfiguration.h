@@ -8,11 +8,11 @@
 
 @interface IPFTestRunnerConfiguration : NSObject <NSCopying>
 
-@property (nonatomic, readonly, copy) NSString *hostname;
-@property (nonatomic, readonly) NSUInteger port;
-@property (nonatomic, readonly) NSUInteger duration;
-@property (nonatomic, readonly) NSUInteger streams;
-@property (nonatomic, readonly) IPFTestRunnerConfigurationType type;
+@property (nonatomic, copy) NSString *hostname;
+@property (nonatomic) NSUInteger port;
+@property (nonatomic) NSUInteger duration;
+@property (nonatomic) NSUInteger streams;
+@property (nonatomic) IPFTestRunnerConfigurationType type;
 
 - (instancetype)initWithHostname:(NSString *)hostname port:(NSUInteger)port duration:(NSUInteger)duration streams:(NSUInteger)streams type:(IPFTestRunnerConfigurationType)type;
 
