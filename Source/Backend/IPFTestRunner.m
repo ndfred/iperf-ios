@@ -100,7 +100,14 @@ static void vc_reporter_callback(struct iperf_test *test)
     }
   }
 
-  iperf_set_test_server_hostname(test, (char *)[configuration.hostname cStringUsingEncoding:NSASCIIStringEncoding]);
+  {
+    char *hostname = (char *)[configuration.hostname cStringUsingEncoding:NSASCIIStringEncoding];
+
+    if (hostname != NULL) {
+      iperf_set_test_server_hostname(test, hostname);
+    }
+  }
+
   iperf_set_test_server_port(test, (int)configuration.port);
   iperf_set_test_duration(test, (int)configuration.duration);
 
