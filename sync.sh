@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 REPO_URL="https://github.com/esnet/iperf.git"
-TAG="3.9"
+TAG="3.19.1"
 CHECKOUT_PATH="iperf3"
 SRC_PATH="Source/iperf3"
 

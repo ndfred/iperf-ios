@@ -41,7 +41,11 @@
     // Tap on a link, open Safari
     decisionHandler(WKNavigationActionPolicyCancel);
     dispatch_async(dispatch_get_main_queue(), ^{
-      [[UIApplication sharedApplication] openURL:URL];
+      [[UIApplication sharedApplication] openURL:URL
+                                         options:@{}
+                               completionHandler:^(BOOL success) {
+                                 // No-op; provided to satisfy nonnull parameter requirement.
+                               }];
     });
   }
 }

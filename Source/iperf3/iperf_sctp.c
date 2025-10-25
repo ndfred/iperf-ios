@@ -39,10 +39,6 @@
 #include <sys/select.h>
 #include <limits.h>
 
-#ifdef HAVE_NETINET_SCTP_H
-#include <netinet/sctp.h>
-#endif /* HAVE_NETINET_SCTP_H */
-
 #include "iperf.h"
 #include "iperf_api.h"
 #include "iperf_sctp.h"
@@ -60,7 +56,7 @@ iperf_sctp_recv(struct iperf_stream *sp)
 #if defined(HAVE_SCTP_H)
     int r;
 
-    r = Nread(sp->socket, sp->buffer, sp->settings->blksize, Psctp);
+    r = Nread_no_select(sp->socket, sp->buffer, sp->settings->blksize, Psctp);
     if (r < 0)
         return r;
 
@@ -82,7 +78,7 @@ iperf_sctp_recv(struct iperf_stream *sp)
 }
 
 
-/* iperf_sctp_send 
+/* iperf_sctp_send
  *
  * sends the data for SCTP
  */
@@ -94,7 +90,7 @@ iperf_sctp_send(struct iperf_stream *sp)
 
     r = Nwrite(sp->socket, sp->buffer, sp->settings->blksize, Psctp);
     if (r < 0)
-        return r;    
+        return r;
 
     sp->result->bytes_sent += r;
     sp->result->bytes_sent_this_interval += r;
@@ -165,7 +161,8 @@ iperf_sctp_listen(struct iperf_test *test)
     int s, opt, saved_errno;
 
     close(test->listener);
-   
+    test->listener = -1;
+
     snprintf(portstr, 6, "%d", test->server_port);
     memset(&hints, 0, sizeof(hints));
     /*
@@ -211,14 +208,29 @@ iperf_sctp_listen(struct iperf_test *test)
         }
     }
 
+    if (test->bind_dev) {
+#if defined(SO_BINDTODEVICE)
+        if (setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE,
+                       test->bind_dev, IFNAMSIZ) < 0)
+#endif // SO_BINDTODEVICE
+        {
+            saved_errno = errno;
+            close(s);
+            freeaddrinfo(res);
+            i_errno = IEBINDDEV;
+            errno = saved_errno;
+            return -1;
+        }
+    }
+
 #if defined(IPV6_V6ONLY) && !defined(__OpenBSD__)
-    if (res->ai_family == AF_INET6 && (test->settings->domain == AF_UNSPEC || 
+    if (res->ai_family == AF_INET6 && (test->settings->domain == AF_UNSPEC ||
         test->settings->domain == AF_INET6)) {
         if (test->settings->domain == AF_UNSPEC)
             opt = 0;
         else
             opt = 1;
-        if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, 
+        if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY,
 		       (char *) &opt, sizeof(opt)) < 0) {
 	    saved_errno = errno;
 	    close(s);
@@ -265,7 +277,7 @@ iperf_sctp_listen(struct iperf_test *test)
     }
 
     test->listener = s;
-  
+
     return s;
 #else
     i_errno = IENOSCTP;
@@ -284,7 +296,7 @@ iperf_sctp_connect(struct iperf_test *test)
 #if defined(HAVE_SCTP_H)
     int s, opt, saved_errno;
     char portstr[6];
-    struct addrinfo hints, *local_res, *server_res;
+    struct addrinfo hints, *local_res = NULL, *server_res = NULL;
 
     if (test->bind_address) {
         memset(&hints, 0, sizeof(hints));
@@ -309,8 +321,7 @@ iperf_sctp_connect(struct iperf_test *test)
 
     s = socket(server_res->ai_family, SOCK_STREAM, IPPROTO_SCTP);
     if (s < 0) {
-	if (test->bind_address)
-	    freeaddrinfo(local_res);
+	freeaddrinfo(local_res);
 	freeaddrinfo(server_res);
         i_errno = IESTREAMCONNECT;
         return -1;
@@ -332,6 +343,22 @@ iperf_sctp_connect(struct iperf_test *test)
             freeaddrinfo(server_res);
             errno = saved_errno;
             i_errno = IESETBUF;
+            return -1;
+        }
+    }
+
+    if (test->bind_dev) {
+#if defined(SO_BINDTODEVICE)
+        if (setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE,
+                       test->bind_dev, IFNAMSIZ) < 0)
+#endif // SO_BINDTODEVICE
+        {
+            saved_errno = errno;
+            close(s);
+            freeaddrinfo(local_res);
+            freeaddrinfo(server_res);
+            i_errno = IEBINDDEV;
+            errno = saved_errno;
             return -1;
         }
     }
@@ -700,6 +727,52 @@ out:
     return retval;
 #else
     i_errno = IENOSCTP;
+    return -1;
+#endif /* HAVE_SCTP_H */
+}
+
+
+/* iperf_sctp_get_rtt
+ *
+ * Get SCTP stream RTT.
+ * Assuming that iperf3 supports only one-toone SCTP associassion, and not one-to-many associassion.
+ * 
+ * Main resouses used are RFC-6458, man pages for SCTP,
+ * https://docs.oracle.com/cd/E19253-01/817-4415/sockets-199/index.html.
+ * 
+ */
+int
+iperf_sctp_get_info(struct iperf_stream *sp, struct iperf_sctp_info *sctp_info)
+{
+#if defined(HAVE_SCTP_H)
+    struct sctp_status status;
+    socklen_t len;
+    sctp_assoc_t assoc_id;
+    int rc = 0;
+
+    if (sp->test->protocol->id != Psctp) {
+        rc = -1;
+    } else {
+#ifdef SCTP_FUTURE_ASSOC
+        assoc_id = SCTP_FUTURE_ASSOC;
+#else
+	assoc_id = 0;
+#endif
+        len = sizeof(status);
+        rc = sctp_opt_info(sp->socket, assoc_id, SCTP_STATUS, &status, &len);
+        if (rc < 0) {
+            if (sp->test->debug_level >= DEBUG_LEVEL_ERROR)
+                iperf_err(sp->test, "sctp_opt_info get SCTP_STATUS for socket %d failed with errno %d - %s", sp->socket, errno, strerror(errno));
+        } else {
+            sctp_info->wnd = status.sstat_rwnd;
+            sctp_info->rtt = status.sstat_primary.spinfo_srtt;
+            sctp_info->pmtu = status.sstat_primary.spinfo_mtu;
+            sctp_info->cwnd = status.sstat_primary.spinfo_cwnd;
+        }
+    }
+
+    return rc;
+#else
     return -1;
 #endif /* HAVE_SCTP_H */
 }
