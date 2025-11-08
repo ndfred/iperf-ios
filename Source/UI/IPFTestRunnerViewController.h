@@ -3,6 +3,7 @@
 @interface IPFTestRunnerViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *addressTextField;
+@property (strong, nonatomic) IBOutlet UITextField *localAddressTextField;
 @property (strong, nonatomic) IBOutlet UITextField *portTextField;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *transmitModeSlider;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *streamsSlider;
