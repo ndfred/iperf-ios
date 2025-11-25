@@ -3,6 +3,7 @@
 #import "IPFTestRunnerConfiguration.h"
 #import "IPFIcon.h"
 #import "IPFHelpViewController.h"
+#import "NetUtilities.h"
 
 static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
@@ -81,11 +82,13 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSString *hostname = [defaults stringForKey:@"IPFTestHostname"];
-  NSNumber *port = [defaults objectForKey:@"IPFTestPort"];
+	NSString *localHostname = [defaults stringForKey:@"IPFTestLocalHostname"];
+	NSNumber *port = [defaults objectForKey:@"IPFTestPort"];
 
-  if ([hostname length] > 0 && [port unsignedIntegerValue] > 0) {
-    self.addressTextField.text = hostname;
-    self.portTextField.text = [port stringValue];
+  if (([hostname length] > 0 || [localHostname length] > 0) && [port unsignedIntegerValue] > 0) {
+		self.addressTextField.text = hostname;
+		self.localAddressTextField.text = localHostname;
+		self.portTextField.text = [port stringValue];
   }
 }
 
@@ -93,10 +96,12 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSString *hostname = self.addressTextField.text;
+	NSString *localHostname = self.localAddressTextField.text;
   NSNumber *port = [NSNumber numberWithUnsignedInteger:(NSUInteger)[self.portTextField.text integerValue]];
 
   if ([hostname length] > 0 && [port unsignedIntegerValue] > 0) {
     [defaults setObject:hostname forKey:@"IPFTestHostname"];
+		[defaults setObject:localHostname forKey:@"IPFTestLocalHostname"];
     [defaults setObject:port forKey:@"IPFTestPort"];
     [defaults synchronize];
   }
@@ -115,7 +120,16 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
 
 - (void)startTest
 {
-  IPFTestRunnerConfiguration *configuration = [[IPFTestRunnerConfiguration alloc] initWithHostname:self.addressTextField.text
+	// Use our test to determine the best address to use
+	
+	UITextField* hostNameField = [NetUtilities getBestAddr:self.addressTextField
+																							 localAddr:self.localAddressTextField
+																										port:[self.portTextField.text intValue]];
+	
+	if (hostNameField == nil)
+		return;
+	
+  IPFTestRunnerConfiguration *configuration = [[IPFTestRunnerConfiguration alloc] initWithHostname:hostNameField.text
                                                                                               port:[self.portTextField.text intValue]
                                                                                           duration:getTestDuration(self.testDurationSlider.selectedSegmentIndex)
                                                                                            streams:[self.streamsSlider selectedSegmentIndex] + 1
@@ -130,6 +144,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
   self.testRunner = testRunner;
   [self showStartButton:NO];
   self.addressTextField.enabled = NO;
+	self.localAddressTextField.enabled = NO;
+	hostNameField.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];	// Make selected host bold
   self.portTextField.enabled = NO;
   self.transmitModeSlider.enabled = NO;
   self.streamsSlider.enabled = NO;
@@ -171,6 +187,8 @@ static int getTestDuration(NSUInteger selectedSegmentIndex)
     if (status.running == NO) {
       [self showStartButton:YES];
       self.addressTextField.enabled = YES;
+			self.localAddressTextField.enabled = YES;
+			hostNameField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];	// Return to normal font
       self.portTextField.enabled = YES;
       self.transmitModeSlider.enabled = YES;
       self.streamsSlider.enabled = YES;

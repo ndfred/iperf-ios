@@ -30,6 +30,7 @@
 		2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577801DCF748600F55EDC /* AppDelegate.m */; };
 		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
 		2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */; };
+		51F3153529BFAC4A00F27A8B /* NetUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F3153429BFAC4900F27A8B /* NetUtilities.m */; };
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
 		B6570E212353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
@@ -106,6 +107,8 @@
 		2BF577A41DCF748600F55EDC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFTestRunnerViewController.h; sourceTree = "<group>"; };
 		2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerViewController.m; sourceTree = "<group>"; };
+		51F3153329BFAC4900F27A8B /* NetUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetUtilities.h; sourceTree = "<group>"; };
+		51F3153429BFAC4900F27A8B /* NetUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetUtilities.m; sourceTree = "<group>"; };
 		B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunner.m; sourceTree = "<group>"; };
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
 		B6570E1F2353D5F700A8F791 /* iperf_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_time.c; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 		B635ABF5227C1E6E001ABB44 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				51F3153329BFAC4900F27A8B /* NetUtilities.h */,
+				51F3153429BFAC4900F27A8B /* NetUtilities.m */,
 				B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */,
 				B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */,
 				2BA8E15F22AD93FC001466C2 /* IPFTestRunnerConfigurationType.h */,
@@ -444,6 +449,7 @@
 				2B87F6551DCF76B900AA24E7 /* iperf_client_api.c in Sources */,
 				B6A90E36227D6D3400E3981C /* IPFTestRunnerConfiguration.m in Sources */,
 				2B013306228B7B830088D77D /* IPFHelpViewController.m in Sources */,
+				51F3153529BFAC4A00F27A8B /* NetUtilities.m in Sources */,
 				2B87F6611DCF76B900AA24E7 /* tcp_info.c in Sources */,
 				2B87F6631DCF76B900AA24E7 /* timer.c in Sources */,
 				2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */,
