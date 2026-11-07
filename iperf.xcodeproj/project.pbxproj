@@ -30,6 +30,7 @@
 		2BF577A81DCF748600F55EDC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577801DCF748600F55EDC /* AppDelegate.m */; };
 		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
 		2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */; };
+		518EF621309EC4BC000940FF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 518EF620309EC4BC000940FF /* SceneDelegate.m */; };
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
 		B6570E212353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
@@ -106,6 +107,8 @@
 		2BF577A41DCF748600F55EDC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2BF577A61DCF748600F55EDC /* IPFTestRunnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFTestRunnerViewController.h; sourceTree = "<group>"; };
 		2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerViewController.m; sourceTree = "<group>"; };
+		518EF61F309EC4BC000940FF /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		518EF620309EC4BC000940FF /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunner.m; sourceTree = "<group>"; };
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
 		B6570E1F2353D5F700A8F791 /* iperf_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_time.c; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 				2B87F62F1DCF76B900AA24E7 /* iperf3 */,
 				2BF5777F1DCF748600F55EDC /* AppDelegate.h */,
 				2BF577801DCF748600F55EDC /* AppDelegate.m */,
+				518EF61F309EC4BC000940FF /* SceneDelegate.h */,
+				518EF620309EC4BC000940FF /* SceneDelegate.m */,
 				2BF577A41DCF748600F55EDC /* main.m */,
 			);
 			path = Source;
@@ -436,6 +441,7 @@
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
 				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
+				518EF621309EC4BC000940FF /* SceneDelegate.m in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
 				2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */,
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,
@@ -592,7 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LW2ABE364X;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -612,7 +618,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LW2ABE364X;
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

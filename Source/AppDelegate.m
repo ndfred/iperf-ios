@@ -9,16 +9,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  CGRect windowFrame = [[UIScreen mainScreen] bounds];
-  UIWindow *window = [[UIWindow alloc] initWithFrame:windowFrame];
-  IPFTestRunnerViewController *viewController = [[IPFTestRunnerViewController alloc] initWithNibName:@"ViewController" bundle:[NSBundle mainBundle]];
-  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-
-  window.rootViewController = navigationController;
-  [window makeKeyAndVisible];
-  self.window = window;
-
+	// Window setup moved to SceneDelegate
+	
   return YES;
+}
+
+#pragma mark - UISceneSession lifecycle
+
+- (UISceneConfiguration *)application:(UIApplication *)application
+		configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
+																	 options:(UISceneConnectionOptions *)options {
+	UISceneConfiguration *config =
+			[[UISceneConfiguration alloc] initWithName:@"Default Configuration"
+																		 sessionRole:connectingSceneSession.role];
+	return config;
+}
+
+- (void)application:(UIApplication *)application
+		didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
 }
 
 @end
