@@ -2,7 +2,6 @@ name: iOS
 
 on:
   push:
-    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -25,11 +24,13 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 17' \
             -resultBundlePath build/Tests.xcresult
 
-  testflight:
-    name: Archive and upload to TestFlight
-    if: github.event_name == 'workflow_dispatch'
+  distribute:
+    name: Build, publish OTA and upload to TestFlight
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: xcode-27
     timeout-minutes: 60
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v7
       - name: Select Xcode 27.2
@@ -51,7 +52,57 @@ jobs:
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Export development .ipa and manifest
+        run: |
+          TAG="ota-${GITHUB_SHA:0:7}"
+          echo "OTA_TAG=$TAG" >> "$GITHUB_ENV"
+          cat > ExportOptionsOTA.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>development</string>
+            <key>teamID</key><string>${{ secrets.APP_STORE_TEAM_ID }}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>manifest</key>
+            <dict>
+              <key>appURL</key><string>https://github.com/ndfred/iperf-ios/releases/download/$TAG/iperf.ipa</string>
+            </dict>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/iperf.xcarchive \
+            -exportOptionsPlist ExportOptionsOTA.plist \
+            -exportPath build/ota \
+            -allowProvisioningUpdates \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
+            -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Publish OTA files as GitHub releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="$OTA_TAG"
+          BRANCH="${GITHUB_REF_NAME}"
+          INSTALL_LINK="itms-services://?action=download-manifest&url=https%3A%2F%2Fgithub.com%2Fndfred%2Fiperf-ios%2Freleases%2Fdownload%2F${TAG}%2Fmanifest.plist"
+          LATEST_LINK="itms-services://?action=download-manifest&url=https%3A%2F%2Fgithub.com%2Fndfred%2Fiperf-ios%2Freleases%2Fdownload%2Fota-latest%2Fmanifest.plist"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --prerelease --title "OTA build $TAG ($BRANCH)" --notes "Branch: $BRANCH
+          Commit: ${GITHUB_SHA}
+          Install on a registered device: $INSTALL_LINK"
+          fi
+          gh release upload "$TAG" build/ota/*.ipa build/ota/manifest.plist --clobber
+          mkdir -p build/ota-latest
+          cp build/ota/*.ipa build/ota-latest/
+          sed "s|releases/download/$TAG/|releases/download/ota-latest/|" build/ota/manifest.plist > build/ota-latest/manifest.plist
+          if ! gh release view ota-latest >/dev/null 2>&1; then
+            gh release create ota-latest --prerelease --title "OTA test build (latest)" --notes "Install on a registered device: $LATEST_LINK"
+          fi
+          gh release upload ota-latest build/ota-latest/iperf.ipa build/ota-latest/manifest.plist --clobber
+          gh release edit ota-latest --notes "Latest OTA build: $TAG ($BRANCH). Install on a registered device: $LATEST_LINK"
       - name: Export .ipa
+        if: github.event_name == 'workflow_dispatch'
         run: |
           cat > ExportOptions.plist <<'PLIST'
           <?xml version="1.0" encoding="UTF-8"?>
@@ -74,6 +125,7 @@ jobs:
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
       - name: Upload to TestFlight
+        if: github.event_name == 'workflow_dispatch'
         run: |
           IPA=$(ls build/export/*.ipa)
           echo "Uploading $IPA"
