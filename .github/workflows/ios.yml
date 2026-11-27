@@ -1,44 +1,3 @@
-# iperf-ios — GitHub Actions TestFlight pipeline
-# HEAD 2718300 (27 Nov 2026): version 3.22.1, build 16, deployment target iOS 15.0,
-# scheme `iperf` shared, bundle com.teapotapps.iperf, team LW2ABE364X.
-#
-# Runner: `xcode-27` — GitHub's floating tag for the latest Xcode 27.x.
-# There is NO `xcode-latest` label. `macos-latest` is NOT it either:
-# it still points at macOS 26 (Xcode 26.x), and GitHub moves `-latest`
-# labels to a new OS over 1-2 months, which can break a build overnight.
-# `xcode-27` floats within 27.x, BUT the image's DEFAULT Xcode is NOT
-# the latest minor: the image ships 27.0, 27.1 and 27.2 side by side,
-# with /Applications/Xcode.app pointing at 27.1 (default). So the
-# workflow MUST select 27.2 explicitly with xcode-select, or it
-# silently builds with 27.1 — which is what happened on run
-# 45996605325. That pin will rot when the image drops 27.2, but it
-# fails loudly then, whereas the silent default is worse: it drifts
-# away from the Xcode sync.sh ran with (27.2) without telling you.
-# The job prints xcodebuild -version so every run records what it got.
-# WHY NOT macos-26 / Xcode 26.6: CI on 26.6 failed compiling
-# Source/iperf3/iperf_udp.c with "use of undeclared identifier
-# 'SO_MAX_PACING_RATE'" (lines 595 and 723). That socket option is
-# NEW in the iOS 27 / macOS 27 SDK — Apple only exposed it to BSD
-# sockets starting with iOS 27 — so the iOS 26.5 SDK in Xcode 26.6
-# does not define it, while Xcode 27.2 on the user's Mac builds the
-# same untouched iperf 3.22.1 sources fine. The iperf sources are
-# NOT patched: the fix is purely the build configuration (runner +
-# Xcode version), matching the local build environment.
-# That was the original mistake: the first workflow picked macos-26
-# because App Store Connect only requires Xcode 26+, and assumed the
-# project used no iOS 27-only APIs — never verified against sync.sh,
-# which had generated iperf_config.h under Xcode 27.2.
-#
-# Two jobs:
-#   1. ci — simulator build + tests on every push / PR. No Apple secrets.
-#   2. testflight — manual dispatch only. Archives, signs with the
-#      App Store Connect API key (cloud signing, no .p12), uploads to TestFlight.
-#
-# Secrets needed ONLY for job 2 (repo Settings > Secrets and variables > Actions):
-#   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_P8, APP_STORE_TEAM_ID — all four set 27 Nov 2026.
-# This must be a TEAM key, role Admin — NOT an Individual key (no Issuer ID,
-# cannot use Provisioning endpoints, so cloud signing fails).
-
 name: iOS
 
 on:
@@ -46,22 +5,16 @@ on:
     branches: [master]
   pull_request:
   workflow_dispatch:
-    inputs:
-      build_number:
-        description: "CFBundleVersion to ship (live App Store build is 15; Info.plist is 16)"
-        required: true
-        default: "16"
 
 jobs:
   ci:
-    name: Build and test (simulator, unsigned)
+    name: Build and test on simulator
     runs-on: xcode-27
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - name: Show Xcode version
+      - name: Select Xcode 27.2
         run: |
-          ls -d /Applications/Xcode*.app
           sudo xcode-select -s /Applications/Xcode_27.2.app
           xcodebuild -version
       - name: Build and test
@@ -79,23 +32,21 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - name: Show Xcode version
+      - name: Select Xcode 27.2
         run: |
-          ls -d /Applications/Xcode*.app
           sudo xcode-select -s /Applications/Xcode_27.2.app
           xcodebuild -version
       - name: Write App Store Connect API key
         run: |
           mkdir -p private_keys
           printf '%s' "${{ secrets.ASC_KEY_P8 }}" > "private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
-      - name: Archive
+      - name: Archive for App Store
         run: |
           set -o pipefail
           xcodebuild archive \
             -project iperf.xcodeproj -scheme iperf \
             -destination 'generic/platform=iOS' \
             -archivePath build/iperf.xcarchive \
-            CURRENT_PROJECT_VERSION=${{ inputs.build_number }} \
             -allowProvisioningUpdates \
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
@@ -129,7 +80,3 @@ jobs:
           xcrun altool --upload-app -f "$IPA" -t ios \
             --apiKey "${{ secrets.ASC_KEY_ID }}" \
             --apiIssuer "${{ secrets.ASC_ISSUER_ID }}"
-          # Note: altool is deprecated by Apple. If it fails on the first run,
-          # swap this step for fastlane pilot, or the
-          # apple-actions/upload-testflight-build action, which use the same
-          # ASC API key. The archive/export steps above do not change.
