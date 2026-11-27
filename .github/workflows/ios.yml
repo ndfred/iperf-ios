@@ -1,11 +1,28 @@
 # iperf-ios — GitHub Actions TestFlight pipeline
 # HEAD 2718300 (27 Nov 2026): version 3.22.1, build 16, deployment target iOS 15.0,
 # scheme `iperf` shared, bundle com.teapotapps.iperf, team LW2ABE364X.
-# Runner: macos-26, default Xcode 26.6 — App Store Connect requires Xcode 26+
-# since 28 Apr 2026, and 26.6 meets that. Do NOT pin Xcode 27.2 here:
-# 27.2 lives only on the separate `xcode-27` (macOS 27, public preview) image,
-# not on macos-26 (26.0.1–26.6). The project was last opened in Xcode 27.2
-# locally (LastUpgradeCheck 2720) but uses no iOS 27-only APIs, so 26.6 builds it.
+#
+# Runner: `xcode-27` — GitHub's floating tag for the latest Xcode 27.x.
+# There is NO `xcode-latest` label. `macos-latest` is NOT it either:
+# it still points at macOS 26 (Xcode 26.x), and GitHub moves `-latest`
+# labels to a new OS over 1-2 months, which can break a build overnight.
+# `xcode-27` floats within 27.x (27.0 -> 27.1 -> 27.2, 27.3 beta on the
+# image now), so no minor-version pin: pinning 27.2 with xcode-select
+# would rot when the image drops it. The job prints xcodebuild -version
+# so every run records exactly which Xcode it got.
+# WHY NOT macos-26 / Xcode 26.6: CI on 26.6 failed compiling
+# Source/iperf3/iperf_udp.c with "use of undeclared identifier
+# 'SO_MAX_PACING_RATE'" (lines 595 and 723). That socket option is
+# NEW in the iOS 27 / macOS 27 SDK — Apple only exposed it to BSD
+# sockets starting with iOS 27 — so the iOS 26.5 SDK in Xcode 26.6
+# does not define it, while Xcode 27.2 on the user's Mac builds the
+# same untouched iperf 3.22.1 sources fine. The iperf sources are
+# NOT patched: the fix is purely the build configuration (runner +
+# Xcode version), matching the local build environment.
+# That was the original mistake: the first workflow picked macos-26
+# because App Store Connect only requires Xcode 26+, and assumed the
+# project used no iOS 27-only APIs — never verified against sync.sh,
+# which had generated iperf_config.h under Xcode 27.2.
 #
 # Two jobs:
 #   1. ci — simulator build + tests on every push / PR. No Apple secrets.
@@ -33,7 +50,7 @@ on:
 jobs:
   ci:
     name: Build and test (simulator, unsigned)
-    runs-on: macos-26
+    runs-on: xcode-27
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +69,7 @@ jobs:
   testflight:
     name: Archive and upload to TestFlight
     if: github.event_name == 'workflow_dispatch'
-    runs-on: macos-26
+    runs-on: xcode-27
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
