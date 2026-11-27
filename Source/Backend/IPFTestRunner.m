@@ -1,6 +1,7 @@
 #import "IPFTestRunner.h"
 #import "IPFTestRunnerConfiguration.h"
 
+#import "iperf_config.h"
 #import "iperf_api.h"
 #import "iperf.h"
 #import "queue.h"

@@ -1,6 +1,9 @@
 /* src/iperf_config.h.  Generated from iperf_config.h.in by configure.  */
 /* src/iperf_config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Can bind to device via SO_BINDTODEVICE or IP_BOUND_IF. */
+#define CAN_BIND_TO_DEVICE 1
+
 /* Define to 1 if you have the 'clock_gettime' function. */
 #define HAVE_CLOCK_GETTIME 1
 
@@ -36,6 +39,9 @@
 
 /* Have MPTCP protocol. */
 /* #undef HAVE_IPPROTO_MPTCP */
+
+/* Have IP_BOUND_IF sockopt. */
+#define HAVE_IP_BOUND_IF 1
 
 /* Have IP_DONTFRAG sockopt. */
 #define HAVE_IP_DONTFRAG 1
@@ -79,11 +85,14 @@
 /* Define to 1 if you have the 'SetProcessAffinityMask' function. */
 /* #undef HAVE_SETPROCESSAFFINITYMASK */
 
+/* Have SHUT_WR socket shutdown option. */
+#define HAVE_SOCKET_SHUTDOWN_SHUT_WR 1
+
 /* Have SO_BINDTODEVICE sockopt. */
 #define HAVE_SO_BINDTODEVICE 1
 
 /* Have SO_MAX_PACING_RATE sockopt. */
-/* #undef HAVE_SO_MAX_PACING_RATE */
+#define HAVE_SO_MAX_PACING_RATE 1
 
 /* OpenSSL Is Available */
 /* #undef HAVE_SSL */
@@ -133,6 +142,12 @@
 /* Have TCP_USER_TIMEOUT sockopt. */
 /* #undef HAVE_TCP_USER_TIMEOUT */
 
+/* Have UDP_GRO sockopt. */
+/* #undef HAVE_UDP_GRO */
+
+/* Have UDP_SEGMENT sockopt. */
+/* #undef HAVE_UDP_SEGMENT */
+
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
@@ -149,7 +164,7 @@
 #define PACKAGE_NAME "iperf"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "iperf 3.19.1"
+#define PACKAGE_STRING "iperf 3.22.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "iperf"
@@ -158,7 +173,7 @@
 #define PACKAGE_URL "https://software.es.net/iperf/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.19.1"
+#define PACKAGE_VERSION "3.22.1"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
@@ -170,7 +185,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "3.19.1"
+#define VERSION "3.22.1"
 
 /* Define to empty if 'const' does not conform to ANSI C. */
 /* #undef const */
