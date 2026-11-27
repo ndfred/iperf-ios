@@ -1,0 +1,111 @@
+# iperf-ios — GitHub Actions TestFlight pipeline
+# HEAD 2718300 (27 Nov 2026): version 3.22.1, build 16, deployment target iOS 15.0,
+# scheme `iperf` shared, bundle com.teapotapps.iperf, team LW2ABE364X.
+# Runner: macos-26, default Xcode 26.6 — App Store Connect requires Xcode 26+
+# since 28 Apr 2026, and 26.6 meets that. Do NOT pin Xcode 27.2 here:
+# 27.2 lives only on the separate `xcode-27` (macOS 27, public preview) image,
+# not on macos-26 (26.0.1–26.6). The project was last opened in Xcode 27.2
+# locally (LastUpgradeCheck 2720) but uses no iOS 27-only APIs, so 26.6 builds it.
+#
+# Two jobs:
+#   1. ci — simulator build + tests on every push / PR. No Apple secrets.
+#   2. testflight — manual dispatch only. Archives, signs with the
+#      App Store Connect API key (cloud signing, no .p12), uploads to TestFlight.
+#
+# Secrets needed ONLY for job 2 (repo Settings > Secrets and variables > Actions):
+#   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_P8, APP_STORE_TEAM_ID — all four set 27 Nov 2026.
+# This must be a TEAM key, role Admin — NOT an Individual key (no Issuer ID,
+# cannot use Provisioning endpoints, so cloud signing fails).
+
+name: iOS
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: "CFBundleVersion to ship (live App Store build is 15; Info.plist is 16)"
+        required: true
+        default: "16"
+
+jobs:
+  ci:
+    name: Build and test (simulator, unsigned)
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show Xcode version
+        run: |
+          ls -d /Applications/Xcode*.app
+          xcodebuild -version
+      - name: Build and test
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project iperf.xcodeproj -scheme iperf \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -resultBundlePath build/Tests.xcresult
+
+  testflight:
+    name: Archive and upload to TestFlight
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show Xcode version
+        run: |
+          ls -d /Applications/Xcode*.app
+          xcodebuild -version
+      - name: Write App Store Connect API key
+        run: |
+          mkdir -p private_keys
+          printf '%s' "${{ secrets.ASC_KEY_P8 }}" > "private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Archive
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -project iperf.xcodeproj -scheme iperf \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/iperf.xcarchive \
+            CURRENT_PROJECT_VERSION=${{ inputs.build_number }} \
+            -allowProvisioningUpdates \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
+            -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Export .ipa
+        run: |
+          cat > ExportOptions.plist <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>${{ secrets.APP_STORE_TEAM_ID }}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>stripSwiftSymbols</key><true/>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/iperf.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/export \
+            -allowProvisioningUpdates \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
+            -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Upload to TestFlight
+        run: |
+          IPA=$(ls build/export/*.ipa)
+          echo "Uploading $IPA"
+          xcrun altool --upload-app -f "$IPA" -t ios \
+            --apiKey "${{ secrets.ASC_KEY_ID }}" \
+            --apiIssuer "${{ secrets.ASC_ISSUER_ID }}"
+          # Note: altool is deprecated by Apple. If it fails on the first run,
+          # swap this step for fastlane pilot, or the
+          # apple-actions/upload-testflight-build action, which use the same
+          # ASC API key. The archive/export steps above do not change.
