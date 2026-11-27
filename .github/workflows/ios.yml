@@ -6,10 +6,15 @@
 # There is NO `xcode-latest` label. `macos-latest` is NOT it either:
 # it still points at macOS 26 (Xcode 26.x), and GitHub moves `-latest`
 # labels to a new OS over 1-2 months, which can break a build overnight.
-# `xcode-27` floats within 27.x (27.0 -> 27.1 -> 27.2, 27.3 beta on the
-# image now), so no minor-version pin: pinning 27.2 with xcode-select
-# would rot when the image drops it. The job prints xcodebuild -version
-# so every run records exactly which Xcode it got.
+# `xcode-27` floats within 27.x, BUT the image's DEFAULT Xcode is NOT
+# the latest minor: the image ships 27.0, 27.1 and 27.2 side by side,
+# with /Applications/Xcode.app pointing at 27.1 (default). So the
+# workflow MUST select 27.2 explicitly with xcode-select, or it
+# silently builds with 27.1 — which is what happened on run
+# 45996605325. That pin will rot when the image drops 27.2, but it
+# fails loudly then, whereas the silent default is worse: it drifts
+# away from the Xcode sync.sh ran with (27.2) without telling you.
+# The job prints xcodebuild -version so every run records what it got.
 # WHY NOT macos-26 / Xcode 26.6: CI on 26.6 failed compiling
 # Source/iperf3/iperf_udp.c with "use of undeclared identifier
 # 'SO_MAX_PACING_RATE'" (lines 595 and 723). That socket option is
@@ -57,6 +62,7 @@ jobs:
       - name: Show Xcode version
         run: |
           ls -d /Applications/Xcode*.app
+          sudo xcode-select -s /Applications/Xcode_27.2.app
           xcodebuild -version
       - name: Build and test
         run: |
@@ -76,6 +82,7 @@ jobs:
       - name: Show Xcode version
         run: |
           ls -d /Applications/Xcode*.app
+          sudo xcode-select -s /Applications/Xcode_27.2.app
           xcodebuild -version
       - name: Write App Store Connect API key
         run: |
