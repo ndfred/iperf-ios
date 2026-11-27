@@ -56,7 +56,8 @@ jobs:
         run: |
           TAG="ota-${GITHUB_SHA:0:7}"
           echo "OTA_TAG=$TAG" >> "$GITHUB_ENV"
-          cat > ExportOptionsOTA.plist <<PLIST
+          pwd
+          cat > "$PWD/ExportOptionsOTA.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
@@ -71,10 +72,11 @@ jobs:
           </dict>
           </plist>
           PLIST
+          ls -la "$PWD/ExportOptionsOTA.plist"
           xcodebuild -exportArchive \
-            -archivePath build/iperf.xcarchive \
-            -exportOptionsPlist ExportOptionsOTA.plist \
-            -exportPath build/ota \
+            -archivePath "$PWD/build/iperf.xcarchive" \
+            -exportOptionsPlist "$PWD/ExportOptionsOTA.plist" \
+            -exportPath "$PWD/build/ota" \
             -allowProvisioningUpdates \
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
