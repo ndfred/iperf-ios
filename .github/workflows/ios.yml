@@ -52,7 +52,7 @@ jobs:
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
-      - name: Export development .ipa and manifest
+      - name: Export development .ipa
         run: |
           TAG="ota-${GITHUB_SHA:0:7}"
           echo "OTA_TAG=$TAG" >> "$GITHUB_ENV"
@@ -65,13 +65,10 @@ jobs:
             <key>method</key><string>debugging</string>
             <key>teamID</key><string>${{ secrets.APP_STORE_TEAM_ID }}</string>
             <key>signingStyle</key><string>automatic</string>
-            <key>manifest</key>
-            <dict>
-              <key>appURL</key><string>https://github.com/ndfred/iperf-ios/releases/download/$TAG/iperf.ipa</string>
-            </dict>
           </dict>
           </plist>
           PLIST
+          plutil -lint "$PWD/ExportOptionsOTA.plist"
           ls -la "$PWD/ExportOptionsOTA.plist"
           xcodebuild -exportArchive \
             -archivePath "$PWD/build/iperf.xcarchive" \
@@ -81,6 +78,41 @@ jobs:
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Write OTA manifest
+        run: |
+          ARCHIVE_INFO="$PWD/build/iperf.xcarchive/Info.plist"
+          APP_REL=$(/usr/libexec/PlistBuddy -c "Print ApplicationProperties:ApplicationPath" "$ARCHIVE_INFO")
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print ApplicationProperties:CFBundleIdentifier" "$ARCHIVE_INFO")
+          BUNDLE_VERSION=$(/usr/libexec/PlistBuddy -c "Print ApplicationProperties:CFBundleVersion" "$ARCHIVE_INFO")
+          TITLE=$(/usr/libexec/PlistBuddy -c "Print CFBundleName" "$PWD/build/iperf.xcarchive/$APP_REL/Info.plist")
+          cat > "$PWD/build/ota/manifest.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>items</key>
+            <array>
+              <dict>
+                <key>assets</key>
+                <array>
+                  <dict>
+                    <key>kind</key><string>software-package</string>
+                    <key>url</key><string>https://github.com/ndfred/iperf-ios/releases/download/$OTA_TAG/iperf.ipa</string>
+                  </dict>
+                </array>
+                <key>metadata</key>
+                <dict>
+                  <key>bundle-identifier</key><string>$BUNDLE_ID</string>
+                  <key>bundle-version</key><string>$BUNDLE_VERSION</string>
+                  <key>kind</key><string>software</string>
+                  <key>title</key><string>$TITLE</string>
+                </dict>
+              </dict>
+            </array>
+          </dict>
+          </plist>
+          PLIST
+          plutil -lint "$PWD/build/ota/manifest.plist"
       - name: Publish OTA files as GitHub releases
         env:
           GH_TOKEN: ${{ github.token }}
