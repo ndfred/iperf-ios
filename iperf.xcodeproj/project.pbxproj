@@ -31,6 +31,7 @@
 		2BF577BB1DCF748600F55EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A41DCF748600F55EDC /* main.m */; };
 		2BF577BC1DCF748600F55EDC /* IPFTestRunnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */; };
 		B635ABF7227C1E92001ABB44 /* IPFTestRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */; };
+		B636568F30B97F8E0032B54D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B636568E30B97F8E0032B54D /* SceneDelegate.m */; };
 		B6570E212353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B6570E222353D5F800A8F791 /* iperf_time.c in Sources */ = {isa = PBXBuildFile; fileRef = B6570E1F2353D5F700A8F791 /* iperf_time.c */; };
 		B692F60E227D907E00BE7313 /* IPFTestRunnerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */; };
@@ -108,6 +109,8 @@
 		2BF577A71DCF748600F55EDC /* IPFTestRunnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerViewController.m; sourceTree = "<group>"; };
 		B635ABF6227C1E92001ABB44 /* IPFTestRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunner.m; sourceTree = "<group>"; };
 		B635ABF8227C1EA4001ABB44 /* IPFTestRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPFTestRunner.h; sourceTree = "<group>"; };
+		B636568D30B97F8E0032B54D /* SceneDelegate.h */ = {isa = PBXFileReference; path = SceneDelegate.h; sourceTree = "<group>"; };
+		B636568E30B97F8E0032B54D /* SceneDelegate.m */ = {isa = PBXFileReference; path = SceneDelegate.m; sourceTree = "<group>"; };
 		B6570E1F2353D5F700A8F791 /* iperf_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iperf_time.c; sourceTree = "<group>"; };
 		B6570E202353D5F700A8F791 /* iperf_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iperf_time.h; sourceTree = "<group>"; };
 		B692F5FD227D8F6800BE7313 /* IPFTestRunnerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPFTestRunnerTest.m; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 				2BF5777F1DCF748600F55EDC /* AppDelegate.h */,
 				2BF577801DCF748600F55EDC /* AppDelegate.m */,
 				2BF577A41DCF748600F55EDC /* main.m */,
+				B636568D30B97F8E0032B54D /* SceneDelegate.h */,
+				B636568E30B97F8E0032B54D /* SceneDelegate.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				2B87F6541DCF76B900AA24E7 /* iperf_api.c in Sources */,
 				2B87F6571DCF76B900AA24E7 /* iperf_locale.c in Sources */,
 				2BA8E15E22AD84B7001466C2 /* iperf_server_api.c in Sources */,
+				B636568F30B97F8E0032B54D /* SceneDelegate.m in Sources */,
 				2B87F65D1DCF76B900AA24E7 /* net.c in Sources */,
 				2B87F6561DCF76B900AA24E7 /* iperf_error.c in Sources */,
 				2B87F65C1DCF76B900AA24E7 /* iperf_util.c in Sources */,
