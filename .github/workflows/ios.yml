@@ -1,0 +1,82 @@
+name: iOS
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    name: Build and test on simulator
+    runs-on: xcode-27
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 27.2
+        run: |
+          sudo xcode-select -s /Applications/Xcode_27.2.app
+          xcodebuild -version
+      - name: Build and test
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project iperf.xcodeproj -scheme iperf \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -resultBundlePath build/Tests.xcresult
+
+  testflight:
+    name: Archive and upload to TestFlight
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: xcode-27
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 27.2
+        run: |
+          sudo xcode-select -s /Applications/Xcode_27.2.app
+          xcodebuild -version
+      - name: Write App Store Connect API key
+        run: |
+          mkdir -p private_keys
+          printf '%s' "${{ secrets.ASC_KEY_P8 }}" > "private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Archive for App Store
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -project iperf.xcodeproj -scheme iperf \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/iperf.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
+            -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Export .ipa
+        run: |
+          cat > ExportOptions.plist <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>${{ secrets.APP_STORE_TEAM_ID }}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>stripSwiftSymbols</key><true/>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/iperf.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/export \
+            -allowProvisioningUpdates \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
+            -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
+      - name: Upload to TestFlight
+        run: |
+          IPA=$(ls build/export/*.ipa)
+          echo "Uploading $IPA"
+          xcrun altool --upload-app -f "$IPA" -t ios \
+            --apiKey "${{ secrets.ASC_KEY_ID }}" \
+            --apiIssuer "${{ secrets.ASC_ISSUER_ID }}"
