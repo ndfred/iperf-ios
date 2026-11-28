@@ -1,4 +1,4 @@
-# iPerf iOS [![Build Status](https://travis-ci.com/ndfred/iperf-ios.svg?branch=master)](https://travis-ci.com/ndfred/iperf-ios/)
+# iPerf iOS [![iOS](https://github.com/ndfred/iperf-ios/actions/workflows/ios.yml/badge.svg?branch=master)](https://github.com/ndfred/iperf-ios/actions/workflows/ios.yml)
 
 Run an [iPerf3](https://iperf.fr/) client on your iPhone or iPad, including reverse mode and multiple stream selection:
 
@@ -37,7 +37,7 @@ Pull requests and opened issues are welcomed heartily. [Documenting issues](http
 
 To upgrade iPerf, edit and run `sync.sh` to pull the latest changes from [upstream](https://github.com/esnet/iperf) into the app.
 
-[Travis CI is set up](https://travis-ci.com/ndfred/iperf-ios/) to build the app continuously and run tests.
+[GitHub Actions](https://github.com/ndfred/iperf-ios/actions/workflows/ios.yml) builds and tests every branch, then publishes a development OTA build for registered devices. Feature builds have commit-specific releases; `ota-latest` tracks `master`. Run the workflow manually to choose OTA or TestFlight distribution.
 
 ## Wishlist
 

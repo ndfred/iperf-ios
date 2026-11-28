@@ -2,20 +2,36 @@ name: iOS
 
 on:
   push:
+    branches: ["**"]
   pull_request:
   workflow_dispatch:
+    inputs:
+      distribution:
+        description: Distribution method
+        type: choice
+        default: ota
+        options:
+          - ota
+          - testflight
+
+permissions:
+  contents: read
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_27.2.app/Contents/Developer
 
 jobs:
   ci:
     name: Build and test on simulator
     runs-on: xcode-27
-    timeout-minutes: 60
+    timeout-minutes: 20
+    concurrency:
+      group: ios-tests-${{ github.event_name }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v7
-      - name: Select Xcode 27.2
-        run: |
-          sudo xcode-select -s /Applications/Xcode_27.2.app
-          xcodebuild -version
+      - name: Show Xcode version
+        run: xcodebuild -version
       - name: Build and test
         run: |
           set -o pipefail
@@ -23,25 +39,37 @@ jobs:
             -project iperf.xcodeproj -scheme iperf \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
             -resultBundlePath build/Tests.xcresult
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-${{ github.run_attempt }}
+          path: build/Tests.xcresult
+          retention-days: 7
+          if-no-files-found: ignore
 
   distribute:
-    name: Build, publish OTA and upload to TestFlight
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    name: Archive and distribute
+    needs: ci
+    if: github.event_name != 'pull_request'
+    concurrency:
+      group: ios-distribution
+      cancel-in-progress: false
+      queue: max
     runs-on: xcode-27
     timeout-minutes: 60
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v7
-      - name: Select Xcode 27.2
-        run: |
-          sudo xcode-select -s /Applications/Xcode_27.2.app
-          xcodebuild -version
+      - name: Show Xcode version
+        run: xcodebuild -version
       - name: Write App Store Connect API key
         run: |
           mkdir -p private_keys
           printf '%s' "${{ secrets.ASC_KEY_P8 }}" > "private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
-      - name: Archive for App Store
+      - name: Archive
+        id: archive
         run: |
           set -o pipefail
           xcodebuild archive \
@@ -53,10 +81,10 @@ jobs:
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
       - name: Export development .ipa
+        if: github.event_name == 'push' || inputs.distribution == 'ota'
         run: |
           TAG="ota-${GITHUB_SHA:0:7}"
           echo "OTA_TAG=$TAG" >> "$GITHUB_ENV"
-          pwd
           cat > "$PWD/ExportOptionsOTA.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -69,7 +97,6 @@ jobs:
           </plist>
           PLIST
           plutil -lint "$PWD/ExportOptionsOTA.plist"
-          ls -la "$PWD/ExportOptionsOTA.plist"
           xcodebuild -exportArchive \
             -archivePath "$PWD/build/iperf.xcarchive" \
             -exportOptionsPlist "$PWD/ExportOptionsOTA.plist" \
@@ -79,12 +106,13 @@ jobs:
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
       - name: Write OTA manifest
+        if: github.event_name == 'push' || inputs.distribution == 'ota'
         run: |
           ARCHIVE_INFO="$PWD/build/iperf.xcarchive/Info.plist"
           APP_REL=$(/usr/libexec/PlistBuddy -c "Print ApplicationProperties:ApplicationPath" "$ARCHIVE_INFO")
           BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print ApplicationProperties:CFBundleIdentifier" "$ARCHIVE_INFO")
           BUNDLE_VERSION=$(/usr/libexec/PlistBuddy -c "Print ApplicationProperties:CFBundleVersion" "$ARCHIVE_INFO")
-          TITLE=$(/usr/libexec/PlistBuddy -c "Print CFBundleName" "$PWD/build/iperf.xcarchive/$APP_REL/Info.plist")
+          TITLE=$(/usr/libexec/PlistBuddy -c "Print CFBundleName" "$PWD/build/iperf.xcarchive/Products/$APP_REL/Info.plist")
           cat > "$PWD/build/ota/manifest.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -114,6 +142,7 @@ jobs:
           PLIST
           plutil -lint "$PWD/build/ota/manifest.plist"
       - name: Publish OTA files as GitHub releases
+        if: github.event_name == 'push' || inputs.distribution == 'ota'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -122,21 +151,25 @@ jobs:
           INSTALL_LINK="itms-services://?action=download-manifest&url=https%3A%2F%2Fgithub.com%2Fndfred%2Fiperf-ios%2Freleases%2Fdownload%2F${TAG}%2Fmanifest.plist"
           LATEST_LINK="itms-services://?action=download-manifest&url=https%3A%2F%2Fgithub.com%2Fndfred%2Fiperf-ios%2Freleases%2Fdownload%2Fota-latest%2Fmanifest.plist"
           if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" --prerelease --title "OTA build $TAG ($BRANCH)" --notes "Branch: $BRANCH
+            gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "OTA build $TAG ($BRANCH)" --notes "Branch: $BRANCH
           Commit: ${GITHUB_SHA}
           Install on a registered device: $INSTALL_LINK"
           fi
           gh release upload "$TAG" build/ota/*.ipa build/ota/manifest.plist --clobber
+          # Feature branches retain their commit-specific releases.
+          if [ "$GITHUB_REF" != refs/heads/master ]; then
+            exit 0
+          fi
           mkdir -p build/ota-latest
           cp build/ota/*.ipa build/ota-latest/
           sed "s|releases/download/$TAG/|releases/download/ota-latest/|" build/ota/manifest.plist > build/ota-latest/manifest.plist
           if ! gh release view ota-latest >/dev/null 2>&1; then
-            gh release create ota-latest --prerelease --title "OTA test build (latest)" --notes "Install on a registered device: $LATEST_LINK"
+            gh release create ota-latest --target "$GITHUB_SHA" --prerelease --title "OTA test build (latest)" --notes "Install on a registered device: $LATEST_LINK"
           fi
           gh release upload ota-latest build/ota-latest/iperf.ipa build/ota-latest/manifest.plist --clobber
           gh release edit ota-latest --notes "Latest OTA build: $TAG ($BRANCH). Install on a registered device: $LATEST_LINK"
       - name: Export .ipa
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && inputs.distribution == 'testflight'
         run: |
           cat > ExportOptions.plist <<'PLIST'
           <?xml version="1.0" encoding="UTF-8"?>
@@ -146,7 +179,6 @@ jobs:
             <key>method</key><string>app-store-connect</string>
             <key>teamID</key><string>${{ secrets.APP_STORE_TEAM_ID }}</string>
             <key>signingStyle</key><string>automatic</string>
-            <key>stripSwiftSymbols</key><true/>
           </dict>
           </plist>
           PLIST
@@ -159,10 +191,27 @@ jobs:
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             -authenticationKeyPath "$PWD/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8"
       - name: Upload to TestFlight
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && inputs.distribution == 'testflight'
         run: |
-          IPA=$(ls build/export/*.ipa)
+          set -- build/export/*.ipa
+          if [ "$#" -ne 1 ] || [ ! -f "$1" ]; then
+            echo "Expected exactly one exported IPA" >&2
+            exit 1
+          fi
+          IPA="$1"
           echo "Uploading $IPA"
           xcrun altool --upload-app -f "$IPA" -t ios \
             --apiKey "${{ secrets.ASC_KEY_ID }}" \
             --apiIssuer "${{ secrets.ASC_ISSUER_ID }}"
+      - name: Package archive and dSYMs
+        if: always() && steps.archive.outcome == 'success'
+        run: ditto -c -k --keepParent build/iperf.xcarchive build/iperf.xcarchive.zip
+      - name: Upload archive and dSYMs
+        if: always() && steps.archive.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: archive-${{ github.run_id }}-${{ github.run_attempt }}
+          path: build/iperf.xcarchive.zip
+          retention-days: 90
+          compression-level: 0
+          if-no-files-found: error
